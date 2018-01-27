@@ -1,6 +1,7 @@
 package com.nightonke.saver.adapter;
 
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.nightonke.saver.R;
@@ -17,11 +18,11 @@ public class HelpFragmentAdapter extends FragmentStatePagerAdapter {
 
     private int position = 0;
 
-    public HelpFragmentAdapter(android.support.v4.app.FragmentManager fm) {
+    public HelpFragmentAdapter(FragmentManager fm) {
         super(fm);
     }
 
-    public HelpFragmentAdapter(android.support.v4.app.FragmentManager fm, int position) {
+    public HelpFragmentAdapter(FragmentManager fm, int position) {
         super(fm);
         this.position = position;
     }
@@ -29,9 +30,14 @@ public class HelpFragmentAdapter extends FragmentStatePagerAdapter {
     @Override
     public Fragment getItem(int position) {
         switch (this.position) {
-            case 0: return HelpCoCoinFragment.newInstance();
-            case 1: return HelpFeedbackFragment.newInstance();
-            case 2: return HelpAboutFragment.newInstance();
+            case 0:
+                return HelpCoCoinFragment.newInstance();
+            case 1:
+                return HelpFeedbackFragment.newInstance();
+            case 2:
+                return HelpAboutFragment.newInstance();
+            default:
+                break;
         }
         return null;
     }
@@ -44,9 +50,14 @@ public class HelpFragmentAdapter extends FragmentStatePagerAdapter {
     @Override
     public CharSequence getPageTitle(int position) {
         switch (this.position) {
-            case 0: return CoCoinApplication.getAppContext().getResources().getString(R.string.app_name);
-            case 1: return CoCoinApplication.getAppContext().getResources().getString(R.string.feedback);
-            case 2: return CoCoinApplication.getAppContext().getResources().getString(R.string.about);
+            case 0:
+                return CoCoinApplication.getAppContext().getResources().getString(R.string.app_name);
+            case 1:
+                return CoCoinApplication.getAppContext().getResources().getString(R.string.feedback);
+            case 2:
+                return CoCoinApplication.getAppContext().getResources().getString(R.string.about);
+            default:
+                break;
         }
         return "";
     }

@@ -15,10 +15,15 @@ public class GuillotineInterpolator implements TimeInterpolator {
     public GuillotineInterpolator() {
     }
 
+    @Override
     public float getInterpolation(float t) {
-        if (t < ROTATION_TIME) return rotation(t);
-        else if (t < ROTATION_TIME + FIRST_BOUNCE_TIME) return firstBounce(t);
-        else return secondBounce(t);
+        if (t < ROTATION_TIME) {
+            return rotation(t);
+        } else if (t < ROTATION_TIME + FIRST_BOUNCE_TIME) {
+            return firstBounce(t);
+        } else {
+            return secondBounce(t);
+        }
     }
 
     private float rotation(float t) {

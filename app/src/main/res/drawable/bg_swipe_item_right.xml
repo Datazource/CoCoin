@@ -21,8 +21,8 @@
     </item>
     <item android:left="20sp">
         <bitmap
-            android:src="@drawable/delete"
             android:gravity="left|center_vertical"
+            android:src="@mipmap/delete"
             />
     </item>
 </layer-list>

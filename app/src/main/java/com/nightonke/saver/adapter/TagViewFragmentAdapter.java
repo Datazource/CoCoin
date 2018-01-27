@@ -29,7 +29,7 @@ public class TagViewFragmentAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public CharSequence getPageTitle(int position) {
-        return CoCoinUtil.GetTagName(
+        return CoCoinUtil.getTagName(
                 RecordManager.getInstance(CoCoinApplication.getAppContext()).TAGS.get(position % RecordManager.TAGS.size()).getId());
     }
 }

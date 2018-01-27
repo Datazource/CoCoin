@@ -1,5 +1,6 @@
 package com.nightonke.saver.activity;
 
+import android.animation.Animator;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -23,7 +24,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cn.bmob.v3.Bmob;
-import io.codetail.animation.SupportAnimator;
 import io.codetail.animation.ViewAnimationUtils;
 import io.codetail.widget.RevealFrameLayout;
 import lecho.lib.hellocharts.model.Line;
@@ -34,23 +34,19 @@ import lecho.lib.hellocharts.view.LineChartView;
 
 public class SplashActivity extends Activity {
 
+    private final int NUMBER_OF_LINES = 1;
     private Context mContext;
-
     private LineChartView chart;
     private LineChartData data;
-
     private RevealFrameLayout reveal;
     private LinearLayout ly;
-
     private ImageView image;
     private TextView appName;
     private TextView loadingText;
-
     private boolean loadDataCompleted = false;
     private boolean showAnimationCompleted = false;
     private boolean activityStarted = false;
-
-    private final int NUMBER_OF_LINES = 1;
+    private boolean hasAnimationStarted;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,11 +55,11 @@ public class SplashActivity extends Activity {
 
         mContext = this;
 
-        chart = (LineChartView) findViewById(R.id.chart);
-        List<Line> lines = new ArrayList<Line>();
+        chart = findViewById(R.id.chart);
+        List<Line> lines = new ArrayList<>();
         for (int i = 0; i < NUMBER_OF_LINES; ++i) {
 
-            List<PointValue> values = new ArrayList<PointValue>();
+            List<PointValue> values = new ArrayList<>();
             values.add(new PointValue(0, 0));
             values.add(new PointValue(1, 15));
             values.add(new PointValue(2, 10));
@@ -86,14 +82,14 @@ public class SplashActivity extends Activity {
         data.setBaseValue(Float.NEGATIVE_INFINITY);
         chart.setLineChartData(data);
 
-        image = (ImageView)findViewById(R.id.image);
-        appName = (TextView)findViewById(R.id.app_name);
+        image = findViewById(R.id.image);
+        appName = findViewById(R.id.app_name);
         appName.setTypeface(CoCoinUtil.getInstance().typefaceLatoLight);
-        loadingText = (TextView)findViewById(R.id.loading_text);
+        loadingText = findViewById(R.id.loading_text);
         loadingText.setTypeface(CoCoinUtil.getInstance().typefaceLatoLight);
 
-        reveal = (RevealFrameLayout)findViewById(R.id.reveal);
-        ly = (LinearLayout)findViewById(R.id.ly);
+        reveal = findViewById(R.id.reveal);
+        ly = findViewById(R.id.ly);
 
         new InitData().execute();
     }
@@ -110,19 +106,18 @@ public class SplashActivity extends Activity {
         int dy = Math.max(cy, ly.getHeight() - cy);
         float finalRadius = (float) Math.hypot(dx, dy);
 
-        SupportAnimator animator =
-                ViewAnimationUtils.createCircularReveal(ly, cx, cy, 0, finalRadius);
+        Animator animator = ViewAnimationUtils.createCircularReveal(ly, cx, cy, 0, finalRadius);
         animator.setInterpolator(new AccelerateDecelerateInterpolator());
         animator.setDuration(3000);
         animator.start();
-        animator.addListener(new SupportAnimator.AnimatorListener() {
+        animator.addListener(new Animator.AnimatorListener() {
             @Override
-            public void onAnimationStart() {
+            public void onAnimationStart(Animator animation) {
 
             }
 
             @Override
-            public void onAnimationEnd() {
+            public void onAnimationEnd(Animator animation) {
                 Log.d("CoCoin", "Showing animation completed");
                 showAnimationCompleted = true;
                 if (loadDataCompleted && showAnimationCompleted && !activityStarted) {
@@ -133,19 +128,18 @@ public class SplashActivity extends Activity {
             }
 
             @Override
-            public void onAnimationCancel() {
+            public void onAnimationCancel(Animator animation) {
 
             }
 
             @Override
-            public void onAnimationRepeat() {
+            public void onAnimationRepeat(Animator animation) {
 
             }
         });
         hasAnimationStarted = true;
     }
 
-    private boolean hasAnimationStarted;
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
@@ -165,6 +159,7 @@ public class SplashActivity extends Activity {
             CoCoinUtil.init(CoCoinApplication.getAppContext());
             return null;
         }
+
         @Override
         protected void onPostExecute(String result) {
             Log.d("CoCoin", "Loading Data completed");

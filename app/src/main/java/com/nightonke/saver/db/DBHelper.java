@@ -12,21 +12,21 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public static final String CREATE_RECORD_STRING =
             "create table Record (" +
-            "ID integer primary key autoincrement," +
-            "MONEY float," +
-            "CURRENCY text," +
-            "TAG integer," +
-            "TIME text," +
-            "REMARK text," +
-            "USER_ID text," +
-            "OBJECT_ID text," +
-            "IS_UPLOADED integer" + ")";
+                    "ID integer primary key autoincrement," +
+                    "MONEY float," +
+                    "CURRENCY text," +
+                    "TAG integer," +
+                    "TIME text," +
+                    "REMARK text," +
+                    "USER_ID text," +
+                    "OBJECT_ID text," +
+                    "IS_UPLOADED integer" + ")";
 
     public static final String CREATE_TAG_STRING =
             "create table Tag (" +
-            "ID integer primary key autoincrement," +
-            "NAME text," +
-            "WEIGHT integer)";
+                    "ID integer primary key autoincrement," +
+                    "NAME text," +
+                    "WEIGHT integer)";
 
     public DBHelper(Context context, String name, SQLiteDatabase.CursorFactory factory,
                     int version) {

@@ -28,6 +28,8 @@ public class AboutActivity extends AppCompatActivity implements HelpFeedbackFrag
     private HelpFragmentAdapter adapter = null;
 
     private Context mContext;
+    private String feedbackText = "";
+    private boolean exceed;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +37,7 @@ public class AboutActivity extends AppCompatActivity implements HelpFeedbackFrag
         mContext = this;
         setContentView(R.layout.activity_help);
 
-        mViewPager = (MaterialViewPager) findViewById(R.id.materialViewPager);
+        mViewPager = findViewById(R.id.materialViewPager);
 
         mViewPager.getPagerTitleStrip().setTypeface(CoCoinUtil.getInstance().typefaceLatoLight, Typeface.NORMAL);
         mViewPager.getPagerTitleStrip().setAllCaps(false);
@@ -84,7 +86,7 @@ public class AboutActivity extends AppCompatActivity implements HelpFeedbackFrag
                 return HeaderDesign.fromColorAndDrawable(
                         ContextCompat.getColor(CoCoinApplication.getAppContext(), R.color.my_blue),
                         ContextCompat.getDrawable(
-                                CoCoinApplication.getAppContext(), R.drawable.cocoin_blue_bg));
+                                CoCoinApplication.getAppContext(), R.mipmap.cocoin_blue_bg));
             }
         });
 
@@ -112,8 +114,6 @@ public class AboutActivity extends AppCompatActivity implements HelpFeedbackFrag
         return super.onOptionsItemSelected(item);
     }
 
-    private String feedbackText = "";
-    private boolean exceed;
     @Override
     public void onTextChange(String text, boolean exceed) {
         feedbackText = text;

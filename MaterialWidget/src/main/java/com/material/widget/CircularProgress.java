@@ -5,7 +5,12 @@ import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.graphics.*;
+import android.graphics.Canvas;
+import android.graphics.ColorFilter;
+import android.graphics.Paint;
+import android.graphics.PixelFormat;
+import android.graphics.Rect;
+import android.graphics.RectF;
 import android.graphics.drawable.Animatable;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
@@ -114,16 +119,16 @@ public class CircularProgress extends View {
         mIndeterminateProgressDrawable.stop();
     }
 
+    public synchronized int getProgress() {
+        return mIndeterminate ? 0 : mProgress;
+    }
+
     public void setProgress(int progress) {
         if (mIndeterminate || progress > mMax || progress < 0) {
             return;
         }
         mProgress = progress;
         invalidate();
-    }
-
-    public synchronized int getProgress() {
-        return mIndeterminate ? 0 : mProgress;
     }
 
     public synchronized int getMax() {
@@ -240,10 +245,10 @@ public class CircularProgress extends View {
 
     private class DeterminateProgressDrawable extends Drawable {
 
+        private final RectF mDrawableBounds = new RectF();
         private Paint mPaint;
         private float mBorderWidth;
         private float mEndAngle;
-        private final RectF mDrawableBounds = new RectF();
 
         public DeterminateProgressDrawable(int color, int borderWidth, int angle) {
             mPaint = new Paint();
@@ -294,11 +299,11 @@ public class CircularProgress extends View {
      */
     private class IndeterminateProgressDrawable extends Drawable implements Animatable {
 
-        private final Interpolator ANGLE_INTERPOLATOR = new LinearInterpolator();
-        private final Interpolator SWEEP_INTERPOLATOR = new DecelerateInterpolator();
         private static final int ANGLE_ANIMATOR_DURATION = 2000;
         private static final int SWEEP_ANIMATOR_DURATION = 600;
         private static final int MIN_SWEEP_ANGLE = 30;
+        private final Interpolator ANGLE_INTERPOLATOR = new LinearInterpolator();
+        private final Interpolator SWEEP_INTERPOLATOR = new DecelerateInterpolator();
         private final RectF mDrawableBounds = new RectF();
 
         private ObjectAnimator mObjectAnimatorSweep;
@@ -310,6 +315,30 @@ public class CircularProgress extends View {
         private float mCurrentSweepAngle;
         private float mBorderWidth;
         private boolean mRunning;
+        private Property<IndeterminateProgressDrawable, Float> mAngleProperty
+                = new Property<IndeterminateProgressDrawable, Float>(Float.class, "angle") {
+            @Override
+            public Float get(IndeterminateProgressDrawable object) {
+                return object.getCurrentGlobalAngle();
+            }
+
+            @Override
+            public void set(IndeterminateProgressDrawable object, Float value) {
+                object.setCurrentGlobalAngle(value);
+            }
+        };
+        private Property<IndeterminateProgressDrawable, Float> mSweepProperty
+                = new Property<IndeterminateProgressDrawable, Float>(Float.class, "arc") {
+            @Override
+            public Float get(IndeterminateProgressDrawable object) {
+                return object.getCurrentSweepAngle();
+            }
+
+            @Override
+            public void set(IndeterminateProgressDrawable object, Float value) {
+                object.setCurrentSweepAngle(value);
+            }
+        };
 
         public IndeterminateProgressDrawable(int color, float borderWidth) {
             mBorderWidth = borderWidth;
@@ -351,6 +380,8 @@ public class CircularProgress extends View {
             return PixelFormat.TRANSPARENT;
         }
 
+        ///////////////////////////////////////// Animation /////////////////////////////////////////
+
         private void toggleAppearingMode() {
             mModeAppearing = !mModeAppearing;
             if (mModeAppearing) {
@@ -366,34 +397,6 @@ public class CircularProgress extends View {
             mDrawableBounds.top = bounds.top + mBorderWidth / 2f + .5f;
             mDrawableBounds.bottom = bounds.bottom - mBorderWidth / 2f - .5f;
         }
-
-        ///////////////////////////////////////// Animation /////////////////////////////////////////
-
-        private Property<IndeterminateProgressDrawable, Float> mAngleProperty
-                = new Property<IndeterminateProgressDrawable, Float>(Float.class, "angle") {
-            @Override
-            public Float get(IndeterminateProgressDrawable object) {
-                return object.getCurrentGlobalAngle();
-            }
-
-            @Override
-            public void set(IndeterminateProgressDrawable object, Float value) {
-                object.setCurrentGlobalAngle(value);
-            }
-        };
-
-        private Property<IndeterminateProgressDrawable, Float> mSweepProperty
-                = new Property<IndeterminateProgressDrawable, Float>(Float.class, "arc") {
-            @Override
-            public Float get(IndeterminateProgressDrawable object) {
-                return object.getCurrentSweepAngle();
-            }
-
-            @Override
-            public void set(IndeterminateProgressDrawable object, Float value) {
-                object.setCurrentSweepAngle(value);
-            }
-        };
 
         private void setupAnimations() {
             mObjectAnimatorAngle = ObjectAnimator.ofFloat(this, mAngleProperty, 360f);
@@ -457,22 +460,22 @@ public class CircularProgress extends View {
             return mRunning;
         }
 
+        public float getCurrentGlobalAngle() {
+            return mCurrentGlobalAngle;
+        }
+
         public void setCurrentGlobalAngle(float currentGlobalAngle) {
             mCurrentGlobalAngle = currentGlobalAngle;
             invalidateSelf();
         }
 
-        public float getCurrentGlobalAngle() {
-            return mCurrentGlobalAngle;
+        public float getCurrentSweepAngle() {
+            return mCurrentSweepAngle;
         }
 
         public void setCurrentSweepAngle(float currentSweepAngle) {
             mCurrentSweepAngle = currentSweepAngle;
             invalidateSelf();
-        }
-
-        public float getCurrentSweepAngle() {
-            return mCurrentSweepAngle;
         }
 
     }

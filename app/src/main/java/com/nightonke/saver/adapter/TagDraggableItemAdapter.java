@@ -23,44 +23,13 @@ import java.util.ArrayList;
  * Created by 伟平 on 2015/11/7.
  */
 
-public class TagDraggableItemAdapter
-        extends RecyclerView.Adapter<TagDraggableItemAdapter.MyViewHolder>
+public class TagDraggableItemAdapter extends RecyclerView.Adapter<TagDraggableItemAdapter.MyViewHolder>
         implements DraggableItemAdapter<TagDraggableItemAdapter.MyViewHolder> {
 
     private static final String TAG = "TagDraggableItemAdapter";
 
     private ArrayList<Tag> tags;
     private boolean changed;
-
-    // NOTE: Make accessible with short name
-    private interface Draggable extends DraggableItemConstants {
-    }
-
-    public static class MyViewHolder extends AbstractDraggableItemViewHolder {
-        public FrameLayout mContainer;
-        public ImageView tagImage;
-        public TextView tagName;
-
-        public MyViewHolder(View v) {
-            super(v);
-            mContainer = (FrameLayout) v.findViewById(R.id.container);
-            tagImage = (ImageView)v.findViewById(R.id.tag_image);
-            tagName = (TextView)v.findViewById(R.id.tag_name);
-        }
-    }
-
-    public boolean isChanged() {
-        return changed;
-    }
-
-    public void setChanged(boolean changed) {
-        this.changed = changed;
-    }
-
-    public static String getTAG() {
-
-        return TAG;
-    }
 
     public TagDraggableItemAdapter() {
 
@@ -78,6 +47,19 @@ public class TagDraggableItemAdapter
         // DraggableItemAdapter requires stable ID, and also
         // have to implement the getItemId() method appropriately.
         setHasStableIds(true);
+    }
+
+    public static String getTAG() {
+
+        return TAG;
+    }
+
+    public boolean isChanged() {
+        return changed;
+    }
+
+    public void setChanged(boolean changed) {
+        this.changed = changed;
     }
 
     @Override
@@ -103,8 +85,8 @@ public class TagDraggableItemAdapter
         // set background resource (target view ID: container)
         final int dragState = holder.getDragStateFlags();
 
-        holder.tagImage.setImageResource(CoCoinUtil.GetTagIcon(tags.get(position).getId()));
-        holder.tagName.setText(CoCoinUtil.GetTagName(tags.get(position).getId()));
+        holder.tagImage.setImageResource(CoCoinUtil.getTagIcon(tags.get(position).getId()));
+        holder.tagName.setText(CoCoinUtil.getTagName(tags.get(position).getId()));
         holder.tagName.setTypeface(CoCoinUtil.typefaceLatoLight);
 
         if (((dragState & Draggable.STATE_FLAG_IS_UPDATED) != 0)) {
@@ -146,6 +128,21 @@ public class TagDraggableItemAdapter
     }
 
     @Override
+    public boolean onCheckCanDrop(int draggingPosition, int dropPosition) {
+        return false;
+    }
+
+    @Override
+    public void onItemDragStarted(int position) {
+
+    }
+
+    @Override
+    public void onItemDragFinished(int fromPosition, int toPosition, boolean result) {
+
+    }
+
+    @Override
     public boolean onCheckCanStartDrag(MyViewHolder holder, int position, int x, int y) {
         return true;
     }
@@ -162,5 +159,22 @@ public class TagDraggableItemAdapter
 
     public void setTags(ArrayList<Tag> tags) {
         this.tags = tags;
+    }
+
+    // NOTE: Make accessible with short name
+    private interface Draggable extends DraggableItemConstants {
+    }
+
+    public static class MyViewHolder extends AbstractDraggableItemViewHolder {
+        public FrameLayout mContainer;
+        public ImageView tagImage;
+        public TextView tagName;
+
+        public MyViewHolder(View v) {
+            super(v);
+            mContainer = v.findViewById(R.id.container);
+            tagImage = v.findViewById(R.id.tag_image);
+            tagName = v.findViewById(R.id.tag_name);
+        }
     }
 }

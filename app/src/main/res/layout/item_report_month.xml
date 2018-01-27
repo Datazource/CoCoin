@@ -16,85 +16,74 @@
         android:layout_height="40dp"
         android:orientation="horizontal"
         android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        >
+        android:paddingRight="20dp">
 
         <FrameLayout
-            android:layout_height="40dp"
             android:layout_width="50dp"
-            >
+            android:layout_height="40dp">
 
             <View
                 android:layout_width="3dp"
                 android:layout_height="40dp"
                 android:layout_gravity="center_horizontal|bottom"
-                android:background="@color/my_blue"
-                />
+                android:background="@color/my_blue"/>
 
             <TextView
                 android:id="@+id/month"
-                android:layout_height="30dp"
                 android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_gravity="center"
-                android:gravity="center"
                 android:background="@drawable/bg_month_icon_small_0"
-                android:textColor="@color/white"
+                android:gravity="center"
                 android:text="12"
-                />
+                android:textColor="@color/white"/>
 
         </FrameLayout>
 
         <TextView
             android:id="@+id/month_name"
-            android:layout_height="40dp"
             android:layout_width="0dp"
+            android:layout_height="40dp"
             android:layout_weight="1"
             android:gravity="center_vertical|left"
-            android:text="Jan. 2015"
-            android:textColor="@color/my_blue"
             android:maxLines="2"
             android:paddingRight="5dp"
-            />
+            android:text="Jan. 2015"
+            android:textColor="@color/my_blue"/>
 
         <LinearLayout
-            android:layout_height="30dp"
             android:layout_width="wrap_content"
-            android:orientation="horizontal"
+            android:layout_height="30dp"
             android:layout_gravity="center"
-            >
+            android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/month_expense"
-                android:layout_height="match_parent"
                 android:layout_width="wrap_content"
-                android:text="¥18890"
-                android:textSize="20sp"
-                android:textColor="@color/red"
+                android:layout_height="match_parent"
                 android:gravity="top|right"
-                />
+                android:text="¥18890"
+                android:textColor="@color/red"
+                android:textSize="20sp"/>
 
             <TextView
-                android:layout_height="match_parent"
                 android:layout_width="wrap_content"
-                android:text="/"
-                android:textColor="@color/red"
-                android:gravity="center"
+                android:layout_height="match_parent"
                 android:layout_gravity="center"
-                />
+                android:gravity="center"
+                android:text="/"
+                android:textColor="@color/red"/>
 
             <TextView
                 android:id="@+id/month_sum"
-                android:layout_height="match_parent"
                 android:layout_width="wrap_content"
-                android:text="198's"
+                android:layout_height="match_parent"
                 android:layout_marginLeft="-3dp"
-                android:textSize="12sp"
-                android:textColor="@color/red"
                 android:gravity="bottom|left"
-                />
+                android:text="198's"
+                android:textColor="@color/red"
+                android:textSize="12sp"/>
 
         </LinearLayout>
-
     </LinearLayout>
-
 </com.balysv.materialripple.MaterialRippleLayout>

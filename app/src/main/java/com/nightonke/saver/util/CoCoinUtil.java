@@ -1,5 +1,6 @@
 package com.nightonke.saver.util;
 
+import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.content.ClipboardManager;
 import android.content.Context;
@@ -20,14 +21,15 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
 import com.daimajia.androidanimations.library.BaseViewAnimator;
-import com.github.johnpersano.supertoasts.SuperToast;
+import com.github.johnpersano.supertoasts.library.Style;
+import com.github.johnpersano.supertoasts.library.SuperToast;
+import com.github.johnpersano.supertoasts.library.utils.PaletteUtils;
 import com.nightonke.saver.BuildConfig;
 import com.nightonke.saver.R;
 import com.nightonke.saver.activity.CoCoinApplication;
 import com.nightonke.saver.db.DB;
 import com.nightonke.saver.db.DBHelper;
 import com.nightonke.saver.model.CoCoinRecord;
-import com.nineoldandroids.animation.ObjectAnimator;
 import com.rengwuxian.materialedittext.MaterialEditText;
 
 import java.text.ParseException;
@@ -49,20 +51,14 @@ import java.util.TreeMap;
 
 public class CoCoinUtil {
 
+    private static final int[] EMPTY_STATE = new int[]{};
     public static int editRecordPosition = -1;
-
     public static String LOGO_PATH = "/sdcard/logo/";
-
     public static String LOGO_NAME = "logo.jpg";
-
-    public static SuperToast.Animations TOAST_ANIMATION = SuperToast.Animations.FLYIN;
-
+    public static int TOAST_ANIMATION = Style.ANIMATIONS_FLY;
     public static int MY_BLUE;
-
     public static CoCoinRecord backupCoCoinRecord;
-
     public static String PASSWORD = "1234";
-
     public static int[] WEEKDAY_SHORT_START_ON_MONDAY = {
             0,
             R.string.monday_short,
@@ -73,7 +69,6 @@ public class CoCoinUtil {
             R.string.saturday_short,
             R.string.sunday_short
     };
-
     public static int[] WEEKDAY_SHORT_START_ON_SUNDAY = {
             0,
             R.string.sunday_short,
@@ -84,7 +79,6 @@ public class CoCoinUtil {
             R.string.friday_short,
             R.string.saturday_short
     };
-
     public static int[] WEEKDAY_START_ON_MONDAY = {
             0,
             R.string.monday,
@@ -95,7 +89,6 @@ public class CoCoinUtil {
             R.string.saturday,
             R.string.sunday
     };
-
     public static int[] WEEKDAY_START_ON_SUNDAY = {
             0,
             R.string.sunday,
@@ -106,7 +99,6 @@ public class CoCoinUtil {
             R.string.friday,
             R.string.saturday
     };
-
     public static String[] FLOATINGLABELS = {
             "",
             "",
@@ -119,7 +111,6 @@ public class CoCoinUtil {
             "千万",
             "亿",
             "十亿"};
-
     public static String[] BUTTONS = {
             "1",
             "2",
@@ -134,7 +125,6 @@ public class CoCoinUtil {
             "0",
             "Y"
     };
-
     public static int[] TODAY_VIEW_EMPTY_TIP = {
             R.string.today_empty,
             R.string.yesterday_empty,
@@ -145,7 +135,6 @@ public class CoCoinUtil {
             R.string.this_year_empty,
             R.string.last_year_empty
     };
-
     public static int[] MONTHS_SHORT = {0,
             R.string.january_short,
             R.string.february_short,
@@ -160,7 +149,6 @@ public class CoCoinUtil {
             R.string.november_short,
             R.string.december_short
     };
-
     public static int[] MONTHS = {
             0,
             R.string.january,
@@ -176,7 +164,6 @@ public class CoCoinUtil {
             R.string.november,
             R.string.december
     };
-
     public static int TODAY_VIEW_TITLE[] = {
             R.string.today_view_today,
             R.string.today_view_yesterday,
@@ -187,42 +174,40 @@ public class CoCoinUtil {
             R.string.today_view_this_year,
             R.string.today_view_last_year
     };
-
     public static int[] TAG_ICON = {
-            R.drawable.sum_pie_icon,
-            R.drawable.sum_histogram_icon,
-            R.drawable.meal_icon,
-            R.drawable.closet_icon,
-            R.drawable.home_icon,
-            R.drawable.traffic_icon,
-            R.drawable.vehicle_maintenance_icon,
-            R.drawable.book_icon,
-            R.drawable.hobby_icon,
-            R.drawable.internet_icon,
-            R.drawable.friend_icon,
-            R.drawable.education_icon,
-            R.drawable.entertainment_icon,
-            R.drawable.medical_icon,
-            R.drawable.insurance_icon,
-            R.drawable.donation_icon,
-            R.drawable.sport_icon,
-            R.drawable.snack_icon,
-            R.drawable.music_icon,
-            R.drawable.fund_icon,
-            R.drawable.drink_icon,
-            R.drawable.fruit_icon,
-            R.drawable.film_icon,
-            R.drawable.baby_icon,
-            R.drawable.partner_icon,
-            R.drawable.housing_loan_icon,
-            R.drawable.pet_icon,
-            R.drawable.telephone_bill_icon,
-            R.drawable.travel_icon,
-            R.drawable.lunch_icon,
-            R.drawable.breakfast_icon,
-            R.drawable.midnight_snack_icon
+            R.mipmap.sum_pie_icon,
+            R.mipmap.sum_histogram_icon,
+            R.mipmap.meal_icon,
+            R.mipmap.closet_icon,
+            R.mipmap.home_icon,
+            R.mipmap.traffic_icon,
+            R.mipmap.vehicle_maintenance_icon,
+            R.mipmap.book_icon,
+            R.mipmap.hobby_icon,
+            R.mipmap.internet_icon,
+            R.mipmap.friend_icon,
+            R.mipmap.education_icon,
+            R.mipmap.entertainment_icon,
+            R.mipmap.medical_icon,
+            R.mipmap.insurance_icon,
+            R.mipmap.donation_icon,
+            R.mipmap.sport_icon,
+            R.mipmap.snack_icon,
+            R.mipmap.music_icon,
+            R.mipmap.fund_icon,
+            R.mipmap.drink_icon,
+            R.mipmap.fruit_icon,
+            R.mipmap.film_icon,
+            R.mipmap.baby_icon,
+            R.mipmap.partner_icon,
+            R.mipmap.housing_loan_icon,
+            R.mipmap.pet_icon,
+            R.mipmap.telephone_bill_icon,
+            R.mipmap.travel_icon,
+            R.mipmap.lunch_icon,
+            R.mipmap.breakfast_icon,
+            R.mipmap.midnight_snack_icon
     };
-
     public static int[] TAG_COLOR = {
             R.color.my_blue,
             R.color.sum_header_pie,
@@ -258,7 +243,6 @@ public class CoCoinUtil {
             R.color.breakfast_header,
             R.color.midnight_snack_header
     };
-
     public static int[] TAG_SNACK = {
             R.drawable.snackbar_shape_undo,
             R.drawable.snackbar_shape_sum_pie,
@@ -294,7 +278,6 @@ public class CoCoinUtil {
             R.drawable.snackbar_shape_breakfast,
             R.drawable.snackbar_shape_midnight_snack
     };
-
     public static int[] TAG_NAME = {
             R.string.tag_sum_pie,
             R.string.tag_sum_histogram,
@@ -329,9 +312,8 @@ public class CoCoinUtil {
             R.string.tag_breakfast,
             R.string.tag_midnight_snack
     };
-
     public static int[] TAG_DRAWABLE = {
-            R.drawable.transparent
+            R.mipmap.transparent
 //            R.drawable.sum_header_pie,
 //            R.drawable.sum_header_histogram,
 //            R.drawable.meal_header,
@@ -363,7 +345,6 @@ public class CoCoinUtil {
 //            R.drawable.sum_header_pie,
 //            R.drawable.sum_header_pie
     };
-
     public static String[] TAG_HEADER_URL = {
             "http://file.bmob.cn/M02/5A/B5/oYYBAFajMcmAWxDmAAAAX54YFR4292.png",
             "http://file.bmob.cn/M02/5A/B6/oYYBAFajMguAMEjaAACp5TYCw2c161.jpg",
@@ -399,18 +380,49 @@ public class CoCoinUtil {
             "http://file.bmob.cn/M02/5A/E9/oYYBAFajQruAdJYeAAd3DzoZwNk311.png",
             "http://file.bmob.cn/M02/5A/F4/oYYBAFajRpiAAczeAAgXftIUsqk135.png"
     };
-
     public static int[] DRAWER_TOP_URL = {
-            R.drawable.material_design_0,
-            R.drawable.material_design_1,
-            R.drawable.material_design_2,
-            R.drawable.material_design_3,
-            R.drawable.material_design_4
+            R.mipmap.material_design_0,
+            R.mipmap.material_design_1,
+            R.mipmap.material_design_2,
+            R.mipmap.material_design_3,
+            R.mipmap.material_design_4
     };
-
     public static Typeface typefaceLatoRegular = null;
     public static Typeface typefaceLatoHairline = null;
     public static Typeface typefaceLatoLight = null;
+    public static boolean WEEK_START_WITH_SUNDAY = false;
+    public static RelativeSizeSpan relativeSizeSpan;
+    public static ForegroundColorSpan redForegroundSpan;
+    public static ForegroundColorSpan greenForegroundSpan;
+    public static ForegroundColorSpan whiteForegroundSpan;
+    public static Double INPUT_MIN_EXPENSE = 0d;
+    public static Double INPUT_MAX_EXPENSE = 99999d;
+    private static String lastColor0, lastColor1, lastColor2;
+    private static Random random;
+    private static String[] Colors = {"#F44336",
+            "#E91E63",
+            "#9C27B0",
+            "#673AB7",
+            "#3F51B5",
+            "#2196F3",
+            "#03A9F4",
+            "#00BCD4",
+            "#009688",
+            "#4CAF50",
+            "#8BC34A",
+            "#CDDC39",
+            "#FFEB3B",
+            "#FFC107",
+            "#FF9800",
+            "#FF5722",
+            "#795548",
+            "#9E9E9E",
+            "#607D8B"};
+    private static String lastToast = "";
+    private static CoCoinUtil ourInstance = new CoCoinUtil();
+
+    private CoCoinUtil() {
+    }
 
     public static void init(Context context) {
 
@@ -434,87 +446,99 @@ public class CoCoinUtil {
         MY_BLUE = ContextCompat.getColor(CoCoinApplication.getAppContext(), R.color.my_blue);
     }
 
-    public static Typeface GetTypeface() {
-        if (typefaceLatoLight == null) init(CoCoinApplication.getAppContext());
-        if ("en".equals(Locale.getDefault().getLanguage()))
+    public static Typeface getTypeface() {
+        if (typefaceLatoLight == null) {
+            init(CoCoinApplication.getAppContext());
+        }
+        if ("en".equals(Locale.getDefault().getLanguage())) {
             return typefaceLatoLight;
-        if ("zh".equals(Locale.getDefault().getLanguage()))
+        }
+        if ("zh".equals(Locale.getDefault().getLanguage())) {
             return Typeface.DEFAULT;
+        }
         return typefaceLatoLight;
     }
 
-    public static String GetLanguage() {
+    public static String getLanguage() {
         return Locale.getDefault().getLanguage();
     }
 
-    public static String GetWhetherBlank() {
-        if ("zh".equals(Locale.getDefault().getLanguage()))
+    public static String getWhetherBlank() {
+        if ("zh".equals(Locale.getDefault().getLanguage())) {
             return "";
-        else
+        } else {
             return " ";
+        }
     }
 
-    public static String GetWhetherFuck() {
-        if ("zh".equals(Locale.getDefault().getLanguage()))
+    public static String getWhetherFuck() {
+        if ("zh".equals(Locale.getDefault().getLanguage())) {
             return "日";
-        else
+        } else {
             return "";
+        }
     }
 
-    public static String GetInMoney(int money) {
-        if ("zh".equals(Locale.getDefault().getLanguage()))
+    public static String getInMoney(int money) {
+        if ("zh".equals(Locale.getDefault().getLanguage())) {
             return "¥" + money;
-        else
+        } else {
             return "$" + money + " ";
+        }
     }
 
-    public static String GetInRecords(int records) {
+    public static String getInRecords(int records) {
         return records + "'s";
     }
 
-    public static String GetSpendString(int money) {
-        if ("zh".equals(Locale.getDefault().getLanguage()))
+    public static String getSpendString(int money) {
+        if ("zh".equals(Locale.getDefault().getLanguage())) {
             return "消费 ¥" + money;
-        else
+        } else {
             return "Spend $" + money + " ";
+        }
     }
 
-    public static String GetSpendString(double money) {
-        if ("zh".equals(Locale.getDefault().getLanguage()))
-            return "消费 ¥" + (int)money;
-        else
-            return "Spend $" + (int)money + " ";
+    public static String getSpendString(double money) {
+        if ("zh".equals(Locale.getDefault().getLanguage())) {
+            return "消费 ¥" + (int) money;
+        } else {
+            return "Spend $" + (int) money + " ";
+        }
     }
 
-    public static String GetPercentString(double percent) {
-        if ("zh".equals(Locale.getDefault().getLanguage()))
+    public static String getPercentString(double percent) {
+        if ("zh".equals(Locale.getDefault().getLanguage())) {
             return " (占" + String.format("%.2f", percent) + "%)";
-        else
+        } else {
             return " (takes " + String.format("%.2f", percent) + "%)";
+        }
     }
 
-    public static String GetPurePercentString(double percent) {
-        if ("zh".equals(Locale.getDefault().getLanguage()))
+    public static String getPurePercentString(double percent) {
+        if ("zh".equals(Locale.getDefault().getLanguage())) {
             return " " + String.format("%.2f", percent) + "%";
-        else
+        } else {
             return " " + String.format("%.2f", percent) + "%";
+        }
     }
 
-    public static String GetTodayViewTitle(int fragmentPosition) {
+    public static String getTodayViewTitle(int fragmentPosition) {
         return CoCoinApplication.getAppContext().getString(TODAY_VIEW_TITLE[fragmentPosition]);
     }
 
-    public static boolean WEEK_START_WITH_SUNDAY = false;
-
-    public static String GetAxisDateName(int type, int position) {
+    public static String getAxisDateName(int type, int position) {
         switch (type) {
             case Calendar.HOUR_OF_DAY:
                 return position + "";
             case Calendar.DAY_OF_WEEK:
-                if (WEEK_START_WITH_SUNDAY) return CoCoinApplication.getAppContext().getResources()
-                        .getString(WEEKDAY_SHORT_START_ON_SUNDAY[position + 1]);
-                else return CoCoinApplication.getAppContext().getResources()
-                        .getString(WEEKDAY_SHORT_START_ON_MONDAY[position + 1]);
+                if (WEEK_START_WITH_SUNDAY) {
+                    return CoCoinApplication.getAppContext().getResources()
+                            .getString(WEEKDAY_SHORT_START_ON_SUNDAY[position + 1]);
+                } else {
+                    return CoCoinApplication.getAppContext().getResources()
+                            .getString(WEEKDAY_SHORT_START_ON_MONDAY[position + 1]);
+                }
             case Calendar.DAY_OF_MONTH:
                 return (position + 1) + "";
             case Calendar.MONTH:
@@ -525,27 +549,30 @@ public class CoCoinUtil {
         }
     }
 
-    public static int GetTodayViewEmptyTip(int fragmentPosition) {
+    public static int getTodayViewEmptyTip(int fragmentPosition) {
         return TODAY_VIEW_EMPTY_TIP[fragmentPosition];
     }
 
-    public static String GetMonthShort(int i) {
+    public static String getMonthShort(int i) {
         return CoCoinApplication.getAppContext().getResources().getString(MONTHS_SHORT[i]);
     }
 
-    public static String GetMonth(int i) {
+    public static String getMonth(int i) {
         return CoCoinApplication.getAppContext().getResources().getString(MONTHS[i]);
     }
 
-    public static String GetWeekDay(int position) {
-        if (WEEK_START_WITH_SUNDAY) return CoCoinApplication.getAppContext().getResources()
-                .getString(WEEKDAY_START_ON_SUNDAY[position + 1]);
-        else return CoCoinApplication.getAppContext().getResources()
-                .getString(WEEKDAY_START_ON_MONDAY[position + 1]);
+    public static String getWeekDay(int position) {
+        if (WEEK_START_WITH_SUNDAY) {
+            return CoCoinApplication.getAppContext().getResources()
+                    .getString(WEEKDAY_START_ON_SUNDAY[position + 1]);
+        } else {
+            return CoCoinApplication.getAppContext().getResources()
+                    .getString(WEEKDAY_START_ON_MONDAY[position + 1]);
+        }
     }
 
-    public static Calendar GetTodayLeftRange(Calendar today) {
-        Calendar calendar = (Calendar)today.clone();
+    public static Calendar getTodayLeftRange(Calendar today) {
+        Calendar calendar = (Calendar) today.clone();
         calendar.set(Calendar.HOUR_OF_DAY, 0);
         calendar.set(Calendar.MINUTE, 0);
         calendar.set(Calendar.SECOND, 0);
@@ -554,8 +581,8 @@ public class CoCoinUtil {
         return calendar;
     }
 
-    public static Calendar GetTodayRightRange(Calendar today) {
-        Calendar calendar = (Calendar)today.clone();
+    public static Calendar getTodayRightRange(Calendar today) {
+        Calendar calendar = (Calendar) today.clone();
         calendar.set(Calendar.HOUR_OF_DAY, 23);
         calendar.set(Calendar.MINUTE, 59);
         calendar.set(Calendar.SECOND, 0);
@@ -564,8 +591,8 @@ public class CoCoinUtil {
         return calendar;
     }
 
-    public static Calendar GetYesterdayLeftRange(Calendar today) {
-        Calendar calendar = (Calendar)today.clone();
+    public static Calendar getYesterdayLeftRange(Calendar today) {
+        Calendar calendar = (Calendar) today.clone();
         calendar.set(Calendar.HOUR_OF_DAY, 0);
         calendar.set(Calendar.MINUTE, 0);
         calendar.set(Calendar.SECOND, 0);
@@ -575,8 +602,8 @@ public class CoCoinUtil {
         return calendar;
     }
 
-    public static Calendar GetYesterdayRightRange(Calendar today) {
-        Calendar calendar = (Calendar)today.clone();
+    public static Calendar getYesterdayRightRange(Calendar today) {
+        Calendar calendar = (Calendar) today.clone();
         calendar.set(Calendar.HOUR_OF_DAY, 23);
         calendar.set(Calendar.MINUTE, 59);
         calendar.set(Calendar.SECOND, 0);
@@ -586,9 +613,9 @@ public class CoCoinUtil {
         return calendar;
     }
 
-    public static Calendar GetThisWeekLeftRange(Calendar today) {
+    public static Calendar getThisWeekLeftRange(Calendar today) {
         int nowDayOfWeek = today.get(Calendar.DAY_OF_WEEK);
-        Calendar calendar = (Calendar)today.clone();
+        Calendar calendar = (Calendar) today.clone();
         calendar.set(Calendar.HOUR_OF_DAY, 0);
         calendar.set(Calendar.MINUTE, 0);
         calendar.set(Calendar.SECOND, 0);
@@ -604,15 +631,15 @@ public class CoCoinUtil {
         return calendar;
     }
 
-    public static Calendar GetThisWeekRightRange(Calendar today) {
-            Calendar calendar = (Calendar) GetThisWeekLeftRange(today).clone();
-            calendar.add(Calendar.DATE, 7);
+    public static Calendar getThisWeekRightRange(Calendar today) {
+        Calendar calendar = (Calendar) getThisWeekLeftRange(today).clone();
+        calendar.add(Calendar.DATE, 7);
         return calendar;
     }
 
-    public static Calendar GetLastWeekLeftRange(Calendar today) {
+    public static Calendar getLastWeekLeftRange(Calendar today) {
         int nowDayOfWeek = today.get(Calendar.DAY_OF_WEEK);
-        Calendar calendar = (Calendar)today.clone();
+        Calendar calendar = (Calendar) today.clone();
         calendar.set(Calendar.HOUR_OF_DAY, 0);
         calendar.set(Calendar.MINUTE, 0);
         calendar.set(Calendar.SECOND, 0);
@@ -628,15 +655,15 @@ public class CoCoinUtil {
         return calendar;
     }
 
-    public static Calendar GetLastWeekRightRange(Calendar today) {
-        Calendar calendar = (Calendar) GetLastWeekLeftRange(today).clone();
+    public static Calendar getLastWeekRightRange(Calendar today) {
+        Calendar calendar = (Calendar) getLastWeekLeftRange(today).clone();
         calendar.add(Calendar.DATE, 7);
         return calendar;
     }
 
-    public static Calendar GetNextWeekLeftRange(Calendar today) {
+    public static Calendar getNextWeekLeftRange(Calendar today) {
         int nowDayOfWeek = today.get(Calendar.DAY_OF_WEEK);
-        Calendar calendar = (Calendar)today.clone();
+        Calendar calendar = (Calendar) today.clone();
         calendar.set(Calendar.HOUR_OF_DAY, 0);
         calendar.set(Calendar.MINUTE, 0);
         calendar.set(Calendar.SECOND, 0);
@@ -652,32 +679,32 @@ public class CoCoinUtil {
         return calendar;
     }
 
-    public static Calendar GetNextWeekRightRange(Calendar today) {
-        Calendar calendar = (Calendar) GetNextWeekLeftRange(today).clone();
+    public static Calendar getNextWeekRightRange(Calendar today) {
+        Calendar calendar = (Calendar) getNextWeekLeftRange(today).clone();
         calendar.add(Calendar.DATE, 7);
         return calendar;
     }
 
-    public static Calendar GetNextWeekRightShownRange(Calendar today) {
-        Calendar calendar = (Calendar) GetNextWeekLeftRange(today).clone();
+    public static Calendar getNextWeekRightShownRange(Calendar today) {
+        Calendar calendar = (Calendar) getNextWeekLeftRange(today).clone();
         calendar.add(Calendar.DATE, 6);
         return calendar;
     }
 
-    public static Calendar GetThisWeekRightShownRange(Calendar today) {
-        Calendar calendar = (Calendar) GetThisWeekLeftRange(today).clone();
+    public static Calendar getThisWeekRightShownRange(Calendar today) {
+        Calendar calendar = (Calendar) getThisWeekLeftRange(today).clone();
         calendar.add(Calendar.DATE, 6);
         return calendar;
     }
 
-    public static Calendar GetLastWeekRightShownRange(Calendar today) {
-        Calendar calendar = (Calendar) GetLastWeekLeftRange(today).clone();
+    public static Calendar getLastWeekRightShownRange(Calendar today) {
+        Calendar calendar = (Calendar) getLastWeekLeftRange(today).clone();
         calendar.add(Calendar.DATE, 6);
         return calendar;
     }
 
-    public static Calendar GetThisMonthLeftRange(Calendar today) {
-        Calendar calendar = (Calendar)today.clone();
+    public static Calendar getThisMonthLeftRange(Calendar today) {
+        Calendar calendar = (Calendar) today.clone();
         calendar.set(Calendar.DAY_OF_MONTH, 1);
         calendar.set(Calendar.HOUR_OF_DAY, 0);
         calendar.set(Calendar.MINUTE, 0);
@@ -687,8 +714,8 @@ public class CoCoinUtil {
         return calendar;
     }
 
-    public static Calendar GetThisMonthRightRange(Calendar today) {
-        Calendar calendar = (Calendar)today.clone();
+    public static Calendar getThisMonthRightRange(Calendar today) {
+        Calendar calendar = (Calendar) today.clone();
         calendar.set(Calendar.DAY_OF_MONTH, 1);
         calendar.add(Calendar.MONTH, 1);
         calendar.set(Calendar.HOUR_OF_DAY, 0);
@@ -699,8 +726,8 @@ public class CoCoinUtil {
         return calendar;
     }
 
-    public static Calendar GetLastMonthLeftRange(Calendar today) {
-        Calendar calendar = (Calendar)today.clone();
+    public static Calendar getLastMonthLeftRange(Calendar today) {
+        Calendar calendar = (Calendar) today.clone();
         calendar.set(Calendar.DAY_OF_MONTH, 1);
         calendar.set(Calendar.HOUR_OF_DAY, 0);
         calendar.set(Calendar.MINUTE, 0);
@@ -711,8 +738,8 @@ public class CoCoinUtil {
         return calendar;
     }
 
-    public static Calendar GetLastMonthRightRange(Calendar today) {
-        Calendar calendar = (Calendar)today.clone();
+    public static Calendar getLastMonthRightRange(Calendar today) {
+        Calendar calendar = (Calendar) today.clone();
         calendar.set(Calendar.DAY_OF_MONTH, 1);
         calendar.set(Calendar.HOUR_OF_DAY, 0);
         calendar.set(Calendar.MINUTE, 0);
@@ -722,8 +749,8 @@ public class CoCoinUtil {
         return calendar;
     }
 
-    public static Calendar GetThisYearLeftRange(Calendar today) {
-        Calendar calendar = (Calendar)today.clone();
+    public static Calendar getThisYearLeftRange(Calendar today) {
+        Calendar calendar = (Calendar) today.clone();
         calendar.set(Calendar.MONTH, 0);
         calendar.set(Calendar.DAY_OF_MONTH, 1);
         calendar.set(Calendar.HOUR_OF_DAY, 0);
@@ -734,8 +761,8 @@ public class CoCoinUtil {
         return calendar;
     }
 
-    public static Calendar GetThisYearRightRange(Calendar today) {
-        Calendar calendar = (Calendar)today.clone();
+    public static Calendar getThisYearRightRange(Calendar today) {
+        Calendar calendar = (Calendar) today.clone();
         calendar.set(Calendar.MONTH, 0);
         calendar.set(Calendar.DAY_OF_MONTH, 1);
         calendar.add(Calendar.YEAR, 1);
@@ -747,8 +774,8 @@ public class CoCoinUtil {
         return calendar;
     }
 
-    public static Calendar GetLastYearLeftRange(Calendar today) {
-        Calendar calendar = (Calendar)today.clone();
+    public static Calendar getLastYearLeftRange(Calendar today) {
+        Calendar calendar = (Calendar) today.clone();
         calendar.set(Calendar.MONTH, 0);
         calendar.set(Calendar.DAY_OF_MONTH, 1);
         calendar.set(Calendar.HOUR_OF_DAY, 0);
@@ -760,8 +787,8 @@ public class CoCoinUtil {
         return calendar;
     }
 
-    public static Calendar GetLastYearRightRange(Calendar today) {
-        Calendar calendar = (Calendar)today.clone();
+    public static Calendar getLastYearRightRange(Calendar today) {
+        Calendar calendar = (Calendar) today.clone();
         calendar.set(Calendar.MONTH, 0);
         calendar.set(Calendar.DAY_OF_MONTH, 1);
         calendar.set(Calendar.HOUR_OF_DAY, 0);
@@ -772,58 +799,29 @@ public class CoCoinUtil {
         return calendar;
     }
 
-    public static boolean ClickButtonDelete(int position) {
+    public static boolean clickButtonDelete(int position) {
         return position == 9;
     }
 
-    public static boolean ClickButtonCommit(int position) {
+    public static boolean clickButtonCommit(int position) {
         return position == 11;
     }
 
-    public static boolean ClickButtonIsZero(int position) {
+    public static boolean clickButtonIsZero(int position) {
         return position == 10;
     }
 
-    public static double ToDollas(double money, String currency) {
+    public static double toDollas(double money, String currency) {
 
         return 1.0 * money;
 
     }
 
-    public static boolean IsStringRelation(String s1, String s2) {
+    public static boolean isStringRelation(String s1, String s2) {
         return true;
     }
 
-    public static RelativeSizeSpan relativeSizeSpan;
-    public static ForegroundColorSpan redForegroundSpan;
-    public static ForegroundColorSpan greenForegroundSpan;
-    public static ForegroundColorSpan whiteForegroundSpan;
-
-    private static String lastColor0, lastColor1, lastColor2;
-
-    private static Random random;
-
-    private static String[] Colors = {"#F44336",
-            "#E91E63",
-            "#9C27B0",
-            "#673AB7",
-            "#3F51B5",
-            "#2196F3",
-            "#03A9F4",
-            "#00BCD4",
-            "#009688",
-            "#4CAF50",
-            "#8BC34A",
-            "#CDDC39",
-            "#FFEB3B",
-            "#FFC107",
-            "#FF9800",
-            "#FF5722",
-            "#795548",
-            "#9E9E9E",
-            "#607D8B"};
-
-    public static int GetRandomColor() {
+    public static int getRandomColor() {
         Random random = new Random();
         int p = random.nextInt(Colors.length);
         while (Colors[p].equals(lastColor0)
@@ -837,46 +835,50 @@ public class CoCoinUtil {
         return Color.parseColor(Colors[p]);
     }
 
-    public static int GetTagColorResource(int tag) {
+    public static int getTagColorResource(int tag) {
         return TAG_COLOR[tag + 2];
     }
 
-    public static int GetTagColor(int tag) {
+    public static int getTagColor(int tag) {
         return ContextCompat.getColor(CoCoinApplication.getAppContext(), TAG_COLOR[tag + 3]);
     }
 
-    public static Drawable GetTagDrawable(int tagId) {
+    public static Drawable getTagDrawable(int tagId) {
         return ContextCompat.getDrawable(
                 CoCoinApplication.getAppContext(), TAG_DRAWABLE[tagId + 3]);
     }
 
-    public static String GetTagUrl(int tagId) {
+    public static String getTagUrl(int tagId) {
         return TAG_HEADER_URL[tagId + 3];
     }
 
-    public static int GetSnackBarBackground(int tagId) {
+    public static int getSnackBarBackground(int tagId) {
         return TAG_SNACK[tagId + 3];
     }
 
-    public static int GetTagIcon(int tagId) {
+    public static int getTagIcon(int tagId) {
         return TAG_ICON[tagId + 2];
     }
 
-    public static Drawable GetTagIconDrawable(int tagId) {
+    public static Drawable getTagIconDrawable(int tagId) {
         return ContextCompat.getDrawable(
                 CoCoinApplication.getAppContext(), TAG_ICON[tagId + 2]);
     }
 
-    public static String GetTagName(int tagId) {
+    public static String getTagName(int tagId) {
         return CoCoinApplication.getAppContext().getResources().getString(TAG_NAME[tagId + 2]);
     }
 
-    public static <K, V extends Comparable<V>> Map<K, V> SortTreeMapByValues(final Map<K, V> map) {
-        Comparator<K> valueComparator =  new Comparator<K>() {
+    public static <K, V extends Comparable<V>> Map<K, V> sortTreeMapByValues(final Map<K, V> map) {
+        Comparator<K> valueComparator = new Comparator<K>() {
+            @Override
             public int compare(K k1, K k2) {
                 int compare = map.get(k1).compareTo(map.get(k2));
-                if (compare == 0) return 1;
-                else return compare;
+                if (compare == 0) {
+                    return 1;
+                } else {
+                    return compare;
+                }
             }
         };
         TreeMap<K, V> sortedByValues = new TreeMap<K, V>(valueComparator);
@@ -884,35 +886,9 @@ public class CoCoinUtil {
         return sortedByValues;
     }
 
-    private static final int[] EMPTY_STATE = new int[] {};
-
     public static void clearState(Drawable drawable) {
         if (drawable != null) {
             drawable.setState(EMPTY_STATE);
-        }
-    }
-
-    public static class MyShakeAnimator extends BaseViewAnimator {
-        private int amplitude;
-
-        public MyShakeAnimator() {
-            amplitude = 25;
-        }
-
-        public MyShakeAnimator(int amplitude) {
-            this.amplitude = amplitude;
-        }
-
-        @Override
-        public void prepare(View target) {
-            int amplitude1 = (int)(amplitude * 0.4);
-            int amplitude2 = (int)(amplitude * 0.2);
-            getAnimatorAgent().playTogether(
-                    ObjectAnimator.ofFloat(target, "translationX", 0, amplitude, -amplitude,
-                            amplitude, -amplitude, amplitude, -amplitude, amplitude, -amplitude,
-                            amplitude, -amplitude, amplitude1, -amplitude1, amplitude2, -amplitude2,
-                            0)
-            );
         }
     }
 
@@ -933,9 +909,9 @@ public class CoCoinUtil {
 
     public static int getDeeperColor(int color) {
         int alpha = Color.alpha(color);
-        int red = (int)(Color.red(color) * 0.8);
-        int green = (int)(Color.green(color) * 0.8);
-        int blue = (int)(Color.blue(color) * 0.8);
+        int red = (int) (Color.red(color) * 0.8);
+        int green = (int) (Color.green(color) * 0.8);
+        int blue = (int) (Color.blue(color) * 0.8);
         return Color.argb(alpha, red, green, blue);
     }
 
@@ -969,13 +945,13 @@ public class CoCoinUtil {
 
     public static int getToolBarHeight(Context context) {
         final TypedArray styledAttributes = context.getTheme().obtainStyledAttributes(
-                new int[] { android.R.attr.actionBarSize });
+                new int[]{android.R.attr.actionBarSize});
         int mActionBarSize = (int) styledAttributes.getDimension(0, 0);
         styledAttributes.recycle();
         return mActionBarSize;
     }
 
-    public static HashMap<String, Integer> GetDrawerTopUrl() {
+    public static HashMap<String, Integer> getDrawerTopUrl() {
         HashMap<String, Integer> drawerTopUrls = new HashMap<>();
         drawerTopUrls.put("0", DRAWER_TOP_URL[0]);
         drawerTopUrls.put("1", DRAWER_TOP_URL[1]);
@@ -987,137 +963,144 @@ public class CoCoinUtil {
 
     public static HashMap<String, Integer> getTransparentUrls() {
         HashMap<String, Integer> transparentUrls = new HashMap<>();
-        transparentUrls.put("0", R.drawable.transparent);
-        transparentUrls.put("1", R.drawable.transparent);
+        transparentUrls.put("0", R.mipmap.transparent);
+        transparentUrls.put("1", R.mipmap.transparent);
         return transparentUrls;
     }
 
     public static void showToast(Context context, String text, int color) {
         SuperToast.cancelAllSuperToasts();
         SuperToast superToast = new SuperToast(context);
-        superToast.setAnimations(SuperToast.Animations.FLYIN);
-        superToast.setDuration(SuperToast.Duration.SHORT);
+        superToast.setAnimations(Style.ANIMATIONS_FADE);
+        superToast.setDuration(Style.DURATION_SHORT);
         superToast.setTextColor(Color.parseColor("#ffffff"));
-        superToast.setTextSize(SuperToast.TextSize.SMALL);
+        superToast.setTextSize(Style.TEXTSIZE_SMALL);
         superToast.setText(text);
-        superToast.setBackground(color);
+        superToast.setColor(color);
         superToast.show();
     }
 
-    private static String lastToast = "";
     public static void showToast(Context context, String text) {
-        if (context == null) return;
+        if (context == null) {
+            return;
+        }
         if (lastToast.equals(text)) {
             SuperToast.cancelAllSuperToasts();
         } else {
             lastToast = text;
         }
         SuperToast superToast = new SuperToast(context);
-        superToast.setAnimations(SuperToast.Animations.FLYIN);
-        superToast.setDuration(SuperToast.Duration.VERY_SHORT);
+        superToast.setAnimations(Style.ANIMATIONS_FADE);
+        superToast.setDuration(Style.DURATION_VERY_SHORT);
         superToast.setTextColor(Color.parseColor("#ffffff"));
-        superToast.setTextSize(SuperToast.TextSize.SMALL);
+        superToast.setTextSize(Style.TEXTSIZE_SMALL);
         superToast.setText(text);
-        superToast.setBackground(SuperToast.Background.BLUE);
+        superToast.setColor(PaletteUtils.getSolidColor(PaletteUtils.MATERIAL_BLUE));
         superToast.show();
     }
 
     public static void showToast(Context context, int textId) {
         String text = context.getResources().getString(textId);
-        if (context == null) return;
+        if (context == null) {
+            return;
+        }
         if (lastToast.equals(text)) {
             SuperToast.cancelAllSuperToasts();
         } else {
             lastToast = text;
         }
         SuperToast superToast = new SuperToast(context);
-        superToast.setAnimations(SuperToast.Animations.FLYIN);
-        superToast.setDuration(SuperToast.Duration.VERY_SHORT);
+        superToast.setAnimations(Style.ANIMATIONS_FADE);
+        superToast.setDuration(Style.DURATION_VERY_SHORT);
         superToast.setTextColor(Color.parseColor("#ffffff"));
-        superToast.setTextSize(SuperToast.TextSize.SMALL);
+        superToast.setTextSize(Style.TEXTSIZE_SMALL);
         superToast.setText(text);
-        superToast.setBackground(SuperToast.Background.BLUE);
+        superToast.setColor(PaletteUtils.getSolidColor(PaletteUtils.MATERIAL_BLUE));
         superToast.show();
     }
 
-    public static boolean isPointInsideView(float x, float y, View view){
+    public static boolean isPointInsideView(float x, float y, View view) {
         int location[] = new int[2];
         view.getLocationOnScreen(location);
         int viewX = location[0];
         int viewY = location[1];
 
         //point is inside view bounds
-        if(( x > viewX && x < (viewX + view.getWidth())) &&
-                ( y > viewY && y < (viewY + view.getHeight()))){
+        if ((x > viewX && x < (viewX + view.getWidth())) &&
+                (y > viewY && y < (viewY + view.getHeight()))) {
             return true;
         } else {
             return false;
         }
     }
 
-    public static int GetScreenWidth(Context context) {
-        Display display = ((Activity)context).getWindowManager().getDefaultDisplay();
+    public static int getScreenWidth(Context context) {
+        Display display = ((Activity) context).getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
         return size.x;
     }
 
-    public static int GetScreenHeight(Context context) {
-        Display display = ((Activity)context).getWindowManager().getDefaultDisplay();
+    public static int getScreenHeight(Context context) {
+        Display display = ((Activity) context).getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
         return size.y;
     }
 
-    public static Point GetScreenSize(Context context) {
-        Display display = ((Activity)context).getWindowManager().getDefaultDisplay();
+    public static Point getScreenSize(Context context) {
+        Display display = ((Activity) context).getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
         return size;
     }
 
-    public static Double INPUT_MIN_EXPENSE = 0d;
-    public static Double INPUT_MAX_EXPENSE = 99999d;
-
-    public static String GetCurrentVersion() {
-        return "CoCoin V" + CoCoinApplication.VERSION / 100 + "." + CoCoinApplication.VERSION % 100 / 10 + "." + CoCoinApplication.VERSION % 10;
+    public static String getCurrentVersion() {
+        return "CoCoin V" + CoCoinApplication.VERSION / 100 + "." + CoCoinApplication.VERSION % 100 / 10
+                + "." + CoCoinApplication.VERSION % 10;
     }
 
-    public static String GetString(Context context, int i) {
+    public static String getString(Context context, int i) {
         return context.getResources().getString(i);
     }
 
-    public static String GetCalendarString(Context context, Calendar calendar) {
+    public static String getCalendarString(Context context, Calendar calendar) {
         if ("en".equals(Locale.getDefault().getLanguage())) {
-            return context.getResources().getString(MONTHS_SHORT[calendar.get(Calendar.MONTH) + 1]) + calendar.get(Calendar.DAY_OF_MONTH) + " " + calendar.get(Calendar.YEAR);
+            return context.getResources().getString(MONTHS_SHORT[calendar.get(Calendar.MONTH) + 1])
+                    + calendar.get(Calendar.DAY_OF_MONTH) + " " + calendar.get(Calendar.YEAR);
         }
         if ("zh".equals(Locale.getDefault().getLanguage())) {
-            return context.getResources().getString(MONTHS_SHORT[calendar.get(Calendar.MONTH) + 1]) + calendar.get(Calendar.DAY_OF_MONTH) + " " + calendar.get(Calendar.YEAR);
+            return context.getResources().getString(MONTHS_SHORT[calendar.get(Calendar.MONTH) + 1])
+                    + calendar.get(Calendar.DAY_OF_MONTH) + " " + calendar.get(Calendar.YEAR);
         }
-        return (calendar.get(Calendar.MONTH) + 1) + "-" + calendar.get(Calendar.DAY_OF_MONTH) + " " + calendar.get(Calendar.YEAR);
+        return (calendar.get(Calendar.MONTH) + 1) + "-" + calendar.get(Calendar.DAY_OF_MONTH) + " "
+                + calendar.get(Calendar.YEAR);
     }
 
-    public static String GetCalendarStringRecordCheckDialog(Context context, Calendar calendar) {
+    public static String getCalendarStringRecordCheckDialog(Context context, Calendar calendar) {
         if ("en".equals(Locale.getDefault().getLanguage())) {
-            return context.getResources().getString(MONTHS_SHORT[calendar.get(Calendar.MONTH) + 1]) + " " + calendar.get(Calendar.DAY_OF_MONTH) + " " + calendar.get(Calendar.YEAR);
+            return context.getResources().getString(MONTHS_SHORT[calendar.get(Calendar.MONTH) + 1])
+                    + " " + calendar.get(Calendar.DAY_OF_MONTH) + " " + calendar.get(Calendar.YEAR);
         }
         if ("zh".equals(Locale.getDefault().getLanguage())) {
-            return context.getResources().getString(MONTHS_SHORT[calendar.get(Calendar.MONTH) + 1]) + calendar.get(Calendar.DAY_OF_MONTH) + GetWhetherFuck() + " " + calendar.get(Calendar.YEAR);
+            return context.getResources().getString(MONTHS_SHORT[calendar.get(Calendar.MONTH) + 1])
+                    + calendar.get(Calendar.DAY_OF_MONTH) + getWhetherFuck() + " " + calendar.get(Calendar.YEAR);
         }
-        return context.getResources().getString(MONTHS_SHORT[calendar.get(Calendar.MONTH) + 1]) + " " + calendar.get(Calendar.DAY_OF_MONTH) + " " + calendar.get(Calendar.YEAR);
+        return context.getResources().getString(MONTHS_SHORT[calendar.get(Calendar.MONTH) + 1]) + " "
+                + calendar.get(Calendar.DAY_OF_MONTH) + " " + calendar.get(Calendar.YEAR);
     }
 
-    public static String GetCalendarStringDayExpenseSort(Context context, int year, int month, int day) {
+    public static String getCalendarStringDayExpenseSort(Context context, int year, int month, int day) {
         if ("en".equals(Locale.getDefault().getLanguage())) {
             return context.getResources().getString(MONTHS_SHORT[month]) + " " + day + " " + year;
         }
         if ("zh".equals(Locale.getDefault().getLanguage())) {
-            return context.getResources().getString(MONTHS_SHORT[month]) + day + GetWhetherFuck() + " " + year;
+            return context.getResources().getString(MONTHS_SHORT[month]) + day + getWhetherFuck() + " " + year;
         }
         return context.getResources().getString(MONTHS_SHORT[month]) + " " + day + " " + year;
     }
 
-    public static String GetCalendarString(Context context, String string) {
+    public static String getCalendarString(Context context, String string) {
         Calendar calendar = Calendar.getInstance();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         try {
@@ -1126,15 +1109,18 @@ public class CoCoinUtil {
 
         }
         if ("en".equals(Locale.getDefault().getLanguage())) {
-            return context.getResources().getString(MONTHS_SHORT[calendar.get(Calendar.MONTH) + 1]) + calendar.get(Calendar.DAY_OF_MONTH) + " " + calendar.get(Calendar.YEAR);
+            return context.getResources().getString(MONTHS_SHORT[calendar.get(Calendar.MONTH) + 1])
+                    + calendar.get(Calendar.DAY_OF_MONTH) + " " + calendar.get(Calendar.YEAR);
         }
         if ("zh".equals(Locale.getDefault().getLanguage())) {
-            return context.getResources().getString(MONTHS_SHORT[calendar.get(Calendar.MONTH) + 1]) + calendar.get(Calendar.DAY_OF_MONTH) + " " + calendar.get(Calendar.YEAR);
+            return context.getResources().getString(MONTHS_SHORT[calendar.get(Calendar.MONTH) + 1])
+                    + calendar.get(Calendar.DAY_OF_MONTH) + " " + calendar.get(Calendar.YEAR);
         }
-        return (calendar.get(Calendar.MONTH) + 1) + "-" + calendar.get(Calendar.DAY_OF_MONTH) + " " + calendar.get(Calendar.YEAR);
+        return (calendar.get(Calendar.MONTH) + 1) + "-" + calendar.get(Calendar.DAY_OF_MONTH) + " "
+                + calendar.get(Calendar.YEAR);
     }
 
-    public static String GetRecordDatabasePath(Context context) {
+    public static String getRecordDatabasePath(Context context) {
         String databasePath = "";
         if (android.os.Build.VERSION.SDK_INT >= 17) {
             databasePath = context.getApplicationInfo().dataDir + "/databases/";
@@ -1142,7 +1128,9 @@ public class CoCoinUtil {
             databasePath = "/data/data/" + context.getPackageName() + "/databases/";
         }
         databasePath += DB.DB_NAME_STRING;
-        if (BuildConfig.DEBUG) Log.d("CoCoin", "Get record database path " + databasePath);
+        if (BuildConfig.DEBUG) {
+            Log.d("CoCoin", "Get record database path " + databasePath);
+        }
         return databasePath;
     }
 
@@ -1163,7 +1151,7 @@ public class CoCoinUtil {
     }
 
     // the tagId is clothes, food, house and traffic
-    public static int IsCFHT(int tagId) {
+    public static int isCFHT(int tagId) {
         if (tagId == 2) {
             return 0;
         } else if (tagId == -3 || tagId == -2 || tagId == -1 || tagId == 0 || tagId == 15 || tagId == 19 || tagId == 20) {
@@ -1188,54 +1176,10 @@ public class CoCoinUtil {
         return counter;
     }
 
-    public static void copyToClipboard(String content, Context context)
-    {
-        ClipboardManager cmb = (ClipboardManager)context.getSystemService(Context.CLIPBOARD_SERVICE);
+    public static void copyToClipboard(String content, Context context) {
+        ClipboardManager cmb = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
         cmb.setText(content.trim());
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    private static CoCoinUtil ourInstance = new CoCoinUtil();
 
     public static CoCoinUtil getInstance() {
         if (ourInstance == null || typefaceLatoLight == null || typefaceLatoHairline == null) {
@@ -1245,6 +1189,27 @@ public class CoCoinUtil {
         return ourInstance;
     }
 
-    private CoCoinUtil() {
+    public static class MyShakeAnimator extends BaseViewAnimator {
+        private int amplitude;
+
+        public MyShakeAnimator() {
+            amplitude = 25;
+        }
+
+        public MyShakeAnimator(int amplitude) {
+            this.amplitude = amplitude;
+        }
+
+        @Override
+        public void prepare(View target) {
+            int amplitude1 = (int) (amplitude * 0.4);
+            int amplitude2 = (int) (amplitude * 0.2);
+            getAnimatorAgent().playTogether(
+                    ObjectAnimator.ofFloat(target, "translationX", 0, amplitude, -amplitude,
+                            amplitude, -amplitude, amplitude, -amplitude, amplitude, -amplitude,
+                            amplitude, -amplitude, amplitude1, -amplitude1, amplitude2, -amplitude2,
+                            0)
+            );
+        }
     }
 }

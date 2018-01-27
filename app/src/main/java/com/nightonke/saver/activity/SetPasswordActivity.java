@@ -2,6 +2,7 @@ package com.nightonke.saver.activity;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -21,7 +22,9 @@ import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.github.johnpersano.supertoasts.SuperToast;
+import com.github.johnpersano.supertoasts.library.Style;
+import com.github.johnpersano.supertoasts.library.SuperToast;
+import com.github.johnpersano.supertoasts.library.utils.PaletteUtils;
 import com.nightonke.saver.R;
 import com.nightonke.saver.adapter.PasswordChangeButtonGridViewAdapter;
 import com.nightonke.saver.adapter.PasswordChangeFragmentAdapter;
@@ -42,16 +45,12 @@ import cn.bmob.v3.listener.UpdateListener;
 
 public class SetPasswordActivity extends AppCompatActivity {
 
-    private Context mContext;
-
-    private MyGridView myGridView;
-    private PasswordChangeButtonGridViewAdapter myGridViewAdapter;
-
-    private MaterialIconView back;
-
     private static final int NEW_PASSWORD = 0;
     private static final int PASSWORD_AGAIN = 1;
-
+    private Context mContext;
+    private MyGridView myGridView;
+    private PasswordChangeButtonGridViewAdapter myGridViewAdapter;
+    private MaterialIconView back;
     private int CURRENT_STATE = NEW_PASSWORD;
 
     private String newPassword = "";
@@ -65,6 +64,21 @@ public class SetPasswordActivity extends AppCompatActivity {
     private float x1, y1, x2, y2;
 
     private TextView title;
+    private AdapterView.OnItemClickListener gridViewClickListener
+            = new AdapterView.OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            buttonClickOperation(false, position);
+        }
+    };
+    private AdapterView.OnItemLongClickListener gridViewLongClickListener
+            = new AdapterView.OnItemLongClickListener() {
+        @Override
+        public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+            buttonClickOperation(true, position);
+            return true;
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,11 +96,11 @@ public class SetPasswordActivity extends AppCompatActivity {
             window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             window.setStatusBarColor(ContextCompat.getColor(mContext, R.color.statusBarColor));
-        } else{
+        } else {
             // do something for phones running an SDK before lollipop
         }
 
-        viewPager = (ViewPager)findViewById(R.id.viewpager);
+        viewPager = findViewById(R.id.viewpager);
 
         try {
             Interpolator sInterpolator = new AccelerateInterpolator();
@@ -110,7 +124,7 @@ public class SetPasswordActivity extends AppCompatActivity {
 
         viewPager.setAdapter(passwordAdapter);
 
-        myGridView = (MyGridView)findViewById(R.id.gridview);
+        myGridView = findViewById(R.id.gridview);
         myGridViewAdapter = new PasswordChangeButtonGridViewAdapter(this);
         myGridView.setAdapter(myGridViewAdapter);
 
@@ -129,12 +143,12 @@ public class SetPasswordActivity extends AppCompatActivity {
                     }
                 });
 
-        back = (MaterialIconView)findViewById(R.id.back);
+        back = findViewById(R.id.back);
         back.setVisibility(View.INVISIBLE);
 
         superToast = new SuperToast(this);
 
-        title = (TextView)findViewById(R.id.title);
+        title = findViewById(R.id.title);
         title.setTypeface(CoCoinUtil.typefaceLatoLight);
         if (SettingManager.getInstance().getFirstTime()) {
             title.setText(mContext.getResources().getString(R.string.app_name));
@@ -155,37 +169,21 @@ public class SetPasswordActivity extends AppCompatActivity {
         super.finish();
     }
 
-    private AdapterView.OnItemClickListener gridViewClickListener
-            = new AdapterView.OnItemClickListener() {
-        @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            buttonClickOperation(false, position);
-        }
-    };
-
-    private AdapterView.OnItemLongClickListener gridViewLongClickListener
-            = new AdapterView.OnItemLongClickListener() {
-        @Override
-        public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-            buttonClickOperation(true, position);
-            return true;
-        }
-    };
-
     private void buttonClickOperation(boolean longClick, int position) {
         switch (CURRENT_STATE) {
             case NEW_PASSWORD:
-                if (CoCoinUtil.ClickButtonDelete(position)) {
+                if (CoCoinUtil.clickButtonDelete(position)) {
                     if (longClick) {
                         CoCoinFragmentManager.passwordChangeFragment[CURRENT_STATE].init();
                         newPassword = "";
                     } else {
                         CoCoinFragmentManager.passwordChangeFragment[CURRENT_STATE]
                                 .clear(newPassword.length() - 1);
-                        if (newPassword.length() != 0)
+                        if (newPassword.length() != 0) {
                             newPassword = newPassword.substring(0, newPassword.length() - 1);
+                        }
                     }
-                } else if (CoCoinUtil.ClickButtonCommit(position)) {
+                } else if (CoCoinUtil.clickButtonCommit(position)) {
 
                 } else {
                     CoCoinFragmentManager.passwordChangeFragment[CURRENT_STATE]
@@ -199,17 +197,18 @@ public class SetPasswordActivity extends AppCompatActivity {
                 }
                 break;
             case PASSWORD_AGAIN:
-                if (CoCoinUtil.ClickButtonDelete(position)) {
+                if (CoCoinUtil.clickButtonDelete(position)) {
                     if (longClick) {
                         CoCoinFragmentManager.passwordChangeFragment[CURRENT_STATE].init();
                         againPassword = "";
                     } else {
                         CoCoinFragmentManager.passwordChangeFragment[CURRENT_STATE]
                                 .clear(againPassword.length() - 1);
-                        if (againPassword.length() != 0)
+                        if (againPassword.length() != 0) {
                             againPassword = againPassword.substring(0, againPassword.length() - 1);
+                        }
                     }
-                } else if (CoCoinUtil.ClickButtonCommit(position)) {
+                } else if (CoCoinUtil.clickButtonCommit(position)) {
 
                 } else {
                     CoCoinFragmentManager.passwordChangeFragment[CURRENT_STATE]
@@ -248,7 +247,7 @@ public class SetPasswordActivity extends AppCompatActivity {
                             }, 1000);
                         } else {
                             CoCoinFragmentManager.passwordChangeFragment[CURRENT_STATE].clear(4);
-                            ((PasswordChangeFragment)passwordAdapter.getItem(CURRENT_STATE - 1)).init();
+                            ((PasswordChangeFragment) passwordAdapter.getItem(CURRENT_STATE - 1)).init();
                             CURRENT_STATE = NEW_PASSWORD;
                             viewPager.setCurrentItem(NEW_PASSWORD, true);
                             newPassword = "";
@@ -267,9 +266,10 @@ public class SetPasswordActivity extends AppCompatActivity {
         SuperToast.cancelAllSuperToasts();
 
         superToast.setAnimations(CoCoinUtil.TOAST_ANIMATION);
-        superToast.setDuration(SuperToast.Duration.SHORT);
+        superToast.setDuration(Style.DURATION_SHORT);
         superToast.setTextColor(Color.parseColor("#ffffff"));
-        superToast.setTextSize(SuperToast.TextSize.SMALL);
+        superToast.setTextSize(Style.TEXTSIZE_SMALL);
+        superToast.setTypefaceStyle(Typeface.ITALIC);
 
         switch (toastType) {
             // old password wrong
@@ -277,8 +277,7 @@ public class SetPasswordActivity extends AppCompatActivity {
 
                 superToast.setText(
                         mContext.getResources().getString(R.string.toast_password_wrong));
-                superToast.setBackground(SuperToast.Background.RED);
-                superToast.getTextView().setTypeface(CoCoinUtil.typefaceLatoLight);
+                superToast.setColor(PaletteUtils.getSolidColor(PaletteUtils.MATERIAL_RED));
 
                 break;
             // password is different
@@ -286,8 +285,7 @@ public class SetPasswordActivity extends AppCompatActivity {
 
                 superToast.setText(
                         mContext.getResources().getString(R.string.different_password));
-                superToast.setBackground(SuperToast.Background.RED);
-                superToast.getTextView().setTypeface(CoCoinUtil.typefaceLatoLight);
+                superToast.setColor(PaletteUtils.getSolidColor(PaletteUtils.MATERIAL_RED));
 
                 break;
             // success
@@ -295,8 +293,7 @@ public class SetPasswordActivity extends AppCompatActivity {
 
                 superToast.setText(
                         mContext.getResources().getString(R.string.set_password_successfully));
-                superToast.setBackground(SuperToast.Background.GREEN);
-                superToast.getTextView().setTypeface(CoCoinUtil.typefaceLatoLight);
+                superToast.setColor(PaletteUtils.getSolidColor(PaletteUtils.MATERIAL_GREEN));
 
                 break;
             default:

@@ -11,21 +11,6 @@ public class Tag {
     private int weight;
     private int dragId;
 
-    public int getDragId() {
-        return dragId;
-    }
-
-    public void setDragId(int dragId) {
-        this.dragId = dragId;
-    }
-
-    public String toString() {
-        return "Tag(" +
-                "id = " + id + ", " +
-                "name = " + name + ", " +
-                "weight = " + weight + ")";
-    }
-
     public Tag() {
 
     }
@@ -34,6 +19,22 @@ public class Tag {
         this.id = id;
         this.name = name;
         this.weight = weight;
+    }
+
+    public int getDragId() {
+        return dragId;
+    }
+
+    public void setDragId(int dragId) {
+        this.dragId = dragId;
+    }
+
+    @Override
+    public String toString() {
+        return "Tag(" +
+                "id = " + id + ", " +
+                "name = " + name + ", " +
+                "weight = " + weight + ")";
     }
 
     public void set(Tag tag) {

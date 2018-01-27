@@ -32,16 +32,14 @@ import net.steamcrafted.materialiconlib.MaterialIconView;
 
 public class TagSettingActivity extends AppCompatActivity {
 
+    MaterialDialog progressDialog;
     private RecyclerView mRecyclerView;
     private RecyclerView.LayoutManager mLayoutManager;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.Adapter mWrappedAdapter;
     private RecyclerViewDragDropManager mRecyclerViewDragDropManager;
-
     private TagDraggableItemAdapter myItemAdapter;
-
     private Context mContext;
-
     private MaterialIconView back;
     private MaterialIconView check;
     private TextView title;
@@ -61,18 +59,18 @@ public class TagSettingActivity extends AppCompatActivity {
             window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             window.setStatusBarColor(ContextCompat.getColor(mContext, R.color.statusBarColor));
-        } else{
+        } else {
             // do something for phones running an SDK before lollipop
         }
 
         //noinspection ConstantConditions
-        mRecyclerView = (RecyclerView)findViewById(R.id.recyclerView);
+        mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         mLayoutManager = new GridLayoutManager(this, 3, GridLayoutManager.VERTICAL, false);
 
         // drag & drop manager
         mRecyclerViewDragDropManager = new RecyclerViewDragDropManager();
         mRecyclerViewDragDropManager.setDraggingItemShadowDrawable(
-                (NinePatchDrawable) ContextCompat.getDrawable(this, R.drawable.material_shadow_z3));
+                (NinePatchDrawable) ContextCompat.getDrawable(this, R.mipmap.material_shadow_z3));
 
         // Start dragging after long press
         mRecyclerViewDragDropManager.setInitiateOnLongPress(true);
@@ -94,13 +92,13 @@ public class TagSettingActivity extends AppCompatActivity {
 
         mRecyclerView.addItemDecoration(
                 new ItemShadowDecorator((NinePatchDrawable) ContextCompat.
-                        getDrawable(this, R.drawable.material_shadow_z1)));
+                        getDrawable(this, R.mipmap.material_shadow_z1)));
 
         mRecyclerViewDragDropManager.attachRecyclerView(mRecyclerView);
 
-        back = (MaterialIconView)findViewById(R.id.icon_left);
-        check = (MaterialIconView)findViewById(R.id.check);
-        title = (TextView)findViewById(R.id.title);
+        back = findViewById(R.id.icon_left);
+        check = findViewById(R.id.check);
+        title = findViewById(R.id.title);
         title.setText((RecordManager.TAGS.size() - 2) + mContext.getResources().getString(R.string.tag_number));
 
         back.setOnClickListener(new View.OnClickListener() {
@@ -144,7 +142,6 @@ public class TagSettingActivity extends AppCompatActivity {
         }
     }
 
-    MaterialDialog progressDialog;
     private void saveChanges(boolean quit) {
         if (!myItemAdapter.equals(null)) {
             if (myItemAdapter.isChanged()) {
@@ -186,6 +183,11 @@ public class TagSettingActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        whetherQuit();
+    }
+
     public class SaveTags extends AsyncTask<String, Void, String> {
 
         private boolean quit;
@@ -205,16 +207,16 @@ public class TagSettingActivity extends AppCompatActivity {
             }
             return null;
         }
+
         @Override
         protected void onPostExecute(String result) {
-            if (progressDialog != null) progressDialog.cancel();
-            if (quit) ((Activity)mContext).finish();
+            if (progressDialog != null) {
+                progressDialog.cancel();
+            }
+            if (quit) {
+                ((Activity) mContext).finish();
+            }
         }
-    }
-
-    @Override
-    public void onBackPressed() {
-        whetherQuit();
     }
 
 }

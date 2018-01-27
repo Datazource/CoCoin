@@ -16,19 +16,11 @@ public class CoCoinApplication extends Application {
     public static final int VERSION = 120;
 
     private static Context mContext;
+    private RefWatcher refWatcher;
 
     public static RefWatcher getRefWatcher(Context context) {
         CoCoinApplication application = (CoCoinApplication) context.getApplicationContext();
         return application.refWatcher;
-    }
-
-    private RefWatcher refWatcher;
-
-    @Override public void onCreate() {
-        super.onCreate();
-
-        refWatcher = LeakCanary.install(this);
-        CoCoinApplication.mContext = getApplicationContext();
     }
 
     public static Context getAppContext() {
@@ -38,6 +30,14 @@ public class CoCoinApplication extends Application {
     public static String getAndroidId() {
         return Settings.Secure.getString(
                 getAppContext().getContentResolver(), Settings.Secure.ANDROID_ID);
+    }
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+
+        refWatcher = LeakCanary.install(this);
+        CoCoinApplication.mContext = getApplicationContext();
     }
 
 }

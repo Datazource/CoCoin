@@ -35,14 +35,14 @@ public class AccountBookCustomViewActivity extends AppCompatActivity {
         mContext = this;
         setContentView(R.layout.activity_account_book_custom_view);
 
-        mViewPager = (MaterialViewPager) findViewById(R.id.materialViewPager);
+        mViewPager = findViewById(R.id.materialViewPager);
 
         View view = mViewPager.getRootView();
-        TextView title = (TextView)view.findViewById(R.id.logo_white);
+        TextView title = view.findViewById(R.id.logo_white);
         title.setTypeface(CoCoinUtil.getInstance().typefaceLatoLight);
         title.setText(SettingManager.getInstance().getAccountBookName());
 
-        mViewPager.getPagerTitleStrip().setTypeface(CoCoinUtil.GetTypeface(), Typeface.NORMAL);
+        mViewPager.getPagerTitleStrip().setTypeface(CoCoinUtil.getTypeface(), Typeface.NORMAL);
         mViewPager.getPagerTitleStrip().setVisibility(View.INVISIBLE);
 
         setTitle("");
@@ -81,8 +81,8 @@ public class AccountBookCustomViewActivity extends AppCompatActivity {
             @Override
             public HeaderDesign getHeaderDesign(int page) {
                 return HeaderDesign.fromColorAndDrawable(
-                        CoCoinUtil.GetTagColor(-3),
-                        CoCoinUtil.GetTagDrawable(-3)
+                        CoCoinUtil.getTagColor(-3),
+                        CoCoinUtil.getTagDrawable(-3)
                 );
             }
         });

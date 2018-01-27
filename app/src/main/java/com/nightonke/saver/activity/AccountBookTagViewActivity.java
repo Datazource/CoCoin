@@ -75,6 +75,7 @@ public class AccountBookTagViewActivity extends AppCompatActivity {
     private CircleImageView profileImage;
 
     private SliderLayout mDemoSlider;
+    private MaterialDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,10 +84,10 @@ public class AccountBookTagViewActivity extends AppCompatActivity {
         mContext = this;
         setContentView(R.layout.activity_account_book_tag_view);
 
-        mViewPager = (MaterialViewPager) findViewById(R.id.materialViewPager);
+        mViewPager = findViewById(R.id.materialViewPager);
 
         View view = mViewPager.getRootView();
-        TextView title = (TextView)view.findViewById(R.id.logo_white);
+        TextView title = view.findViewById(R.id.logo_white);
         title.setTypeface(CoCoinUtil.typefaceLatoLight);
         title.setText(SettingManager.getInstance().getAccountBookName());
 
@@ -95,10 +96,10 @@ public class AccountBookTagViewActivity extends AppCompatActivity {
         setTitle("");
 
         toolbar = mViewPager.getToolbar();
-        mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        mDrawer = findViewById(R.id.drawer_layout);
 
-        userName = (TextView)findViewById(R.id.user_name);
-        userEmail = (TextView)findViewById(R.id.user_email);
+        userName = findViewById(R.id.user_name);
+        userEmail = findViewById(R.id.user_email);
         userName.setTypeface(CoCoinUtil.typefaceLatoRegular);
         userEmail.setTypeface(CoCoinUtil.typefaceLatoLight);
 
@@ -145,8 +146,8 @@ public class AccountBookTagViewActivity extends AppCompatActivity {
                 @Override
                 public HeaderDesign getHeaderDesign(int page) {
                     return HeaderDesign.fromColorAndUrl(
-                            CoCoinUtil.GetTagColor(RecordManager.TAGS.get(page).getId()),
-                            CoCoinUtil.GetTagUrl(RecordManager.TAGS.get(page).getId()));
+                            CoCoinUtil.getTagColor(RecordManager.TAGS.get(page).getId()),
+                            CoCoinUtil.getTagUrl(RecordManager.TAGS.get(page).getId()));
                 }
             });
         } else {
@@ -154,13 +155,13 @@ public class AccountBookTagViewActivity extends AppCompatActivity {
                 @Override
                 public HeaderDesign getHeaderDesign(int page) {
                     return HeaderDesign.fromColorAndDrawable(
-                            CoCoinUtil.GetTagColor(RecordManager.TAGS.get(page).getId()),
-                            CoCoinUtil.GetTagDrawable(-3));
+                            CoCoinUtil.getTagColor(RecordManager.TAGS.get(page).getId()),
+                            CoCoinUtil.getTagDrawable(-3));
                 }
             });
         }
 
-        myGridView = (MyGridView)mDrawer.findViewById(R.id.grid_view);
+        myGridView = mDrawer.findViewById(R.id.grid_view);
         drawerTagChooseAdapter = new DrawerTagChooseGridViewAdapter(mContext);
         myGridView.setAdapter(drawerTagChooseAdapter);
 
@@ -179,7 +180,7 @@ public class AccountBookTagViewActivity extends AppCompatActivity {
             }
         });
 
-        profileImage= (CircleImageView)mDrawer.findViewById(R.id.profile_image);
+        profileImage = mDrawer.findViewById(R.id.profile_image);
         profileImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -191,11 +192,11 @@ public class AccountBookTagViewActivity extends AppCompatActivity {
             }
         });
 
-        mDemoSlider = (SliderLayout)findViewById(R.id.slider);
+        mDemoSlider = findViewById(R.id.slider);
 
-        HashMap<String, Integer> urls = CoCoinUtil.GetDrawerTopUrl();
+        HashMap<String, Integer> urls = CoCoinUtil.getDrawerTopUrl();
 
-        for(String name : urls.keySet()){
+        for (String name : urls.keySet()) {
             CustomSliderView customSliderView = new CustomSliderView(this);
             // initialize a SliderLayout
             customSliderView
@@ -257,20 +258,6 @@ public class AccountBookTagViewActivity extends AppCompatActivity {
         super.onBackPressed();
     }
 
-    private MaterialDialog progressDialog;
-    public class LoadViews extends AsyncTask<String, Void, String> {
-
-        @Override
-        protected String doInBackground(String... params) {
-
-            return null;
-        }
-        @Override
-        protected void onPostExecute(String result) {
-            if (progressDialog != null) progressDialog.cancel();
-        }
-    }
-
     private void loadLogo() {
         User user = BmobUser.getCurrentUser(CoCoinApplication.getAppContext(), User.class);
         if (user != null) {
@@ -287,7 +274,9 @@ public class AccountBookTagViewActivity extends AppCompatActivity {
                                 public void onSuccess(List<Logo> object) {
                                     // there has been an old logo in the server/////////////////////////////////////////////////////////
                                     String url = object.get(0).getFile().getFileUrl(CoCoinApplication.getAppContext());
-                                    if (BuildConfig.DEBUG) Log.d("CoCoin", "Logo in server: " + url);
+                                    if (BuildConfig.DEBUG) {
+                                        Log.d("CoCoin", "Logo in server: " + url);
+                                    }
                                     Ion.with(CoCoinApplication.getAppContext()).load(url)
                                             .write(new File(CoCoinApplication.getAppContext().getFilesDir()
                                                     + CoCoinUtil.LOGO_NAME))
@@ -300,10 +289,13 @@ public class AccountBookTagViewActivity extends AppCompatActivity {
                                                 }
                                             });
                                 }
+
                                 @Override
                                 public void onError(int code, String msg) {
                                     // the picture is lost
-                                    if (BuildConfig.DEBUG) Log.d("CoCoin", "Can't find the old logo in server.");
+                                    if (BuildConfig.DEBUG) {
+                                        Log.d("CoCoin", "Can't find the old logo in server.");
+                                    }
                                 }
                             });
                 } else {
@@ -316,7 +308,23 @@ public class AccountBookTagViewActivity extends AppCompatActivity {
             }
         } else {
             // use the default logo
-            profileImage.setImageResource(R.drawable.default_user_logo);
+            profileImage.setImageResource(R.mipmap.default_user_logo);
+        }
+    }
+
+    public class LoadViews extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected String doInBackground(String... params) {
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            if (progressDialog != null) {
+                progressDialog.cancel();
+            }
         }
     }
 

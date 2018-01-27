@@ -34,78 +34,13 @@ public class RecordExpandableSwipeableItemAdapter
         extends AbstractExpandableItemAdapter<RecordExpandableSwipeableItemAdapter.MyGroupViewHolder,
         RecordExpandableSwipeableItemAdapter.MyChildViewHolder>
         implements ExpandableSwipeableItemAdapter<RecordExpandableSwipeableItemAdapter.MyGroupViewHolder,
-                RecordExpandableSwipeableItemAdapter.MyChildViewHolder> {
-
-    private ArrayList<ArrayList<Integer>> list;
-
-    // NOTE: Make accessible with short name
-    private interface Expandable extends ExpandableItemConstants {
-    }
-
-    private interface Swipeable extends SwipeableItemConstants {
-    }
+        RecordExpandableSwipeableItemAdapter.MyChildViewHolder> {
 
     private final RecyclerViewExpandableItemManager mExpandableItemManager;
+    private ArrayList<ArrayList<Integer>> list;
     private EventListener mEventListener;
     private View.OnClickListener mItemViewOnClickListener;
     private View.OnClickListener mSwipeableViewContainerOnClickListener;
-
-    public interface EventListener {
-        void onGroupItemRemoved(int groupPosition);
-
-        void onChildItemRemoved(int groupPosition, int childPosition);
-
-        void onGroupItemPinned(int groupPosition);
-
-        void onChildItemPinned(int groupPosition, int childPosition);
-
-        void onItemViewClicked(View v, boolean pinned);
-    }
-
-    public static abstract class MyBaseViewHolder
-            extends AbstractDraggableSwipeableItemViewHolder implements ExpandableItemViewHolder {
-        public FrameLayout mContainer;
-        public View mDragHandle;
-        public TextView mTextView;
-        private int mExpandStateFlags;
-
-        public MyBaseViewHolder(View v) {
-            super(v);
-            mContainer = (FrameLayout) v.findViewById(R.id.container);
-            mDragHandle = v.findViewById(R.id.drag_handle);
-            mTextView = (TextView) v.findViewById(android.R.id.text1);
-        }
-
-        @Override
-        public int getExpandStateFlags() {
-            return mExpandStateFlags;
-        }
-
-        @Override
-        public void setExpandStateFlags(int flag) {
-            mExpandStateFlags = flag;
-        }
-
-        @Override
-        public View getSwipeableContainerView() {
-            return mContainer;
-        }
-    }
-
-    public static class MyGroupViewHolder extends MyBaseViewHolder {
-        public ExpandableItemIndicator mIndicator;
-
-        public MyGroupViewHolder(View v) {
-            super(v);
-            mIndicator = (ExpandableItemIndicator) v.findViewById(R.id.indicator);
-        }
-    }
-
-    public static class MyChildViewHolder extends MyBaseViewHolder {
-        public MyChildViewHolder(View v) {
-            super(v);
-        }
-    }
 
     public RecordExpandableSwipeableItemAdapter(
             RecyclerViewExpandableItemManager expandableItemManager,
@@ -299,6 +234,16 @@ public class RecordExpandableSwipeableItemAdapter
     }
 
     @Override
+    public void onSwipeGroupItemStarted(MyGroupViewHolder holder, int groupPosition) {
+
+    }
+
+    @Override
+    public void onSwipeChildItemStarted(MyChildViewHolder holder, int groupPosition, int childPosition) {
+
+    }
+
+    @Override
     public void onSetGroupItemSwipeBackground(
             MyGroupViewHolder holder, int groupPosition, int type) {
         int bgResId = 0;
@@ -311,6 +256,8 @@ public class RecordExpandableSwipeableItemAdapter
                 break;
             case Swipeable.DRAWABLE_SWIPE_RIGHT_BACKGROUND:
                 bgResId = R.drawable.bg_swipe_group_item_right;
+                break;
+            default:
                 break;
         }
 
@@ -330,6 +277,8 @@ public class RecordExpandableSwipeableItemAdapter
                 break;
             case Swipeable.DRAWABLE_SWIPE_RIGHT_BACKGROUND:
                 bgResId = R.drawable.bg_swipe_item_right;
+                break;
+            default:
                 break;
         }
 
@@ -398,9 +347,73 @@ public class RecordExpandableSwipeableItemAdapter
         mEventListener = eventListener;
     }
 
+    // NOTE: Make accessible with short name
+    private interface Expandable extends ExpandableItemConstants {
+    }
+
+    private interface Swipeable extends SwipeableItemConstants {
+    }
+
+    public interface EventListener {
+        void onGroupItemRemoved(int groupPosition);
+
+        void onChildItemRemoved(int groupPosition, int childPosition);
+
+        void onGroupItemPinned(int groupPosition);
+
+        void onChildItemPinned(int groupPosition, int childPosition);
+
+        void onItemViewClicked(View v, boolean pinned);
+    }
+
+    public static abstract class MyBaseViewHolder
+            extends AbstractDraggableSwipeableItemViewHolder implements ExpandableItemViewHolder {
+        public FrameLayout mContainer;
+        public View mDragHandle;
+        public TextView mTextView;
+        private int mExpandStateFlags;
+
+        public MyBaseViewHolder(View v) {
+            super(v);
+            mContainer = (FrameLayout) v.findViewById(R.id.container);
+            mDragHandle = v.findViewById(R.id.drag_handle);
+            mTextView = (TextView) v.findViewById(android.R.id.text1);
+        }
+
+        @Override
+        public int getExpandStateFlags() {
+            return mExpandStateFlags;
+        }
+
+        @Override
+        public void setExpandStateFlags(int flag) {
+            mExpandStateFlags = flag;
+        }
+
+        @Override
+        public View getSwipeableContainerView() {
+            return mContainer;
+        }
+    }
+
+    public static class MyGroupViewHolder extends MyBaseViewHolder {
+        public ExpandableItemIndicator mIndicator;
+
+        public MyGroupViewHolder(View v) {
+            super(v);
+            mIndicator = (ExpandableItemIndicator) v.findViewById(R.id.indicator);
+        }
+    }
+
+    public static class MyChildViewHolder extends MyBaseViewHolder {
+        public MyChildViewHolder(View v) {
+            super(v);
+        }
+    }
+
     private static class GroupSwipeLeftResultAction extends SwipeResultActionMoveToSwipedDirection {
-        private RecordExpandableSwipeableItemAdapter mAdapter;
         private final int mGroupPosition;
+        private RecordExpandableSwipeableItemAdapter mAdapter;
         private boolean mSetPinned;
 
         GroupSwipeLeftResultAction(
@@ -441,8 +454,8 @@ public class RecordExpandableSwipeableItemAdapter
     }
 
     private static class GroupSwipeRightResultAction extends SwipeResultActionRemoveItem {
-        private RecordExpandableSwipeableItemAdapter mAdapter;
         private final int mGroupPosition;
+        private RecordExpandableSwipeableItemAdapter mAdapter;
 
         GroupSwipeRightResultAction(
                 RecordExpandableSwipeableItemAdapter adapter, int groupPosition) {
@@ -476,8 +489,8 @@ public class RecordExpandableSwipeableItemAdapter
     }
 
     private static class GroupUnpinResultAction extends SwipeResultActionDefault {
-        private RecordExpandableSwipeableItemAdapter mAdapter;
         private final int mGroupPosition;
+        private RecordExpandableSwipeableItemAdapter mAdapter;
 
         GroupUnpinResultAction(RecordExpandableSwipeableItemAdapter adapter, int groupPosition) {
             mAdapter = adapter;
@@ -505,9 +518,9 @@ public class RecordExpandableSwipeableItemAdapter
 
 
     private static class ChildSwipeLeftResultAction extends SwipeResultActionMoveToSwipedDirection {
-        private RecordExpandableSwipeableItemAdapter mAdapter;
         private final int mGroupPosition;
         private final int mChildPosition;
+        private RecordExpandableSwipeableItemAdapter mAdapter;
         private boolean mSetPinned;
 
         ChildSwipeLeftResultAction(RecordExpandableSwipeableItemAdapter adapter,
@@ -549,9 +562,9 @@ public class RecordExpandableSwipeableItemAdapter
     }
 
     private static class ChildSwipeRightResultAction extends SwipeResultActionRemoveItem {
-        private RecordExpandableSwipeableItemAdapter mAdapter;
         private final int mGroupPosition;
         private final int mChildPosition;
+        private RecordExpandableSwipeableItemAdapter mAdapter;
 
         ChildSwipeRightResultAction(RecordExpandableSwipeableItemAdapter adapter,
                                     int groupPosition, int childPosition) {
@@ -586,9 +599,9 @@ public class RecordExpandableSwipeableItemAdapter
     }
 
     private static class ChildUnpinResultAction extends SwipeResultActionDefault {
-        private RecordExpandableSwipeableItemAdapter mAdapter;
         private final int mGroupPosition;
         private final int mChildPosition;
+        private RecordExpandableSwipeableItemAdapter mAdapter;
 
         ChildUnpinResultAction(RecordExpandableSwipeableItemAdapter adapter,
                                int groupPosition, int childPosition) {

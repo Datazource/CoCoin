@@ -47,17 +47,17 @@ public class DialogTagChooseGridViewAdapter extends BaseAdapter {
         if (convertView == null) {
             holder = new ViewHolder();
             convertView = this.inflater.inflate(R.layout.item_tag_choose, null);
-            holder.tagImage = (ImageView) convertView.findViewById(R.id.tag_image);
-            holder.tagName = (TextView) convertView.findViewById(R.id.tag_name);
+            holder.tagImage = convertView.findViewById(R.id.tag_image);
+            holder.tagName = convertView.findViewById(R.id.tag_name);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
 
         holder.tagImage.setImageResource(
-                CoCoinUtil.GetTagIcon(RecordManager.TAGS.get(position + 2).getId()));
-        holder.tagName.setText(CoCoinUtil.GetTagName(RecordManager.getInstance(mContext).TAGS.get(position + 2).getId()));
-        holder.tagName.setTypeface(CoCoinUtil.GetTypeface());
+                CoCoinUtil.getTagIcon(RecordManager.TAGS.get(position + 2).getId()));
+        holder.tagName.setText(CoCoinUtil.getTagName(RecordManager.getInstance(mContext).TAGS.get(position + 2).getId()));
+        holder.tagName.setTypeface(CoCoinUtil.getTypeface());
 
         return convertView;
     }

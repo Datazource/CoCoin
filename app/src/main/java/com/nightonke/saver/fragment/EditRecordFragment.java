@@ -25,18 +25,14 @@ import com.rengwuxian.materialedittext.MaterialEditText;
 
 public class EditRecordFragment extends Fragment {
 
-    private int fragmentPosition;
-    private int tagId = -1;
-
     public MaterialEditText editView;
     public MaterialEditText remarkEditView;
-
     public ImageView tagImage;
     public TextView tagName;
-
-    private View mView;
-
     Activity activity;
+    private int fragmentPosition;
+    private int tagId = -1;
+    private View mView;
 
     static public EditRecordFragment newInstance(int position) {
         EditRecordFragment fragment = new EditRecordFragment();
@@ -54,10 +50,10 @@ public class EditRecordFragment extends Fragment {
         mView = inflater.inflate(R.layout.edit_money_fragment, container, false);
 
         fragmentPosition = getArguments().getInt("position");
-        remarkEditView = (MaterialEditText) mView.findViewById(R.id.remark);
-        editView = (MaterialEditText) mView.findViewById(R.id.money);
-        tagImage = (ImageView) mView.findViewById(R.id.tag_image);
-        tagName = (TextView) mView.findViewById(R.id.tag_name);
+        remarkEditView = mView.findViewById(R.id.remark);
+        editView = mView.findViewById(R.id.money);
+        tagImage = mView.findViewById(R.id.tag_image);
+        tagName = mView.findViewById(R.id.tag_name);
         tagName.setTypeface(CoCoinUtil.typefaceLatoLight);
 
         if (fragmentPosition == 0) {
@@ -67,12 +63,12 @@ public class EditRecordFragment extends Fragment {
             editView.setHelperText(CoCoinUtil.FLOATINGLABELS[editView.getText().toString().length()]);
 
             tagId = RecordManager.RECORDS.get(CoCoinUtil.editRecordPosition).getTag();
-            tagName.setText(CoCoinUtil.GetTagName(tagId));
-            tagImage.setImageResource(CoCoinUtil.GetTagIcon(tagId));
+            tagName.setText(CoCoinUtil.getTagName(tagId));
+            tagImage.setImageResource(CoCoinUtil.getTagIcon(tagId));
 
             remarkEditView.setVisibility(View.GONE);
         } else {
-            remarkEditView.setTypeface(CoCoinUtil.GetTypeface());
+            remarkEditView.setTypeface(CoCoinUtil.getTypeface());
 
             remarkEditView.setText(RecordManager.RECORDS.get(CoCoinUtil.editRecordPosition).getRemark());
             int pos = remarkEditView.getText().length();
@@ -92,10 +88,6 @@ public class EditRecordFragment extends Fragment {
         return mView;
     }
 
-    public interface OnTagItemSelectedListener {
-        void onTagItemPicked(int position);
-    }
-
     public void updateTags() {
 
     }
@@ -106,8 +98,8 @@ public class EditRecordFragment extends Fragment {
 
     public void setTag(int p) {
         tagId = RecordManager.TAGS.get(p).getId();
-        tagName.setText(CoCoinUtil.GetTagName(RecordManager.TAGS.get(p).getId()));
-        tagImage.setImageResource(CoCoinUtil.GetTagIcon(RecordManager.TAGS.get(p).getId()));
+        tagName.setText(CoCoinUtil.getTagName(RecordManager.TAGS.get(p).getId()));
+        tagImage.setImageResource(CoCoinUtil.getTagIcon(RecordManager.TAGS.get(p).getId()));
     }
 
     public String getNumberText() {
@@ -173,6 +165,10 @@ public class EditRecordFragment extends Fragment {
 
     public void setRemark(String string) {
         remarkEditView.setText(string);
+    }
+
+    public interface OnTagItemSelectedListener {
+        void onTagItemPicked(int position);
     }
 
 }

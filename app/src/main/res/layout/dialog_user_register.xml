@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical">
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="vertical">
 
     <TextView
         android:id="@+id/register_user_name_text"
@@ -11,21 +11,20 @@
         android:layout_height="wrap_content"
         android:text="@string/register_user_name"
         android:textColor="@color/drawer_text"
-        android:textSize="12sp" />
+        android:textSize="12sp"/>
 
     <com.rengwuxian.materialedittext.MaterialEditText
         android:id="@+id/register_user_name"
-        android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:textColor="@color/drawer_text"
-        android:textSize="20sp"
+        android:layout_height="wrap_content"
         android:hint=""
         android:singleLine="true"
+        android:textColor="@color/drawer_text"
+        android:textSize="20sp"
         app:met_baseColor="@color/my_blue"
-        app:met_maxCharacters="16"
-        app:met_minCharacters="1"
         app:met_clearButton="true"
-        />
+        app:met_maxCharacters="16"
+        app:met_minCharacters="1"/>
 
     <TextView
         android:id="@+id/register_user_email_text"
@@ -33,41 +32,39 @@
         android:layout_height="wrap_content"
         android:text="@string/register_user_email"
         android:textColor="@color/drawer_text"
-        android:textSize="12sp" />
+        android:textSize="12sp"/>
 
     <com.rengwuxian.materialedittext.MaterialEditText
         android:id="@+id/register_user_email"
-        android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:textColor="@color/drawer_text"
-        android:textSize="20sp"
+        android:layout_height="wrap_content"
         android:hint=""
         android:singleLine="true"
+        android:textColor="@color/drawer_text"
+        android:textSize="20sp"
         app:met_baseColor="@color/my_blue"
-        app:met_clearButton="true"
-        />
+        app:met_clearButton="true"/>
 
     <TextView
         android:id="@+id/register_password_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/register_password"
         android:paddingTop="10dp"
+        android:text="@string/register_password"
         android:textColor="@color/drawer_text"
-        android:textSize="12sp" />
+        android:textSize="12sp"/>
 
     <com.rengwuxian.materialedittext.MaterialEditText
         android:id="@+id/register_password"
-        android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:textColor="@color/drawer_text"
-        android:textSize="20sp"
+        android:layout_height="wrap_content"
         android:hint=""
         android:singleLine="true"
+        android:textColor="@color/drawer_text"
+        android:textSize="20sp"
         app:met_baseColor="@color/my_blue"
-        app:met_minCharacters="1"
         app:met_clearButton="true"
-        />
+        app:met_minCharacters="1"/>
 
     <com.dd.CircularProgressButton
         android:id="@+id/button"
@@ -77,12 +74,11 @@
         android:textColor="@color/white"
         android:textSize="14sp"
         app:cpb_cornerRadius="48dp"
-        app:cpb_textComplete="@string/register_complete"
         app:cpb_selectorComplete="@drawable/button_login_successfully_dialog"
-        app:cpb_textError="@string/register_error"
         app:cpb_selectorError="@drawable/button_login_error_dialog"
-        app:cpb_textIdle="@string/register_idle"
         app:cpb_selectorIdle="@drawable/button_login_idle_dialog"
-        />
+        app:cpb_textComplete="@string/register_complete"
+        app:cpb_textError="@string/register_error"
+        app:cpb_textIdle="@string/register_idle"/>
 
 </LinearLayout>

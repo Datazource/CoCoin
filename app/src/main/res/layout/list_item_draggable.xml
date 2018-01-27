@@ -16,9 +16,9 @@
 -->
 <!-- NOTE: should use FrameLayout or RelativeLayout for parent of the "@id/container" view (for Android 2.3 compatibility) -->
 <FrameLayout
-    style="@style/commonListItemStyle"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    style="@style/commonListItemStyle"
     android:layout_width="match_parent"
     android:layout_height="@dimen/list_item_height"
     android:background="@drawable/bg_swipe_item_neutral">
@@ -48,5 +48,4 @@
             tools:ignore="RtlHardcoded"/>
 
     </FrameLayout>
-
 </FrameLayout>

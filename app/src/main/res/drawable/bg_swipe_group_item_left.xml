@@ -20,7 +20,7 @@
     </item>
     <item android:right="16dp">
         <bitmap
-            android:src="@drawable/ic_item_swipe_pinned"
-            android:gravity="right|center_vertical"/>
+            android:gravity="right|center_vertical"
+            android:src="@mipmap/ic_item_swipe_pinned"/>
     </item>
 </layer-list>

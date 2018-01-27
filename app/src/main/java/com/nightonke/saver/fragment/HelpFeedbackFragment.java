@@ -11,7 +11,6 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -42,21 +41,20 @@ public class HelpFeedbackFragment extends Fragment {
     private boolean exceed = false;
 
     private ObservableScrollView mScrollView;
+    private Activity activity;
+    private Context mContext;
 
     public static HelpFeedbackFragment newInstance() {
         HelpFeedbackFragment fragment = new HelpFeedbackFragment();
         return fragment;
     }
 
-    private Activity activity;
-    private Context mContext;
-
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
 
-        if (context instanceof Activity){
-            activity = (Activity)context;
+        if (context instanceof Activity) {
+            activity = (Activity) context;
         }
     }
 
@@ -75,18 +73,18 @@ public class HelpFeedbackFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        mScrollView = (ObservableScrollView) view.findViewById(R.id.scrollView);
+        mScrollView = view.findViewById(R.id.scrollView);
         MaterialViewPagerHelper.registerScrollView(getActivity(), mScrollView, null);
 
-        title = (TextView)view.findViewById(R.id.title);
+        title = view.findViewById(R.id.title);
         title.setTypeface(CoCoinUtil.getInstance().typefaceLatoLight);
-        input = (EditText)view.findViewById(R.id.edittext);
+        input = view.findViewById(R.id.edittext);
         input.setTypeface(CoCoinUtil.getInstance().typefaceLatoLight);
-        help = (TextView)view.findViewById(R.id.helper);
+        help = view.findViewById(R.id.helper);
         help.setTypeface(CoCoinUtil.getInstance().typefaceLatoLight);
-        number = (TextView)view.findViewById(R.id.number);
+        number = view.findViewById(R.id.number);
         number.setTypeface(CoCoinUtil.getInstance().typefaceLatoLight);
-        send = (TextView)view.findViewById(R.id.send);
+        send = view.findViewById(R.id.send);
         send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -125,9 +123,9 @@ public class HelpFeedbackFragment extends Fragment {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 setNumberText();
                 try {
-                    ((OnTextChangeListener)activity)
+                    ((OnTextChangeListener) activity)
                             .onTextChange(input.getText().toString(), exceed);
-                } catch (ClassCastException cce){
+                } catch (ClassCastException cce) {
                     cce.printStackTrace();
                 }
             }
@@ -148,7 +146,7 @@ public class HelpFeedbackFragment extends Fragment {
         if (chineseIsDoubleCount) {
             count = CoCoinUtil.getInstance().textCounter(input.getText().toString());
         } else {
-            count =input.getText().toString().length();
+            count = input.getText().toString().length();
         }
         number.setText(count + "/" + min + "-" + max);
         if (min <= count && count <= max) {

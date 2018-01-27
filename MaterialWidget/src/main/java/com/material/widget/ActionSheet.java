@@ -5,7 +5,11 @@ import android.content.Context;
 import android.graphics.Color;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.*;
+import android.widget.BaseAdapter;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -99,6 +103,10 @@ public class ActionSheet extends Dialog {
         return this;
     }
 
+    public static interface OnItemClickListener {
+        void onItemClick(int position);
+    }
+
     private class ItemAdapter extends BaseAdapter {
 
         @Override
@@ -139,9 +147,5 @@ public class ActionSheet extends Dialog {
             this.mIcon = icon;
             this.mText = text;
         }
-    }
-
-    public static interface OnItemClickListener {
-        void onItemClick(int position);
     }
 }

@@ -5,9 +5,13 @@ package com.nightonke.saver.ui;
  */
 
 public interface RiseNumberBase {
-    public void start();
-    public RiseNumberTextView withNumber(float number);
-    public RiseNumberTextView withNumber(int number);
-    public RiseNumberTextView setDuration(long duration);
-    public void setOnEnd(RiseNumberTextView.EndListener callback);
+    void start();
+
+    RiseNumberTextView withNumber(float number);
+
+    RiseNumberTextView withNumber(int number);
+
+    RiseNumberTextView setDuration(long duration);
+
+    void setOnEnd(RiseNumberTextView.EndListener callback);
 }

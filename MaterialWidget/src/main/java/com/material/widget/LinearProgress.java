@@ -20,14 +20,12 @@ public class LinearProgress extends View {
 
     private int mColor;
     private int mLineWidth;
-
-    public LinearProgress(Context context) {
-        this(context, null);
-    }
-
     private Paint bottomBarPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private Paint bufferPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private Paint topBarPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+    public LinearProgress(Context context) {
+        this(context, null);
+    }
 
     public LinearProgress(Context context, AttributeSet attrs) {
         this(context, attrs, 0);

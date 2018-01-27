@@ -15,9 +15,8 @@ import com.nightonke.saver.util.CoCoinUtil;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.InjectView;
-import butterknife.Optional;
 
 /**
  * Created by 伟平 on 2015/10/20.
@@ -26,14 +25,12 @@ import butterknife.Optional;
 public class DrawerMonthViewRecyclerViewAdapter
         extends RecyclerView.Adapter<DrawerMonthViewRecyclerViewAdapter.viewHolder> {
 
+    OnItemClickListener onItemClickListener;
     private ArrayList<Double> expenses;
     private ArrayList<Integer> records;
     private ArrayList<Integer> months;
     private ArrayList<Integer> years;
-
     private Context mContext;
-
-    OnItemClickListener onItemClickListener;
 
     public DrawerMonthViewRecyclerViewAdapter(Context context) {
         mContext = context;
@@ -90,7 +87,7 @@ public class DrawerMonthViewRecyclerViewAdapter
 
     @Override
     public DrawerMonthViewRecyclerViewAdapter.viewHolder
-        onCreateViewHolder(ViewGroup parent, int viewType) {
+    onCreateViewHolder(ViewGroup parent, int viewType) {
 
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_month_view_drawer, parent, false);
@@ -101,37 +98,41 @@ public class DrawerMonthViewRecyclerViewAdapter
 
     @Override
     public void onBindViewHolder(final viewHolder holder, final int position) {
-        holder.month.setText(CoCoinUtil.GetMonthShort(months.get(position) + 1));
+        holder.month.setText(CoCoinUtil.getMonthShort(months.get(position) + 1));
         holder.month.setTypeface(CoCoinUtil.getInstance().typefaceLatoLight);
 
         holder.year.setText(years.get(position) + "");
         holder.year.setTypeface(CoCoinUtil.getInstance().typefaceLatoLight);
 
-        holder.sum.setText(CoCoinUtil.getInstance().GetInRecords(records.get(position)));
+        holder.sum.setText(CoCoinUtil.getInstance().getInRecords(records.get(position)));
         holder.sum.setTypeface(CoCoinUtil.getInstance().typefaceLatoLight);
 
-        holder.money.setText(CoCoinUtil.getInstance().GetInMoney((int) (double) (expenses.get(position))));
+        holder.money.setText(CoCoinUtil.getInstance().getInMoney((int) (double) (expenses.get(position))));
         holder.money.setTypeface(CoCoinUtil.getInstance().typefaceLatoLight);
     }
 
+    public void SetOnItemClickListener(final OnItemClickListener mItemClickListener) {
+        this.onItemClickListener = mItemClickListener;
+    }
+
+    public interface OnItemClickListener {
+        void onItemClick(View view, int position);
+    }
+
     public class viewHolder extends RecyclerView.ViewHolder
-        implements View.OnClickListener {
-        @Optional
-        @InjectView(R.id.month)
+            implements View.OnClickListener {
+        @BindView(R.id.month)
         TextView month;
-        @Optional
-        @InjectView(R.id.year)
+        @BindView(R.id.year)
         TextView year;
-        @Optional
-        @InjectView(R.id.money)
+        @BindView(R.id.money)
         TextView money;
-        @Optional
-        @InjectView(R.id.sum)
+        @BindView(R.id.sum)
         TextView sum;
 
         viewHolder(View view) {
             super(view);
-            ButterKnife.inject(this, view);
+            ButterKnife.bind(this, view);
             view.setOnClickListener(this);
         }
 
@@ -141,14 +142,6 @@ public class DrawerMonthViewRecyclerViewAdapter
                 onItemClickListener.onItemClick(v, getPosition());
             }
         }
-    }
-
-    public interface OnItemClickListener {
-        public void onItemClick(View view, int position);
-    }
-
-    public void SetOnItemClickListener(final OnItemClickListener mItemClickListener) {
-        this.onItemClickListener = mItemClickListener;
     }
 
 }

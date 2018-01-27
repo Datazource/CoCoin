@@ -7,8 +7,6 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.util.TypedValue;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -19,7 +17,6 @@ import com.github.florent37.materialviewpager.MaterialViewPagerHelper;
 import com.github.florent37.materialviewpager.header.HeaderDesign;
 import com.nightonke.saver.R;
 import com.nightonke.saver.adapter.ReportViewFragmentAdapter;
-import com.nightonke.saver.fragment.CoCoinFragmentManager;
 import com.nightonke.saver.fragment.ReportViewFragment;
 import com.nightonke.saver.model.SettingManager;
 import com.nightonke.saver.util.CoCoinUtil;
@@ -43,10 +40,10 @@ public class AccountBookReportViewActivity extends AppCompatActivity
         mContext = this;
         setContentView(R.layout.activity_account_book_report_view);
 
-        mViewPager = (MaterialViewPager) findViewById(R.id.materialViewPager);
+        mViewPager = findViewById(R.id.materialViewPager);
 
         View view = mViewPager.getRootView();
-        TextView title = (TextView)view.findViewById(R.id.logo_white);
+        TextView title = view.findViewById(R.id.logo_white);
         title.setTypeface(CoCoinUtil.typefaceLatoLight);
         title.setText(SettingManager.getInstance().getAccountBookName());
 
@@ -103,8 +100,8 @@ public class AccountBookReportViewActivity extends AppCompatActivity
             @Override
             public HeaderDesign getHeaderDesign(int page) {
                 return HeaderDesign.fromColorAndDrawable(
-                        CoCoinUtil.GetTagColor(-3),
-                        CoCoinUtil.GetTagDrawable(-3)
+                        CoCoinUtil.getTagColor(-3),
+                        CoCoinUtil.getTagDrawable(-3)
                 );
             }
         });

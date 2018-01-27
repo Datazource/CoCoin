@@ -9,47 +9,42 @@
     <FrameLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/container"
-        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:clickable="true"
         android:background="@drawable/tag_item_framelayout"
-        android:foreground="?attr/selectableItemBackground">
+        android:clickable="true"
+        android:foreground="?attr/selectableItemBackground"
+        android:orientation="vertical">
 
         <LinearLayout
             xmlns:android="http://schemas.android.com/apk/res/android"
-            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            >
+            android:orientation="vertical">
 
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="18dp"
-                />
+                android:layout_height="18dp"/>
 
             <ImageView
+                android:id="@+id/tag_image"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:layout_gravity="center_horizontal|bottom"
-                android:id="@+id/tag_image"/>
+                android:layout_gravity="center_horizontal|bottom"/>
 
             <TextView
                 android:id="@+id/tag_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="8dp"
-                android:textSize="10sp"
-                android:textColor="#666666"
-                android:maxLines="2"
-                android:minLines="2"
                 android:layout_gravity="center_horizontal|center_vertical"
                 android:gravity="center_horizontal|center_vertical"
-                />
+                android:maxLines="2"
+                android:minLines="2"
+                android:paddingTop="8dp"
+                android:textColor="#666666"
+                android:textSize="10sp"/>
 
         </LinearLayout>
-
     </FrameLayout>
-
 </FrameLayout>
 

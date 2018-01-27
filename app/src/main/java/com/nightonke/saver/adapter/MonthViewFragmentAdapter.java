@@ -20,15 +20,12 @@ import java.util.List;
 public class MonthViewFragmentAdapter extends FragmentStatePagerAdapter {
 
     public List<MonthViewFragment> list;
-
+    public boolean IS_EMPTY = false;
     private int monthNumber;
-
     private int startYear;
     private int startMonth;
     private int endYear;
     private int endMonth;
-
-    public boolean IS_EMPTY = false;
 
     public MonthViewFragmentAdapter(android.support.v4.app.FragmentManager fm) {
         super(fm);
@@ -68,9 +65,11 @@ public class MonthViewFragmentAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public CharSequence getPageTitle(int position) {
-        if (IS_EMPTY) return "";
+        if (IS_EMPTY) {
+            return "";
+        }
         int nowMonth = (startMonth + (monthNumber - position - 1)) % 12;
         int nowYear = startYear + (startMonth + (monthNumber - position - 1)) / 12;
-        return CoCoinUtil.GetMonthShort(nowMonth + 1) + " " + nowYear;
+        return CoCoinUtil.getMonthShort(nowMonth + 1) + " " + nowYear;
     }
 }

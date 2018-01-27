@@ -3,7 +3,14 @@ package com.material.widget;
 import android.content.Context;
 import android.content.res.AssetManager;
 import android.content.res.TypedArray;
-import android.graphics.*;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Path;
+import android.graphics.Point;
+import android.graphics.Rect;
+import android.graphics.RectF;
+import android.graphics.Typeface;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.text.TextPaint;
@@ -141,8 +148,8 @@ public class PaperButton extends View {
         textPaint.setColor(mTextColor);
         invalidate();
     }
-    
-    public void setText(String text){
+
+    public void setText(String text) {
         mText = text;
         invalidate();
     }
