@@ -8,7 +8,7 @@ import com.daimajia.androidanimations.library.BaseViewAnimator;
 /**
  * Created by Weiping on 2016/1/21.
  */
-public class logoShowAnimation extends BaseViewAnimator {
+public class LogoShowAnimation extends BaseViewAnimator {
     @Override
     protected void prepare(View target) {
         getAnimatorAgent().playTogether(
