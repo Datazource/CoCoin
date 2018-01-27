@@ -1,7 +1,6 @@
 package com.nightonke.saver.model;
 
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.preference.PreferenceManager;
 
 import com.nightonke.saver.activity.CoCoinApplication;
@@ -14,6 +13,47 @@ public class SettingManager {
 
 // store value//////////////////////////////////////////////////////////////////////////////////////
 
+    private static SettingManager ourInstance = new SettingManager();
+    // default first time
+    private final Boolean DEFAULT_FIRST_TIME = true;
+    // whether is logged on by default
+    private final Boolean DEFAULT_LOGGED_ON = false;
+    // user name by default
+    private final String DEFAULT_USER_NAME = null;
+    // user email by default
+    private final String DEFAULT_USER_EMAIL = null;
+    // has profile logo by default
+    private final Boolean DEFAULT_HAS_LOGO = false;
+    // whether is month-limit by default
+    private final Boolean DEFAULT_IS_MONTH_LIMIT = false;
+    // month-limit by default
+    private final Integer DEFAULT_MONTH_LIMIT = 1000;
+    // month warning by default
+    private final Integer DEFAULT_MONTH_WARNING = 800;
+    // color reminder by default
+    private final Boolean DEFAULT_IS_COLOR_REMIND = false;
+    // the color of the reminder defaulty
+    private final Integer DEFAULT_REMIND_COLOR = (int) Long.parseLong("FFE91E63", 16);
+    // whether is able to be recorded when over the limit by default
+    private final Boolean DEFAULT_IS_FORBIDDEN = false;
+    // account bool name by default
+    private final String DEFAULT_ACCOUNT_BOOK_NAME = "CoCoin";
+    // the password
+    private final String DEFAULT_PASSWORD = "1234";
+    // whether show picture in account book
+    private final Boolean DEFAULT_SHOW_PICTURE = false;
+    // whether draw a hollow pie chart
+    private final Boolean DEFAULT_IS_HOLLOW = true;
+    // whether remind update
+    private final Boolean DEFAULT_REMIND_UPDATE = true;
+    // whether this version can be updated
+    private final Boolean DEFAULT_CAN_BE_UPDATED = false;
+    // the profile logo store place
+    private final String DEFAULT_PROFILE_IMAGE_DIR = "imageDir";
+    // the profile logo name
+    private final String DEFAULT_PROFILE_IMAGE_NAME = "profile.jpg";
+    // recently sync to mobile
+    private final String DEFAULT_RECENTLY_SYNC_TIME = null;
     // whether it is CoCoin's first time
     private Boolean FIRST_TIME;
     // whether is logged on
@@ -34,6 +74,8 @@ public class SettingManager {
     private Integer MONTH_LIMIT;
     // month warning
     private Integer MONTH_WARNING;
+
+    // default value////////////////////////////////////////////////////////////////////////////////////
     // color reminder
     private Boolean IS_COLOR_REMIND;
     // the color of the reminder
@@ -56,91 +98,34 @@ public class SettingManager {
     private Boolean CAN_BE_UPDATED;
     // recently sync to mobile time
     private String RECENTLY_SYNC_TIME;
-
     // tell the mainActivity whether the tags' order should be changed
     private Boolean MAIN_ACTIVITY_TAG_SHOULD_CHANGE = false;
-
     // tell the today view to change the pie
     private Boolean TODAY_VIEW_PIE_SHOULD_CHANGE = false;
-
     // tell the today view to change the title
     private Boolean TODAY_VIEW_TITLE_SHOULD_CHANGE = false;
-
     // tell the main view to change the title
     private Boolean MAIN_VIEW_TITLE_SHOULD_CHANGE = false;
-
     // tell the today view to change the data
     private Boolean RECORD_IS_UPDATED = false;
-
     // tell the today view to update the month expense
     private Boolean TODAY_VIEW_MONTH_EXPENSE_SHOULD_CHANGE = false;
-
     // tell the main view to update the month expense
     private Boolean MAIN_VIEW_MONTH_EXPENSE_SHOULD_CHANGE = false;
-
     // tell the main view to update the remind color
     private Boolean MAIN_VIEW_REMIND_COLOR_SHOULD_CHANGE = false;
-
     // tell the today view to update the logo
     private Boolean TODAY_VIEW_LOGO_SHOULD_CHANGE = false;
-
     // tell the today view to update the infomation of user
     private Boolean TODAY_VIEW_INFO_SHOULD_CHANGE = false;
-
-// default value////////////////////////////////////////////////////////////////////////////////////
-
-    // default first time
-    private final Boolean DEFAULT_FIRST_TIME = true;
-    // whether is logged on by default
-    private final Boolean DEFAULT_LOGGED_ON = false;
-    // user name by default
-    private final String DEFAULT_USER_NAME = null;
-    // user email by default
-    private final String DEFAULT_USER_EMAIL = null;
-    // has profile logo by default
-    private final Boolean DEFAULT_HAS_LOGO = false;
-    // whether is month-limit by default
-    private final Boolean DEFAULT_IS_MONTH_LIMIT = false;
-    // month-limit by default
-    private final Integer DEFAULT_MONTH_LIMIT = 1000;
-    // month warning by default
-    private final Integer DEFAULT_MONTH_WARNING = 800;
-    // color reminder by default
-    private final Boolean DEFAULT_IS_COLOR_REMIND = false;
-    // the color of the reminder defaulty
-    private final Integer DEFAULT_REMIND_COLOR = (int)Long.parseLong("FFE91E63", 16);
-    // whether is able to be recorded when over the limit by default
-    private final Boolean DEFAULT_IS_FORBIDDEN = false;
-    // account bool name by default
-    private final String DEFAULT_ACCOUNT_BOOK_NAME = "CoCoin";
-    // the password
-    private final String DEFAULT_PASSWORD = "1234";
-    // whether show picture in account book
-    private final Boolean DEFAULT_SHOW_PICTURE = false;
-    // whether draw a hollow pie chart
-    private final Boolean DEFAULT_IS_HOLLOW = true;
-    // whether remind update
-    private final Boolean DEFAULT_REMIND_UPDATE = true;
-    // whether this version can be updated
-    private final Boolean DEFAULT_CAN_BE_UPDATED = false;
-    // the profile logo store place
-    private final String DEFAULT_PROFILE_IMAGE_DIR = "imageDir";
-    // the profile logo name
-    private final String DEFAULT_PROFILE_IMAGE_NAME = "profile.jpg";
-    // recently sync to mobile
-    private final String DEFAULT_RECENTLY_SYNC_TIME = null;
-
     private boolean SHOW_MAIN_ACTIVITY_GUIDE = true;
-
     private boolean SHOW_LIST_VIEW_GUIDE = true;
 
-    private static SettingManager ourInstance = new SettingManager();
+    private SettingManager() {
+    }
 
     public static SettingManager getInstance() {
         return ourInstance;
-    }
-
-    private SettingManager() {
     }
 
     public Boolean getFirstTime() {

@@ -23,14 +23,11 @@ import com.rengwuxian.materialedittext.MaterialEditText;
 
 public class EditRemarkFragment extends Fragment {
 
+    public MaterialEditText editView;
+    Activity activity;
     private int fragmentPosition;
     private int tagId = -1;
-
-    public MaterialEditText editView;
-
     private View mView;
-
-    Activity activity;
 
     static public EditRemarkFragment newInstance(int position, int type) {
         EditRemarkFragment fragment = new EditRemarkFragment();
@@ -47,7 +44,7 @@ public class EditRemarkFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         mView = inflater.inflate(R.layout.edit_remark_fragment, container, false);
-        editView = (MaterialEditText)mView.findViewById(R.id.remark);
+        editView = mView.findViewById(R.id.remark);
 
         if (getArguments().getInt("type") == CoCoinFragmentManager.MAIN_ACTIVITY_FRAGMENT) {
             CoCoinFragmentManager.mainActivityEditRemarkFragment = this;
@@ -71,10 +68,6 @@ public class EditRemarkFragment extends Fragment {
         }
 
         return mView;
-    }
-
-    public interface OnTagItemSelectedListener {
-        void onTagItemPicked(int position);
     }
 
     public void updateTags() {
@@ -134,6 +127,10 @@ public class EditRemarkFragment extends Fragment {
 
     public void setRemark(String string) {
         editView.setText(string);
+    }
+
+    public interface OnTagItemSelectedListener {
+        void onTagItemPicked(int position);
     }
 
 }

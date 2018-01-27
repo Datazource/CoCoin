@@ -5,7 +5,11 @@ import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
-import android.graphics.*;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Point;
+import android.graphics.Rect;
 import android.os.Build;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -17,7 +21,11 @@ import android.view.ActionMode;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.ViewTreeObserver;
-import android.widget.*;
+import android.widget.Button;
+import android.widget.FrameLayout;
+import android.widget.HorizontalScrollView;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -418,6 +426,11 @@ public class TabIndicator extends HorizontalScrollView implements Animator.Anima
 
     }
 
+    public void setActionMode(ActionMode mActionMode) {
+        this.mActionMode = mActionMode;
+        pager.setOnPageChangeListener(mPageListener);
+    }
+
     public interface OnSelectTabListener {
         void onSelect(TabView tabView);
     }
@@ -426,12 +439,14 @@ public class TabIndicator extends HorizontalScrollView implements Animator.Anima
         void onNav(NavButton button);
     }
 
+    // ================================================== Tab container =========================================== //
+
     public interface TabTextProvider {
 
         public String getText(int position);
     }
 
-    // ================================================== Tab container =========================================== //
+    // ================================================== Tab item view =========================================== //
 
     private class TabContainer extends LinearLayout {
 
@@ -489,7 +504,7 @@ public class TabIndicator extends HorizontalScrollView implements Animator.Anima
         }
     }
 
-    // ================================================== Tab item view =========================================== //
+    // =============================================== Navigation button ========================================== //
 
     private class TabView extends Button {
 
@@ -647,19 +662,16 @@ public class TabIndicator extends HorizontalScrollView implements Animator.Anima
 
     }
 
-    // =============================================== Navigation button ========================================== //
-
     private class NavButton extends ImageButton {
 
+        public static final int FORWARD = 1;
+        public static final int BACKWARD = 2;
         private static final int StateRippleNormal = 0;
         private static final int StateRippleTriggerStart = 1;
         private static final int StateRippleTriggerEnd = 2;
         private static final int StateRippleProliferationStart = 3;
         private static final int StateRippleProliferationEnd = 4;
         private int mRippleState = StateRippleNormal;
-
-        public static final int FORWARD = 1;
-        public static final int BACKWARD = 2;
         private int mState = StateNormal;
         private int index;
         private int mType;
@@ -812,11 +824,6 @@ public class TabIndicator extends HorizontalScrollView implements Animator.Anima
             }
         }
 
-    }
-
-    public void setActionMode(ActionMode mActionMode) {
-        this.mActionMode = mActionMode;
-        pager.setOnPageChangeListener(mPageListener);
     }
 
     private class PageListener implements OnPageChangeListener {

@@ -10,8 +10,8 @@ import cn.bmob.v3.BmobQuery;
 
 public class MyQuery {
 
-    private int task;
     public BmobQuery<UploadInfo> query;
+    private int task;
 
     public int getTask() {
         return task;

@@ -21,8 +21,11 @@ public class EditMoneyRemarkFragmentAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        if (position == 0) return EditMoneyFragment.newInstance(0, type);
-        else return EditRemarkFragment.newInstance(1, type);
+        if (position == 0) {
+            return EditMoneyFragment.newInstance(0, type);
+        } else {
+            return EditRemarkFragment.newInstance(1, type);
+        }
     }
 
     @Override

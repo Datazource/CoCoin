@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Saver.iml" filepath="$PROJECT_DIR$/Saver.iml" />
+      <module fileurl="file://$PROJECT_DIR$/CoCoin.iml" filepath="$PROJECT_DIR$/CoCoin.iml" />
+      <module fileurl="file://$PROJECT_DIR$/MaterialWidget/MaterialWidget.iml" filepath="$PROJECT_DIR$/MaterialWidget/MaterialWidget.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

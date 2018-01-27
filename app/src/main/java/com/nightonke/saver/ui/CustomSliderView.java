@@ -15,7 +15,8 @@ import com.nightonke.saver.R;
  */
 public class CustomSliderView extends BaseSliderView {
     private static Typeface font = null;
-    private Context context ;
+    private Context context;
+
     public CustomSliderView(Context context) {
         super(context);
         this.context = context;
@@ -23,10 +24,10 @@ public class CustomSliderView extends BaseSliderView {
 
     @Override
     public View getView() {
-        View v = LayoutInflater.from(getContext()).inflate(R.layout.custom_slider_view,null);
-        LinearLayout description = (LinearLayout)v.findViewById(R.id.description_layout);
+        View v = LayoutInflater.from(getContext()).inflate(R.layout.custom_slider_view, null);
+        LinearLayout description = v.findViewById(R.id.description_layout);
         description.setVisibility(View.GONE);
-        ImageView target = (ImageView)v.findViewById(R.id.daimajia_slider_image);
+        ImageView target = v.findViewById(R.id.daimajia_slider_image);
         bindEventAndShow(v, target);
         return v;
     }

@@ -61,7 +61,7 @@ public class TagViewFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
+        mRecyclerView = view.findViewById(R.id.recyclerView);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setHasFixedSize(true);
@@ -70,7 +70,8 @@ public class TagViewFragment extends Fragment {
             for (CoCoinRecord coCoinRecord : RecordManager.RECORDS) {
                 list.add(coCoinRecord);
             }
-        } if (position == 1) {
+        }
+        if (position == 1) {
             for (CoCoinRecord coCoinRecord : RecordManager.RECORDS) {
                 list.add(coCoinRecord);
             }

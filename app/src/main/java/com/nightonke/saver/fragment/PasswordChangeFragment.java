@@ -48,15 +48,15 @@ public class PasswordChangeFragment extends Fragment {
         View view = inflater.inflate(R.layout.password_state_fragment, container, false);
 
         fragmentPosition = getArguments().getInt("position");
-        CoCoinFragmentManager.passwordChangeFragment[fragmentPosition] = this ;
+        CoCoinFragmentManager.passwordChangeFragment[fragmentPosition] = this;
 
-        button0 = (RadioButton)view.findViewById(R.id.button0);
-        button1 = (RadioButton)view.findViewById(R.id.button1);
-        button2 = (RadioButton)view.findViewById(R.id.button2);
-        button3 = (RadioButton)view.findViewById(R.id.button3);
-        ly = (LinearLayout)view.findViewById(R.id.buttonLy);
-        passwordTip = (TextView)view.findViewById(R.id.password_tip);
-        passwordTip.setTypeface(CoCoinUtil.GetTypeface());
+        button0 = view.findViewById(R.id.button0);
+        button1 = view.findViewById(R.id.button1);
+        button2 = view.findViewById(R.id.button2);
+        button3 = view.findViewById(R.id.button3);
+        ly = view.findViewById(R.id.buttonLy);
+        passwordTip = view.findViewById(R.id.password_tip);
+        passwordTip.setTypeface(CoCoinUtil.getTypeface());
         switch (fragmentPosition) {
             case 0:
                 if (SettingManager.getInstance().getFirstTime()) {

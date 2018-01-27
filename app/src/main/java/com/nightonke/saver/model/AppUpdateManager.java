@@ -12,7 +12,7 @@ import android.widget.ProgressBar;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.github.johnpersano.supertoasts.SuperToast;
+import com.github.johnpersano.supertoasts.library.utils.PaletteUtils;
 import com.nightonke.saver.R;
 import com.nightonke.saver.activity.CoCoinApplication;
 import com.nightonke.saver.util.CoCoinUtil;
@@ -30,47 +30,39 @@ import cn.bmob.v3.listener.FindListener;
 
 /**
  * Created by Weiping on 2016/1/27.
- *
+ * <p>
  * notice that the version must be written in the form "X.X.X"
  * but not "X.X.XX"
- *  _____________________________________
+ * _____________________________________
  * |      |      |         |             |
  * | name | file | version |   too_old   |
  * |______|______|_________|_____________|
  * |      |      |         |             |
  * |  aa  |  af  |   112   |      n      |
  * |______|______|_________|_____________|
- *
+ * <p>
  * if we get version greater than current version here, ask whether update
  * if we find the current version in database is too old, force to update
- *
  */
 
 public class AppUpdateManager {
     private static final String FILE_SEPARATOR = "/";
-    private static final String FILE_PATH = Environment.getExternalStorageDirectory() + FILE_SEPARATOR +"CoCoin" + FILE_SEPARATOR;
+    private static final String FILE_PATH = Environment.getExternalStorageDirectory() + FILE_SEPARATOR
+            + "CoCoin" + FILE_SEPARATOR;
     private static final String FILE_NAME = FILE_PATH + "CoCoin.apk";
     private static final int UPDARE_TOKEN = 0x29;
     private static final int INSTALL_TOKEN = 0x31;
-
-    private Context context;
     public static String message = "您的版本过于陈旧，请更新后再使用";
     public static String spec = "";
+    public static boolean mustUpdate = false;
+    private Context context;
     private Dialog dialog;
     private ProgressBar progressBar;
     private int curProgress;
     private boolean isCancel;
     private String updateContent;
-
-    public static boolean mustUpdate = false;
-
     private MaterialDialog progressDialog;
-
-    public AppUpdateManager(Context context) {
-        this.context = context;
-    }
-
-    private final Handler handler = new Handler(){
+    private final Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             switch (msg.what) {
@@ -80,9 +72,15 @@ public class AppUpdateManager {
                 case INSTALL_TOKEN:
                     installApp();
                     break;
+                default:
+                    break;
             }
         }
     };
+
+    public AppUpdateManager(Context context) {
+        this.context = context;
+    }
 
     /**
      * 检测应用更新信息
@@ -95,7 +93,8 @@ public class AppUpdateManager {
             @Override
             public void onSuccess(final List<APK> object) {
                 if (object.size() == 0 && showInfo) {
-                    CoCoinUtil.showToast(context, context.getResources().getString(R.string.is_newest_version), SuperToast.Background.BLUE);
+                    CoCoinUtil.showToast(context, context.getResources().getString(R.string.is_newest_version),
+                            PaletteUtils.getSolidColor(PaletteUtils.MATERIAL_BLUE));
                 }
                 BmobQuery<APK> tooOldQuery = new BmobQuery<>();
                 tooOldQuery.addWhereEqualTo("version", CoCoinApplication.VERSION);
@@ -120,11 +119,14 @@ public class AppUpdateManager {
                             spec = object.get(maxPosition).getFileUrl();
                             updateContent = object.get(maxPosition).getInfo();
                             SettingManager.getInstance().setCanBeUpdated(true);
-                            if (SettingManager.getInstance().getRemindUpdate()) showNoticeDialog();
+                            if (SettingManager.getInstance().getRemindUpdate()) {
+                                showNoticeDialog();
+                            }
                         } else {
                             SettingManager.getInstance().setCanBeUpdated(false);
                         }
                     }
+
                     @Override
                     public void onError(int code, String msg) {
                         mustUpdate = false;
@@ -140,13 +142,16 @@ public class AppUpdateManager {
                             spec = object.get(maxPosition).getFileUrl();
                             updateContent = object.get(maxPosition).getInfo();
                             SettingManager.getInstance().setCanBeUpdated(true);
-                            if (SettingManager.getInstance().getRemindUpdate()) showNoticeDialog();
+                            if (SettingManager.getInstance().getRemindUpdate()) {
+                                showNoticeDialog();
+                            }
                         } else {
                             SettingManager.getInstance().setCanBeUpdated(false);
                         }
                     }
                 });
             }
+
             @Override
             public void onError(int code, String msg) {
             }
@@ -195,7 +200,9 @@ public class AppUpdateManager {
     }
 
     private String getContent() {
-        if (updateContent == null) updateContent = "";
+        if (updateContent == null) {
+            updateContent = "";
+        }
         updateContent = updateContent.replaceAll("\\$\\$\\$", "\n");
         return context.getResources().getString(R.string.update_content) + "\n" + updateContent;
     }
@@ -251,23 +258,23 @@ public class AppUpdateManager {
                     long fileLength = conn.getContentLength();
                     in = conn.getInputStream();
                     File filePath = new File(FILE_PATH);
-                    if(!filePath.exists()) {
+                    if (!filePath.exists()) {
                         filePath.mkdir();
                     }
                     out = new FileOutputStream(new File(FILE_NAME));
                     byte[] buffer = new byte[1024];
                     int len = 0;
                     long readedLength = 0l;
-                    while((len = in.read(buffer)) != -1) {
+                    while ((len = in.read(buffer)) != -1) {
                         // 用户点击“取消”按钮，下载中断
-                        if(isCancel) {
+                        if (isCancel) {
                             break;
                         }
                         out.write(buffer, 0, len);
                         readedLength += len;
                         curProgress = (int) (((float) readedLength / fileLength) * 100);
                         handler.sendEmptyMessage(UPDARE_TOKEN);
-                        if(readedLength >= fileLength) {
+                        if (readedLength >= fileLength) {
                             progressDialog.dismiss();
                             // 下载完毕，通知安装
                             handler.sendEmptyMessage(INSTALL_TOKEN);
@@ -278,21 +285,21 @@ public class AppUpdateManager {
                 } catch (Exception e) {
                     e.printStackTrace();
                 } finally {
-                    if(out != null) {
+                    if (out != null) {
                         try {
                             out.close();
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
                     }
-                    if(in != null) {
+                    if (in != null) {
                         try {
                             in.close();
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
                     }
-                    if(conn != null) {
+                    if (conn != null) {
                         conn.disconnect();
                     }
                 }
@@ -302,7 +309,7 @@ public class AppUpdateManager {
 
     private void installApp() {
         File appFile = new File(FILE_NAME);
-        if(!appFile.exists()) {
+        if (!appFile.exists()) {
             return;
         }
         // 跳转到新版本应用安装页面

@@ -12,7 +12,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -22,19 +21,20 @@ import com.nightonke.saver.adapter.RecordCheckDialogRecyclerViewAdapter;
 import com.nightonke.saver.model.CoCoinRecord;
 import com.nightonke.saver.util.CoCoinUtil;
 
-import org.w3c.dom.Text;
-
 import java.util.List;
 
 /**
  * Created by 伟平 on 2015/10/31.
  */
-public class RecordCheckDialogFragment extends DialogFragment implements RecordCheckDialogRecyclerViewAdapter.OnItemClickListener {
+public class RecordCheckDialogFragment extends DialogFragment
+        implements RecordCheckDialogRecyclerViewAdapter.OnItemClickListener {
 
     private RecyclerView recyclerView;
     private List<CoCoinRecord> list;
     private Context mContext;
     private String title;
+    private MaterialDialog dialog;
+    private View dialogView;
 
     public RecordCheckDialogFragment(Context context, List<CoCoinRecord> list, String title) {
         this.list = list;
@@ -53,7 +53,7 @@ public class RecordCheckDialogFragment extends DialogFragment implements RecordC
 
         View view = LayoutInflater.from(context).inflate(R.layout.fragment_dialog_list, null, false);
 
-        recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
+        recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
 
         RecordCheckDialogRecyclerViewAdapter adapter = new RecordCheckDialogRecyclerViewAdapter(context, list, this);
@@ -65,10 +65,10 @@ public class RecordCheckDialogFragment extends DialogFragment implements RecordC
         builder.setView(view);
         builder.setPositiveButton(mContext.getResources().getString(R.string.get),
                 new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-            }
-        });
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                });
 
         final AlertDialog alert = builder.create();
 
@@ -100,31 +100,29 @@ public class RecordCheckDialogFragment extends DialogFragment implements RecordC
         title = null;
     }
 
-    private MaterialDialog dialog;
-    private View dialogView;
     @Override
     public void onItemClick(View view, int position) {
         String subTitle;
         double spend = list.get(position).getMoney();
         int tagId = list.get(position).getTag();
-        if ("zh".equals(CoCoinUtil.GetLanguage())) {
-            subTitle = CoCoinUtil.GetSpendString((int)spend) +
-                    "于" + CoCoinUtil.GetTagName(tagId);
+        if ("zh".equals(CoCoinUtil.getLanguage())) {
+            subTitle = CoCoinUtil.getSpendString((int) spend) +
+                    "于" + CoCoinUtil.getTagName(tagId);
         } else {
-            subTitle = "Spend " + (int)spend +
-                    "in " + CoCoinUtil.GetTagName(tagId);
+            subTitle = "Spend " + (int) spend +
+                    "in " + CoCoinUtil.getTagName(tagId);
         }
         dialog = new MaterialDialog.Builder(mContext)
-                .icon(CoCoinUtil.GetTagIconDrawable(list.get(position).getTag()))
+                .icon(CoCoinUtil.getTagIconDrawable(list.get(position).getTag()))
                 .limitIconToDefaultSize()
                 .title(subTitle)
                 .customView(R.layout.dialog_a_record, true)
                 .positiveText(R.string.get)
                 .show();
         dialogView = dialog.getCustomView();
-        TextView remark = (TextView)dialogView.findViewById(R.id.remark);
-        TextView date = (TextView)dialogView.findViewById(R.id.date);
+        TextView remark = dialogView.findViewById(R.id.remark);
+        TextView date = dialogView.findViewById(R.id.date);
         remark.setText(list.get(position).getRemark());
-        date.setText(CoCoinUtil.GetCalendarStringRecordCheckDialog(mContext, list.get(position).getCalendar()));
+        date.setText(CoCoinUtil.getCalendarStringRecordCheckDialog(mContext, list.get(position).getCalendar()));
     }
 }

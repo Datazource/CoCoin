@@ -54,18 +54,18 @@ public class TagChooseGridViewAdapter extends BaseAdapter {
         if (convertView == null) {
             holder = new ViewHolder();
             convertView = this.inflater.inflate(R.layout.item_tag_choose, null);
-            holder.tagName = (TextView)convertView.findViewById(R.id.tag_name);
-            holder.tagImage = (ImageView)convertView.findViewById(R.id.tag_image);
+            holder.tagName = convertView.findViewById(R.id.tag_name);
+            holder.tagImage = convertView.findViewById(R.id.tag_image);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        holder.tagName.setText(CoCoinUtil.GetTagName(RecordManager.TAGS.
+        holder.tagName.setText(CoCoinUtil.getTagName(RecordManager.TAGS.
                 get(fragmentPosition * 8 + position + 2).getId()));
         holder.tagName.setTypeface(CoCoinUtil.typefaceLatoLight);
         holder.tagImage.setImageResource(
-                CoCoinUtil.GetTagIcon(RecordManager.TAGS.
+                CoCoinUtil.getTagIcon(RecordManager.TAGS.
                         get(fragmentPosition * 8 + position + 2).getId()));
 
         return convertView;

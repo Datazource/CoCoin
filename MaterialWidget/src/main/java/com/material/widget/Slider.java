@@ -2,7 +2,14 @@ package com.material.widget;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.graphics.*;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Point;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
+import android.graphics.RectF;
 import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -23,11 +30,6 @@ public class Slider extends View {
     private static final int MIN = 0;
     private static final int StateNormal = 0;
     private static final int StateDragging = 1;
-
-    public static interface OnValueChangeListener {
-        void onValueChanged(Slider slider, int value, boolean fromUser);
-    }
-
     private Paint mPaint;
     private int mColor;
     private int mTintColor;
@@ -46,11 +48,6 @@ public class Slider extends View {
     private float mCoordinateX;
     private int mState = StateNormal;
     private OnValueChangeListener mOnValueChangeListener;
-
-    public void setOnValueChangeListener(OnValueChangeListener listener) {
-        this.mOnValueChangeListener = listener;
-    }
-
     public Slider(Context context) {
         this(context, null);
     }
@@ -87,6 +84,10 @@ public class Slider extends View {
 
         mMinCanvas = new Canvas();
         mPorterDuffXFerMode = new PorterDuffXfermode(PorterDuff.Mode.CLEAR);
+    }
+
+    public void setOnValueChangeListener(OnValueChangeListener listener) {
+        this.mOnValueChangeListener = listener;
     }
 
     @Override
@@ -394,5 +395,9 @@ public class Slider extends View {
         } else if (mProgress == mMax) {
             mThumbCenter.set(getWidth() - getPaddingRight() - mThumbRadius, getHeight() / 2);
         }
+    }
+
+    public static interface OnValueChangeListener {
+        void onValueChanged(Slider slider, int value, boolean fromUser);
     }
 }

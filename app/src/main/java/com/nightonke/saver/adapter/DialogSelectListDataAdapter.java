@@ -25,8 +25,11 @@ public class DialogSelectListDataAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        if (data != null) return data.size();
-        else return 0;
+        if (data != null) {
+            return data.size();
+        } else {
+            return 0;
+        }
     }
 
     @Override
@@ -44,10 +47,10 @@ public class DialogSelectListDataAdapter extends BaseAdapter {
 
         convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_dialog_select_list_data, null);
 
-        TextView month = (TextView)convertView.findViewById(R.id.month);
-        TextView year = (TextView)convertView.findViewById(R.id.year);
-        TextView expense = (TextView)convertView.findViewById(R.id.expense);
-        TextView sum = (TextView)convertView.findViewById(R.id.sum);
+        TextView month = convertView.findViewById(R.id.month);
+        TextView year = convertView.findViewById(R.id.year);
+        TextView expense = convertView.findViewById(R.id.expense);
+        TextView sum = convertView.findViewById(R.id.sum);
 
         month.setTypeface(CoCoinUtil.getInstance().typefaceLatoLight);
         year.setTypeface(CoCoinUtil.getInstance().typefaceLatoLight);
@@ -56,15 +59,15 @@ public class DialogSelectListDataAdapter extends BaseAdapter {
 
         double monthNum = data.get(position)[1];
         if (monthNum == -1) {
-            year.setText((int)data.get(position)[0] + "");
+            year.setText(data.get(position)[0] + "");
             year.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
             month.setText("--");
         } else {
-            month.setText(CoCoinUtil.getInstance().GetMonthShort((int)data.get(position)[1]));
-            year.setText((int)data.get(position)[0] + "");
+            month.setText(CoCoinUtil.getInstance().getMonthShort((int) data.get(position)[1]));
+            year.setText(data.get(position)[0] + "");
         }
-        expense.setText(CoCoinUtil.GetInMoney((int)data.get(position)[3]));
-        sum.setText((int)data.get(position)[2] + "'s");
+        expense.setText(CoCoinUtil.getInMoney((int) data.get(position)[3]));
+        sum.setText(data.get(position)[2] + "'s");
 
         return convertView;
     }

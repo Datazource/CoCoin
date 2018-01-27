@@ -1,7 +1,5 @@
 package com.nightonke.saver.ui;
 
-import android.view.View;
-
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 
 /**
@@ -13,9 +11,10 @@ public abstract class DoubleSliderClickListener implements BaseSliderView.OnSlid
 
     long lastClickTime = 0;
 
+    @Override
     public void onSliderClick(BaseSliderView v) {
         long clickTime = System.currentTimeMillis();
-        if (clickTime - lastClickTime < DOUBLE_CLICK_TIME_DELTA){
+        if (clickTime - lastClickTime < DOUBLE_CLICK_TIME_DELTA) {
             onDoubleClick(v);
         } else {
             onSingleClick(v);
@@ -24,5 +23,6 @@ public abstract class DoubleSliderClickListener implements BaseSliderView.OnSlid
     }
 
     public abstract void onSingleClick(BaseSliderView v);
+
     public abstract void onDoubleClick(BaseSliderView v);
 }

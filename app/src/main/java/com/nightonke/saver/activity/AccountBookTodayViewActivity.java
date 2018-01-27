@@ -33,7 +33,7 @@ import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.github.florent37.materialviewpager.MaterialViewPager;
 import com.github.florent37.materialviewpager.MaterialViewPagerHelper;
 import com.github.florent37.materialviewpager.header.HeaderDesign;
-import com.github.johnpersano.supertoasts.SuperToast;
+import com.github.johnpersano.supertoasts.library.SuperToast;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 import com.nightonke.saver.BuildConfig;
@@ -59,8 +59,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -70,7 +68,6 @@ import java.util.List;
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.datatype.BmobFile;
-import cn.bmob.v3.listener.DeleteListener;
 import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.SaveListener;
 import cn.bmob.v3.listener.UpdateListener;
@@ -79,19 +76,18 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class AccountBookTodayViewActivity extends AppCompatActivity {
 
     private static final String FILE_SEPARATOR = "/";
-    private static final String FILE_PATH = Environment.getExternalStorageDirectory() + FILE_SEPARATOR +"CoCoin" + FILE_SEPARATOR;
+    private static final String FILE_PATH = Environment.getExternalStorageDirectory()
+            + FILE_SEPARATOR + "CoCoin" + FILE_SEPARATOR;
     private static final String FILE_NAME = FILE_PATH + "CoCoin Database.db";
-
+    MaterialDialog syncQueryDialog;
+    MaterialDialog syncChooseDialog;
+    MaterialDialog syncProgressDialog;
     private MaterialViewPager mViewPager;
-
     private DrawerLayout mDrawer;
     private ActionBarDrawerToggle mDrawerToggle;
     private Toolbar toolbar;
-
     private TodayViewFragmentAdapter todayModeAdapter = null;
-
     private Context mContext;
-
     private MaterialRippleLayout custom;
     private MaterialRippleLayout tags;
     private MaterialRippleLayout months;
@@ -102,19 +98,54 @@ public class AccountBookTodayViewActivity extends AppCompatActivity {
     private MaterialRippleLayout help;
     private MaterialRippleLayout feedback;
     private MaterialRippleLayout about;
-
     private MaterialIconView syncIcon;
-
     private TextView userName;
     private TextView userEmail;
-
     private TextView title;
-
     private TextView monthExpenseTip;
     private RiseNumberTextView monthExpense;
-
     private CircleImageView profileImage;
     private SliderLayout mDemoSlider;
+    private int syncSuccessNumber = 0;
+    private int syncFailedNumber = 0;
+    private int cloudRecordNumber = 0;
+    private String cloudOldDatabaseUrl = null;
+    private String cloudOldDatabaseFileName = null;
+    private String uploadObjectId = null;
+    private SaveListener uploadCounter = new SaveListener() {
+        @Override
+        public void onSuccess() {
+            syncSuccessNumber++;
+            syncProgressDialog.incrementProgress(1);
+            if (syncSuccessNumber == RecordManager.getInstance(mContext).RECORDS.size()) {
+                syncProgressDialog.setContent(R.string.sync_completely_content);
+            } else {
+                syncProgressDialog.setContent(CoCoinUtil.getString(mContext, R.string.uploading_0) + (syncSuccessNumber + 1) + CoCoinUtil.getString(mContext, R.string.uploading_1));
+            }
+            if (syncSuccessNumber + syncFailedNumber == RecordManager.getInstance(mContext).RECORDS.size()) {
+                syncProgressDialog.dismiss();
+                new MaterialDialog.Builder(mContext)
+                        .title(R.string.sync_completely_title)
+                        .content(syncSuccessNumber + CoCoinUtil.getString(mContext, R.string.uploading_fail_1))
+                        .positiveText(R.string.ok_1)
+                        .show();
+            }
+        }
+
+        @Override
+        public void onFailure(int code, String arg0) {
+            syncFailedNumber++;
+            syncProgressDialog.incrementProgress(1);
+            if (syncSuccessNumber + syncFailedNumber == RecordManager.getInstance(mContext).RECORDS.size()) {
+                syncProgressDialog.dismiss();
+                new MaterialDialog.Builder(mContext)
+                        .title(R.string.sync_completely_title)
+                        .content(syncSuccessNumber + CoCoinUtil.getString(mContext, R.string.uploading_fail_1))
+                        .positiveText(R.string.ok_1)
+                        .show();
+            }
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -124,9 +155,9 @@ public class AccountBookTodayViewActivity extends AppCompatActivity {
 
         mContext = this;
 
-        mViewPager = (MaterialViewPager) findViewById(R.id.materialViewPager);
-        userName = (TextView)findViewById(R.id.user_name);
-        userEmail = (TextView)findViewById(R.id.user_email);
+        mViewPager = findViewById(R.id.materialViewPager);
+        userName = findViewById(R.id.user_name);
+        userEmail = findViewById(R.id.user_email);
         userName.setTypeface(CoCoinUtil.typefaceLatoRegular);
         userEmail.setTypeface(CoCoinUtil.typefaceLatoLight);
         User user = BmobUser.getCurrentUser(CoCoinApplication.getAppContext(), User.class);
@@ -138,32 +169,32 @@ public class AccountBookTodayViewActivity extends AppCompatActivity {
         setFonts();
 
         View view = mViewPager.getRootView();
-        title = (TextView)view.findViewById(R.id.logo_white);
+        title = view.findViewById(R.id.logo_white);
         title.setTypeface(CoCoinUtil.typefaceLatoLight);
         title.setText(SettingManager.getInstance().getAccountBookName());
 
-        mViewPager.getPagerTitleStrip().setTypeface(CoCoinUtil.GetTypeface(), Typeface.NORMAL);
+        mViewPager.getPagerTitleStrip().setTypeface(CoCoinUtil.getTypeface(), Typeface.NORMAL);
 
         setTitle("");
 
         toolbar = mViewPager.getToolbar();
-        mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        mDrawer = findViewById(R.id.drawer_layout);
 
-        custom = (MaterialRippleLayout)mDrawer.findViewById(R.id.custom_layout);
-        tags = (MaterialRippleLayout)mDrawer.findViewById(R.id.tag_layout);
-        months = (MaterialRippleLayout)mDrawer.findViewById(R.id.month_layout);
-        list = (MaterialRippleLayout)mDrawer.findViewById(R.id.list_layout);
-        report = (MaterialRippleLayout)mDrawer.findViewById(R.id.report_layout);
-        sync = (MaterialRippleLayout)mDrawer.findViewById(R.id.sync_layout);
-        settings = (MaterialRippleLayout)mDrawer.findViewById(R.id.settings_layout);
-        help = (MaterialRippleLayout)mDrawer.findViewById(R.id.help_layout);
-        feedback = (MaterialRippleLayout)mDrawer.findViewById(R.id.feedback_layout);
-        about = (MaterialRippleLayout)mDrawer.findViewById(R.id.about_layout);
-        syncIcon = (MaterialIconView)mDrawer.findViewById(R.id.sync_icon);
+        custom = mDrawer.findViewById(R.id.custom_layout);
+        tags = mDrawer.findViewById(R.id.tag_layout);
+        months = mDrawer.findViewById(R.id.month_layout);
+        list = mDrawer.findViewById(R.id.list_layout);
+        report = mDrawer.findViewById(R.id.report_layout);
+        sync = mDrawer.findViewById(R.id.sync_layout);
+        settings = mDrawer.findViewById(R.id.settings_layout);
+        help = mDrawer.findViewById(R.id.help_layout);
+        feedback = mDrawer.findViewById(R.id.feedback_layout);
+        about = mDrawer.findViewById(R.id.about_layout);
+        syncIcon = mDrawer.findViewById(R.id.sync_icon);
         setIconEnable(syncIcon, SettingManager.getInstance().getLoggenOn());
-        monthExpenseTip = (TextView)mDrawer.findViewById(R.id.month_expense_tip);
-        monthExpenseTip.setTypeface(CoCoinUtil.GetTypeface());
-        monthExpense = (RiseNumberTextView)mDrawer.findViewById(R.id.month_expense);
+        monthExpenseTip = mDrawer.findViewById(R.id.month_expense_tip);
+        monthExpenseTip.setTypeface(CoCoinUtil.getTypeface());
+        monthExpense = mDrawer.findViewById(R.id.month_expense);
         monthExpense.setTypeface(CoCoinUtil.typefaceLatoLight);
 
         if (SettingManager.getInstance().getIsMonthLimit()) {
@@ -188,11 +219,13 @@ public class AccountBookTodayViewActivity extends AppCompatActivity {
         }
 
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawer, 0, 0) {
+            @Override
             public void onDrawerClosed(View view) {
                 super.onDrawerClosed(view);
                 monthExpense.setText("0");
             }
 
+            @Override
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
                 monthExpense.withNumber(
@@ -221,15 +254,15 @@ public class AccountBookTodayViewActivity extends AppCompatActivity {
             @Override
             public HeaderDesign getHeaderDesign(int page) {
                 return HeaderDesign.fromColorAndDrawable(
-                        CoCoinUtil.GetTagColor(page - 2),
-                        CoCoinUtil.GetTagDrawable(-3)
+                        CoCoinUtil.getTagColor(page - 2),
+                        CoCoinUtil.getTagDrawable(-3)
                 );
             }
         });
 
         setListeners();
 
-        profileImage= (CircleImageView)mDrawer.findViewById(R.id.profile_image);
+        profileImage = mDrawer.findViewById(R.id.profile_image);
         profileImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -241,11 +274,11 @@ public class AccountBookTodayViewActivity extends AppCompatActivity {
             }
         });
 
-        mDemoSlider = (SliderLayout)findViewById(R.id.slider);
+        mDemoSlider = findViewById(R.id.slider);
 
-        HashMap<String, Integer> urls = CoCoinUtil.GetDrawerTopUrl();
+        HashMap<String, Integer> urls = CoCoinUtil.getDrawerTopUrl();
 
-        for(String name : urls.keySet()){
+        for (String name : urls.keySet()) {
             CustomSliderView customSliderView = new CustomSliderView(this);
             // initialize a SliderLayout
             customSliderView
@@ -321,15 +354,6 @@ public class AccountBookTodayViewActivity extends AppCompatActivity {
 
     }
 
-    private int syncSuccessNumber = 0;
-    private int syncFailedNumber = 0;
-    private int cloudRecordNumber = 0;
-    private String cloudOldDatabaseUrl = null;
-    private String cloudOldDatabaseFileName = null;
-    private String uploadObjectId = null;
-    MaterialDialog syncQueryDialog;
-    MaterialDialog syncChooseDialog;
-    MaterialDialog syncProgressDialog;
     private void sync() {
         if (!SettingManager.getInstance().getLoggenOn()) {
             CoCoinUtil.showToast(mContext, R.string.login_tip);
@@ -360,8 +384,9 @@ public class AccountBookTodayViewActivity extends AppCompatActivity {
             myQuery.query.findObjects(CoCoinApplication.getAppContext(), new FindListener<UploadInfo>() {
                 @Override
                 public void onSuccess(List<UploadInfo> object) {
-                    if (myQuery.getTask() != TaskManager.QUERY_UPDATE_TASK) return;
-                    else {
+                    if (myQuery.getTask() != TaskManager.QUERY_UPDATE_TASK) {
+                        return;
+                    } else {
                         syncQueryDialog.dismiss();
                         cloudRecordNumber = 0;
                         Calendar cal = null;
@@ -381,15 +406,15 @@ public class AccountBookTodayViewActivity extends AppCompatActivity {
                             }
                         }
                         String content
-                                = CoCoinUtil.GetString(CoCoinApplication.getAppContext(), R.string.sync_info_cloud_record_0)
+                                = CoCoinUtil.getString(CoCoinApplication.getAppContext(), R.string.sync_info_cloud_record_0)
                                 + cloudRecordNumber
-                                + CoCoinUtil.GetString(CoCoinApplication.getAppContext(), R.string.sync_info_cloud_record_1)
-                                + (cal == null ? CoCoinUtil.GetString(CoCoinApplication.getAppContext(), R.string.sync_info_cloud_time_2) : CoCoinUtil.GetString(CoCoinApplication.getAppContext(), R.string.sync_info_cloud_time_0) + CoCoinUtil.GetCalendarString(CoCoinApplication.getAppContext(), cal) + CoCoinUtil.GetString(CoCoinApplication.getAppContext(), R.string.sync_info_cloud_time_1))
-                                + CoCoinUtil.GetString(CoCoinApplication.getAppContext(), R.string.sync_info_mobile_record_0)
+                                + CoCoinUtil.getString(CoCoinApplication.getAppContext(), R.string.sync_info_cloud_record_1)
+                                + (cal == null ? CoCoinUtil.getString(CoCoinApplication.getAppContext(), R.string.sync_info_cloud_time_2) : CoCoinUtil.getString(CoCoinApplication.getAppContext(), R.string.sync_info_cloud_time_0) + CoCoinUtil.getCalendarString(CoCoinApplication.getAppContext(), cal) + CoCoinUtil.getString(CoCoinApplication.getAppContext(), R.string.sync_info_cloud_time_1))
+                                + CoCoinUtil.getString(CoCoinApplication.getAppContext(), R.string.sync_info_mobile_record_0)
                                 + RecordManager.getInstance(CoCoinApplication.getAppContext()).RECORDS.size()
-                                + CoCoinUtil.GetString(CoCoinApplication.getAppContext(), R.string.sync_info_mobile_record_1)
-                                + (SettingManager.getInstance().getRecentlySyncTime() == null ? CoCoinUtil.GetString(CoCoinApplication.getAppContext(), R.string.sync_info_mobile_time_2) : CoCoinUtil.GetString(CoCoinApplication.getAppContext(), R.string.sync_info_mobile_time_0) + CoCoinUtil.GetCalendarString(CoCoinApplication.getAppContext(), SettingManager.getInstance().getRecentlySyncTime()) + CoCoinUtil.GetString(CoCoinApplication.getAppContext(), R.string.sync_info_mobile_time_1))
-                                + CoCoinUtil.GetString(CoCoinApplication.getAppContext(), R.string.sync_choose_content);
+                                + CoCoinUtil.getString(CoCoinApplication.getAppContext(), R.string.sync_info_mobile_record_1)
+                                + (SettingManager.getInstance().getRecentlySyncTime() == null ? CoCoinUtil.getString(CoCoinApplication.getAppContext(), R.string.sync_info_mobile_time_2) : CoCoinUtil.getString(CoCoinApplication.getAppContext(), R.string.sync_info_mobile_time_0) + CoCoinUtil.getCalendarString(CoCoinApplication.getAppContext(), SettingManager.getInstance().getRecentlySyncTime()) + CoCoinUtil.getString(CoCoinApplication.getAppContext(), R.string.sync_info_mobile_time_1))
+                                + CoCoinUtil.getString(CoCoinApplication.getAppContext(), R.string.sync_choose_content);
                         syncChooseDialog = new MaterialDialog.Builder(mContext)
                                 .title(R.string.sync_choose_title)
                                 .content(content)
@@ -404,7 +429,7 @@ public class AccountBookTodayViewActivity extends AppCompatActivity {
                                             // sync to cloud
                                             String subContent = "";
                                             if (RecordManager.getInstance(CoCoinApplication.getAppContext()).RECORDS.size() == 0) {
-                                                subContent = CoCoinUtil.GetString(CoCoinApplication.getAppContext(), R.string.mobile_record_empty);
+                                                subContent = CoCoinUtil.getString(CoCoinApplication.getAppContext(), R.string.mobile_record_empty);
                                                 new MaterialDialog.Builder(mContext)
                                                         .title(R.string.sync)
                                                         .content(subContent)
@@ -413,9 +438,9 @@ public class AccountBookTodayViewActivity extends AppCompatActivity {
                                                 return;
                                             } else {
                                                 subContent
-                                                        = CoCoinUtil.GetString(CoCoinApplication.getAppContext(), R.string.sure_to_cloud_0)
+                                                        = CoCoinUtil.getString(CoCoinApplication.getAppContext(), R.string.sure_to_cloud_0)
                                                         + RecordManager.getInstance(CoCoinApplication.getAppContext()).RECORDS.size()
-                                                        + CoCoinUtil.GetString(CoCoinApplication.getAppContext(), R.string.sure_to_cloud_1);
+                                                        + CoCoinUtil.getString(CoCoinApplication.getAppContext(), R.string.sure_to_cloud_1);
                                             }
                                             new MaterialDialog.Builder(mContext)
                                                     .title(R.string.sync)
@@ -428,11 +453,11 @@ public class AccountBookTodayViewActivity extends AppCompatActivity {
                                                             if (which == DialogAction.POSITIVE) {
                                                                 syncProgressDialog = new MaterialDialog.Builder(mContext)
                                                                         .title(R.string.syncing)
-                                                                        .content(CoCoinUtil.GetString(CoCoinApplication.getAppContext(), R.string.uploading_0) + "1" + CoCoinUtil.GetString(mContext, R.string.uploading_1))
+                                                                        .content(CoCoinUtil.getString(CoCoinApplication.getAppContext(), R.string.uploading_0) + "1" + CoCoinUtil.getString(mContext, R.string.uploading_1))
                                                                         .progress(false, RecordManager.getInstance(CoCoinApplication.getAppContext()).RECORDS.size(), true)
                                                                         .cancelable(false)
                                                                         .show();
-                                                                final String databasePath = CoCoinUtil.GetRecordDatabasePath(CoCoinApplication.getAppContext());
+                                                                final String databasePath = CoCoinUtil.getRecordDatabasePath(CoCoinApplication.getAppContext());
 //                                                                final BmobFile bmobFile = new BmobFile(new File(databasePath));
 //                                                                bmobFile.uploadblock(mContext, new UploadFileListener() {
 //
@@ -461,7 +486,7 @@ public class AccountBookTodayViewActivity extends AppCompatActivity {
 //                                                                                    syncProgressDialog.dismiss();
 //                                                                                    new MaterialDialog.Builder(mContext)
 //                                                                                            .title(R.string.sync_completely_title)
-//                                                                                            .content(RecordManager.getInstance(mContext).RECORDS.size() + CoCoinUtil.GetString(mContext, R.string.uploading_fail_1))
+//                                                                                            .content(RecordManager.getInstance(mContext).RECORDS.size() + CoCoinUtil.getString(mContext, R.string.uploading_fail_1))
 //                                                                                            .positiveText(R.string.ok_1)
 //                                                                                            .show();
 //                                                                                }
@@ -482,7 +507,7 @@ public class AccountBookTodayViewActivity extends AppCompatActivity {
 //                                                                                    syncProgressDialog.dismiss();
 //                                                                                    new MaterialDialog.Builder(mContext)
 //                                                                                            .title(R.string.sync_completely_title)
-//                                                                                            .content(RecordManager.getInstance(mContext).RECORDS.size() + CoCoinUtil.GetString(mContext, R.string.uploading_fail_1))
+//                                                                                            .content(RecordManager.getInstance(mContext).RECORDS.size() + CoCoinUtil.getString(mContext, R.string.uploading_fail_1))
 //                                                                                            .positiveText(R.string.ok_1)
 //                                                                                            .show();
 //                                                                                }
@@ -540,11 +565,12 @@ public class AccountBookTodayViewActivity extends AppCompatActivity {
                                                                                     syncProgressDialog.dismiss();
                                                                                     new MaterialDialog.Builder(mContext)
                                                                                             .title(R.string.sync_completely_title)
-                                                                                            .content(RecordManager.getInstance(CoCoinApplication.getAppContext()).RECORDS.size() + CoCoinUtil.GetString(CoCoinApplication.getAppContext(), R.string.uploading_fail_1))
+                                                                                            .content(RecordManager.getInstance(CoCoinApplication.getAppContext()).RECORDS.size() + CoCoinUtil.getString(CoCoinApplication.getAppContext(), R.string.uploading_fail_1))
                                                                                             .positiveText(R.string.ok_1)
                                                                                             .cancelable(false)
                                                                                             .show();
                                                                                 }
+
                                                                                 @Override
                                                                                 public void onFailure(int code, String arg0) {
                                                                                     uploadFailed(code, arg0);
@@ -559,11 +585,12 @@ public class AccountBookTodayViewActivity extends AppCompatActivity {
                                                                                     syncProgressDialog.dismiss();
                                                                                     new MaterialDialog.Builder(mContext)
                                                                                             .title(R.string.sync_completely_title)
-                                                                                            .content(RecordManager.getInstance(CoCoinApplication.getAppContext()).RECORDS.size() + CoCoinUtil.GetString(CoCoinApplication.getAppContext(), R.string.uploading_fail_1))
+                                                                                            .content(RecordManager.getInstance(CoCoinApplication.getAppContext()).RECORDS.size() + CoCoinUtil.getString(CoCoinApplication.getAppContext(), R.string.uploading_fail_1))
                                                                                             .positiveText(R.string.ok_1)
                                                                                             .cancelable(false)
                                                                                             .show();
                                                                                 }
+
                                                                                 @Override
                                                                                 public void onFailure(int code, String msg) {
                                                                                     uploadFailed(code, msg);
@@ -571,9 +598,10 @@ public class AccountBookTodayViewActivity extends AppCompatActivity {
                                                                             });
                                                                         }
                                                                     }
+
                                                                     @Override
                                                                     public void onProgress(int progress) {
-                                                                        syncProgressDialog.setProgress((int)(progress * 1.0 / 100 * RecordManager.getInstance(CoCoinApplication.getAppContext()).RECORDS.size()));
+                                                                        syncProgressDialog.setProgress((int) (progress * 1.0 / 100 * RecordManager.getInstance(CoCoinApplication.getAppContext()).RECORDS.size()));
                                                                     }
 
                                                                     @Override
@@ -590,7 +618,7 @@ public class AccountBookTodayViewActivity extends AppCompatActivity {
                                             // sync to mobile
                                             String subContent = "";
                                             if (cloudRecordNumber == 0) {
-                                                subContent = CoCoinUtil.GetString(CoCoinApplication.getAppContext(), R.string.cloud_record_empty);
+                                                subContent = CoCoinUtil.getString(CoCoinApplication.getAppContext(), R.string.cloud_record_empty);
                                                 new MaterialDialog.Builder(mContext)
                                                         .title(R.string.sync)
                                                         .content(subContent)
@@ -599,9 +627,9 @@ public class AccountBookTodayViewActivity extends AppCompatActivity {
                                                 return;
                                             } else {
                                                 subContent
-                                                        = CoCoinUtil.GetString(CoCoinApplication.getAppContext(), R.string.sure_to_mobile_0)
+                                                        = CoCoinUtil.getString(CoCoinApplication.getAppContext(), R.string.sure_to_mobile_0)
                                                         + cloudRecordNumber
-                                                        + CoCoinUtil.GetString(CoCoinApplication.getAppContext(), R.string.sure_to_mobile_1);
+                                                        + CoCoinUtil.getString(CoCoinApplication.getAppContext(), R.string.sure_to_mobile_1);
                                             }
                                             new MaterialDialog.Builder(mContext)
                                                     .title(R.string.sync)
@@ -614,7 +642,7 @@ public class AccountBookTodayViewActivity extends AppCompatActivity {
                                                             if (which == DialogAction.POSITIVE) {
                                                                 syncProgressDialog = new MaterialDialog.Builder(mContext)
                                                                         .title(R.string.syncing)
-                                                                        .content(CoCoinUtil.GetString(CoCoinApplication.getAppContext(), R.string.downloading_0) + "1" + CoCoinUtil.GetString(CoCoinApplication.getAppContext(), R.string.downloading_1))
+                                                                        .content(CoCoinUtil.getString(CoCoinApplication.getAppContext(), R.string.downloading_0) + "1" + CoCoinUtil.getString(CoCoinApplication.getAppContext(), R.string.downloading_1))
                                                                         .progress(false, cloudRecordNumber, true)
                                                                         .cancelable(false)
                                                                         .show();
@@ -631,7 +659,7 @@ public class AccountBookTodayViewActivity extends AppCompatActivity {
                                                                             byte[] buffer = new byte[1024];
                                                                             File file = new File(fullPath);
                                                                             InputStream inputStream = new FileInputStream(file);
-                                                                            String outFileNameString = CoCoinUtil.GetRecordDatabasePath(CoCoinApplication.getAppContext());
+                                                                            String outFileNameString = CoCoinUtil.getRecordDatabasePath(CoCoinApplication.getAppContext());
                                                                             OutputStream outputStream = new FileOutputStream(outFileNameString);
                                                                             int length;
                                                                             while ((length = inputStream.read(buffer)) > 0) {
@@ -652,7 +680,7 @@ public class AccountBookTodayViewActivity extends AppCompatActivity {
                                                                             syncProgressDialog.dismiss();
                                                                             new MaterialDialog.Builder(mContext)
                                                                                     .title(R.string.sync_completely_title)
-                                                                                    .content(cloudRecordNumber + CoCoinUtil.GetString(CoCoinApplication.getAppContext(), R.string.downloading_fail_1))
+                                                                                    .content(cloudRecordNumber + CoCoinUtil.getString(CoCoinApplication.getAppContext(), R.string.downloading_fail_1))
                                                                                     .positiveText(R.string.ok_1)
                                                                                     .cancelable(false)
                                                                                     .show();
@@ -682,11 +710,16 @@ public class AccountBookTodayViewActivity extends AppCompatActivity {
                                 .show();
                     }
                 }
+
                 @Override
                 public void onError(int code, String msg) {
                     syncQueryDialog.dismiss();
-                    if (BuildConfig.DEBUG) Log.d("CoCoin", "Query: " + msg);
-                    if (syncQueryDialog != null) syncQueryDialog.dismiss();
+                    if (BuildConfig.DEBUG) {
+                        Log.d("CoCoin", "Query: " + msg);
+                    }
+                    if (syncQueryDialog != null) {
+                        syncQueryDialog.dismiss();
+                    }
                     new MaterialDialog.Builder(mContext)
                             .title(R.string.sync_querying_fail_title)
                             .content(R.string.sync_querying_fail_content)
@@ -701,18 +734,25 @@ public class AccountBookTodayViewActivity extends AppCompatActivity {
         BmobProFile.getInstance(CoCoinApplication.getAppContext()).deleteFile(fileName, new DeleteFileListener() {
             @Override
             public void onError(int errorcode, String errormsg) {
-                if (BuildConfig.DEBUG) Log.d("CoCoin", "Delete old cloud database failed " + cloudOldDatabaseUrl);
+                if (BuildConfig.DEBUG) {
+                    Log.d("CoCoin", "Delete old cloud database failed " + cloudOldDatabaseUrl);
+                }
             }
+
             @Override
             public void onSuccess() {
-                if (BuildConfig.DEBUG) Log.d("CoCoin", "Delete old cloud database successfully " + cloudOldDatabaseUrl);
+                if (BuildConfig.DEBUG) {
+                    Log.d("CoCoin", "Delete old cloud database successfully " + cloudOldDatabaseUrl);
+                }
             }
         });
     }
 
     private void uploadFailed(int code, String msg) {
         // upload failed
-        if (BuildConfig.DEBUG) Log.d("CoCoin", "Upload database failed " + code + " " + msg);
+        if (BuildConfig.DEBUG) {
+            Log.d("CoCoin", "Upload database failed " + code + " " + msg);
+        }
         syncProgressDialog.dismiss();
         new MaterialDialog.Builder(mContext)
                 .title(R.string.sync_failed)
@@ -724,7 +764,9 @@ public class AccountBookTodayViewActivity extends AppCompatActivity {
 
     private void downloadFailed(int code, String msg) {
         // upload failed
-        if (BuildConfig.DEBUG) Log.d("CoCoin", "Download database failed " + code + " " + msg);
+        if (BuildConfig.DEBUG) {
+            Log.d("CoCoin", "Download database failed " + code + " " + msg);
+        }
         syncProgressDialog.dismiss();
         new MaterialDialog.Builder(mContext)
                 .title(R.string.sync_failed)
@@ -733,40 +775,6 @@ public class AccountBookTodayViewActivity extends AppCompatActivity {
                 .cancelable(false)
                 .show();
     }
-
-    private SaveListener uploadCounter = new SaveListener() {
-        @Override
-        public void onSuccess() {
-            syncSuccessNumber++;
-            syncProgressDialog.incrementProgress(1);
-            if (syncSuccessNumber == RecordManager.getInstance(mContext).RECORDS.size()) {
-                syncProgressDialog.setContent(R.string.sync_completely_content);
-            } else {
-                syncProgressDialog.setContent(CoCoinUtil.GetString(mContext, R.string.uploading_0) + (syncSuccessNumber + 1) + CoCoinUtil.GetString(mContext, R.string.uploading_1));
-            }
-            if (syncSuccessNumber + syncFailedNumber == RecordManager.getInstance(mContext).RECORDS.size()) {
-                syncProgressDialog.dismiss();
-                new MaterialDialog.Builder(mContext)
-                        .title(R.string.sync_completely_title)
-                        .content(syncSuccessNumber + CoCoinUtil.GetString(mContext, R.string.uploading_fail_1))
-                        .positiveText(R.string.ok_1)
-                        .show();
-            }
-        }
-        @Override
-        public void onFailure(int code, String arg0) {
-            syncFailedNumber++;
-            syncProgressDialog.incrementProgress(1);
-            if (syncSuccessNumber + syncFailedNumber == RecordManager.getInstance(mContext).RECORDS.size()) {
-                syncProgressDialog.dismiss();
-                new MaterialDialog.Builder(mContext)
-                        .title(R.string.sync_completely_title)
-                        .content(syncSuccessNumber + CoCoinUtil.GetString(mContext, R.string.uploading_fail_1))
-                        .positiveText(R.string.ok_1)
-                        .show();
-            }
-        }
-    };
 
     private void loadSettings() {
 
@@ -780,7 +788,9 @@ public class AccountBookTodayViewActivity extends AppCompatActivity {
     @Override
     public void onResume() {
 
-        if (mDemoSlider != null) mDemoSlider.startAutoCycle();
+        if (mDemoSlider != null) {
+            mDemoSlider.startAutoCycle();
+        }
 
         super.onResume();
 
@@ -855,16 +865,16 @@ public class AccountBookTodayViewActivity extends AppCompatActivity {
     private void setFonts() {
         userName.setTypeface(CoCoinUtil.typefaceLatoRegular);
         userEmail.setTypeface(CoCoinUtil.typefaceLatoLight);
-        ((TextView)findViewById(R.id.custom_text)).setTypeface(CoCoinUtil.GetTypeface());
-        ((TextView)findViewById(R.id.tag_text)).setTypeface(CoCoinUtil.GetTypeface());
-        ((TextView)findViewById(R.id.month_text)).setTypeface(CoCoinUtil.GetTypeface());
-        ((TextView)findViewById(R.id.list_text)).setTypeface(CoCoinUtil.GetTypeface());
-        ((TextView)findViewById(R.id.report_text)).setTypeface(CoCoinUtil.GetTypeface());
-        ((TextView)findViewById(R.id.sync_text)).setTypeface(CoCoinUtil.GetTypeface());
-        ((TextView)findViewById(R.id.settings_text)).setTypeface(CoCoinUtil.GetTypeface());
-        ((TextView)findViewById(R.id.help_text)).setTypeface(CoCoinUtil.GetTypeface());
-        ((TextView)findViewById(R.id.feedback_text)).setTypeface(CoCoinUtil.GetTypeface());
-        ((TextView)findViewById(R.id.about_text)).setTypeface(CoCoinUtil.GetTypeface());
+        ((TextView) findViewById(R.id.custom_text)).setTypeface(CoCoinUtil.getTypeface());
+        ((TextView) findViewById(R.id.tag_text)).setTypeface(CoCoinUtil.getTypeface());
+        ((TextView) findViewById(R.id.month_text)).setTypeface(CoCoinUtil.getTypeface());
+        ((TextView) findViewById(R.id.list_text)).setTypeface(CoCoinUtil.getTypeface());
+        ((TextView) findViewById(R.id.report_text)).setTypeface(CoCoinUtil.getTypeface());
+        ((TextView) findViewById(R.id.sync_text)).setTypeface(CoCoinUtil.getTypeface());
+        ((TextView) findViewById(R.id.settings_text)).setTypeface(CoCoinUtil.getTypeface());
+        ((TextView) findViewById(R.id.help_text)).setTypeface(CoCoinUtil.getTypeface());
+        ((TextView) findViewById(R.id.feedback_text)).setTypeface(CoCoinUtil.getTypeface());
+        ((TextView) findViewById(R.id.about_text)).setTypeface(CoCoinUtil.getTypeface());
     }
 
     private void setListeners() {
@@ -943,29 +953,34 @@ public class AccountBookTodayViewActivity extends AppCompatActivity {
                     bmobQuery.addWhereEqualTo("objectId", user.getLogoObjectId());
                     bmobQuery.findObjects(CoCoinApplication.getAppContext()
                             , new FindListener<Logo>() {
-                        @Override
-                        public void onSuccess(List<Logo> object) {
-                            // there has been an old logo in the server/////////////////////////////////////////////////////////
-                            String url = object.get(0).getFile().getFileUrl(CoCoinApplication.getAppContext());
-                            if (BuildConfig.DEBUG) Log.d("CoCoin", "Logo in server: " + url);
-                            Ion.with(CoCoinApplication.getAppContext()).load(url)
-                                    .write(new File(CoCoinApplication.getAppContext().getFilesDir()
-                                            + CoCoinUtil.LOGO_NAME))
-                                    .setCallback(new FutureCallback<File>() {
-                                        @Override
-                                        public void onCompleted(Exception e, File file) {
-                                            profileImage.setImageBitmap(BitmapFactory.decodeFile(
-                                                    CoCoinApplication.getAppContext().getFilesDir()
-                                                            + CoCoinUtil.LOGO_NAME));
-                                        }
-                                    });
-                        }
-                        @Override
-                        public void onError(int code, String msg) {
-                            // the picture is lost
-                            if (BuildConfig.DEBUG) Log.d("CoCoin", "Can't find the old logo in server.");
-                        }
-                    });
+                                @Override
+                                public void onSuccess(List<Logo> object) {
+                                    // there has been an old logo in the server/////////////////////////////////////////////////////////
+                                    String url = object.get(0).getFile().getFileUrl(CoCoinApplication.getAppContext());
+                                    if (BuildConfig.DEBUG) {
+                                        Log.d("CoCoin", "Logo in server: " + url);
+                                    }
+                                    Ion.with(CoCoinApplication.getAppContext()).load(url)
+                                            .write(new File(CoCoinApplication.getAppContext().getFilesDir()
+                                                    + CoCoinUtil.LOGO_NAME))
+                                            .setCallback(new FutureCallback<File>() {
+                                                @Override
+                                                public void onCompleted(Exception e, File file) {
+                                                    profileImage.setImageBitmap(BitmapFactory.decodeFile(
+                                                            CoCoinApplication.getAppContext().getFilesDir()
+                                                                    + CoCoinUtil.LOGO_NAME));
+                                                }
+                                            });
+                                }
+
+                                @Override
+                                public void onError(int code, String msg) {
+                                    // the picture is lost
+                                    if (BuildConfig.DEBUG) {
+                                        Log.d("CoCoin", "Can't find the old logo in server.");
+                                    }
+                                }
+                            });
                 } else {
                     // the user logo is in the storage
                     Bitmap b = BitmapFactory.decodeStream(new FileInputStream(logoFile));
@@ -976,12 +991,15 @@ public class AccountBookTodayViewActivity extends AppCompatActivity {
             }
         } else {
             // use the default logo
-            profileImage.setImageResource(R.drawable.default_user_logo);
+            profileImage.setImageResource(R.mipmap.default_user_logo);
         }
     }
 
     private void setIconEnable(MaterialIconView icon, boolean enable) {
-        if (enable) icon.setColor(mContext.getResources().getColor(R.color.my_blue));
-        else icon.setColor(mContext.getResources().getColor(R.color.my_gray));
+        if (enable) {
+            icon.setColor(mContext.getResources().getColor(R.color.my_blue));
+        } else {
+            icon.setColor(mContext.getResources().getColor(R.color.my_gray));
+        }
     }
 }

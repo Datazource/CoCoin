@@ -23,15 +23,8 @@ import com.squareup.picasso.Picasso;
 public class HelpCoCoinFragment extends Fragment {
 
     private ObservableScrollView mScrollView;
-
-    public static HelpCoCoinFragment newInstance() {
-        HelpCoCoinFragment fragment = new HelpCoCoinFragment();
-        return fragment;
-    }
-
     private Activity activity;
     private Context mContext;
-
     private ImageView imageView1;
     private ImageView imageView2;
     private ImageView imageView3;
@@ -41,7 +34,6 @@ public class HelpCoCoinFragment extends Fragment {
     private ImageView imageView7;
     private ImageView imageView8;
     private ImageView imageView9;
-
     private TextView title;
     private TextView textView2;
     private TextView textView3;
@@ -54,12 +46,17 @@ public class HelpCoCoinFragment extends Fragment {
     private TextView textView10;
     private TextView foot;
 
+    public static HelpCoCoinFragment newInstance() {
+        HelpCoCoinFragment fragment = new HelpCoCoinFragment();
+        return fragment;
+    }
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
 
-        if (context instanceof Activity){
-            activity = (Activity)context;
+        if (context instanceof Activity) {
+            activity = (Activity) context;
         }
     }
 
@@ -78,17 +75,17 @@ public class HelpCoCoinFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        mScrollView = (ObservableScrollView) view.findViewById(R.id.scrollView);
+        mScrollView = view.findViewById(R.id.scrollView);
         MaterialViewPagerHelper.registerScrollView(getActivity(), mScrollView, null);
 
-        int width = CoCoinUtil.getInstance().GetScreenWidth(mContext) - CoCoinUtil.getInstance().dpToPx(20);
+        int width = CoCoinUtil.getInstance().getScreenWidth(mContext) - CoCoinUtil.getInstance().dpToPx(20);
         int height = width * 653 / 1280;
         int height2 = width * 1306 / 960;
 
-        title = (TextView)view.findViewById(R.id.title);
+        title = view.findViewById(R.id.title);
         title.setTypeface(CoCoinUtil.getInstance().typefaceLatoLight);
 
-        imageView1 = (ImageView)view.findViewById(R.id.help_cocoin_image_1);
+        imageView1 = view.findViewById(R.id.help_cocoin_image_1);
         ViewGroup.LayoutParams layoutParams = imageView1.getLayoutParams();
         layoutParams.width = width;
         layoutParams.height = height;
@@ -97,10 +94,10 @@ public class HelpCoCoinFragment extends Fragment {
                 .resize(width, height)
                 .centerCrop()
                 .into(imageView1);
-        textView2 = (TextView)view.findViewById(R.id.help_cocoin_content_2);
+        textView2 = view.findViewById(R.id.help_cocoin_content_2);
         textView2.setTypeface(CoCoinUtil.getInstance().typefaceLatoLight);
 
-        imageView2 = (ImageView)view.findViewById(R.id.help_cocoin_image_2);
+        imageView2 = view.findViewById(R.id.help_cocoin_image_2);
         layoutParams = imageView2.getLayoutParams();
         layoutParams.width = width;
         layoutParams.height = height;
@@ -109,10 +106,10 @@ public class HelpCoCoinFragment extends Fragment {
                 .resize(width, height)
                 .centerCrop()
                 .into(imageView2);
-        textView3 = (TextView)view.findViewById(R.id.help_cocoin_content_3);
+        textView3 = view.findViewById(R.id.help_cocoin_content_3);
         textView3.setTypeface(CoCoinUtil.getInstance().typefaceLatoLight);
 
-        imageView3 = (ImageView)view.findViewById(R.id.help_cocoin_image_3);
+        imageView3 = view.findViewById(R.id.help_cocoin_image_3);
         layoutParams = imageView3.getLayoutParams();
         layoutParams.width = width;
         layoutParams.height = height;
@@ -121,10 +118,10 @@ public class HelpCoCoinFragment extends Fragment {
                 .resize(width, height)
                 .centerCrop()
                 .into(imageView3);
-        textView4 = (TextView)view.findViewById(R.id.help_cocoin_content_4);
+        textView4 = view.findViewById(R.id.help_cocoin_content_4);
         textView4.setTypeface(CoCoinUtil.getInstance().typefaceLatoLight);
 
-        imageView4 = (ImageView)view.findViewById(R.id.help_cocoin_image_4);
+        imageView4 = view.findViewById(R.id.help_cocoin_image_4);
         layoutParams = imageView4.getLayoutParams();
         layoutParams.width = width;
         layoutParams.height = height;
@@ -133,10 +130,10 @@ public class HelpCoCoinFragment extends Fragment {
                 .resize(width, height)
                 .centerCrop()
                 .into(imageView4);
-        textView5 = (TextView)view.findViewById(R.id.help_cocoin_content_5);
+        textView5 = view.findViewById(R.id.help_cocoin_content_5);
         textView5.setTypeface(CoCoinUtil.getInstance().typefaceLatoLight);
 
-        imageView5 = (ImageView)view.findViewById(R.id.help_cocoin_image_5);
+        imageView5 = view.findViewById(R.id.help_cocoin_image_5);
         layoutParams = imageView5.getLayoutParams();
         layoutParams.width = width;
         layoutParams.height = height;
@@ -145,10 +142,10 @@ public class HelpCoCoinFragment extends Fragment {
                 .resize(width, height)
                 .centerCrop()
                 .into(imageView5);
-        textView6 = (TextView)view.findViewById(R.id.help_cocoin_content_6);
+        textView6 = view.findViewById(R.id.help_cocoin_content_6);
         textView6.setTypeface(CoCoinUtil.getInstance().typefaceLatoLight);
 
-        imageView6 = (ImageView)view.findViewById(R.id.help_cocoin_image_6);
+        imageView6 = view.findViewById(R.id.help_cocoin_image_6);
         layoutParams = imageView6.getLayoutParams();
         layoutParams.width = width;
         layoutParams.height = height;
@@ -157,10 +154,10 @@ public class HelpCoCoinFragment extends Fragment {
                 .resize(width, height)
                 .centerCrop()
                 .into(imageView6);
-        textView7 = (TextView)view.findViewById(R.id.help_cocoin_content_7);
+        textView7 = view.findViewById(R.id.help_cocoin_content_7);
         textView7.setTypeface(CoCoinUtil.getInstance().typefaceLatoLight);
 
-        imageView7 = (ImageView)view.findViewById(R.id.help_cocoin_image_7);
+        imageView7 = view.findViewById(R.id.help_cocoin_image_7);
         layoutParams = imageView7.getLayoutParams();
         layoutParams.width = width;
         layoutParams.height = height2;
@@ -169,10 +166,10 @@ public class HelpCoCoinFragment extends Fragment {
                 .resize(width, height2)
                 .centerCrop()
                 .into(imageView7);
-        textView8 = (TextView)view.findViewById(R.id.help_cocoin_content_8);
+        textView8 = view.findViewById(R.id.help_cocoin_content_8);
         textView8.setTypeface(CoCoinUtil.getInstance().typefaceLatoLight);
 
-        imageView8 = (ImageView)view.findViewById(R.id.help_cocoin_image_8);
+        imageView8 = view.findViewById(R.id.help_cocoin_image_8);
         layoutParams = imageView8.getLayoutParams();
         layoutParams.width = width;
         layoutParams.height = height;
@@ -181,10 +178,10 @@ public class HelpCoCoinFragment extends Fragment {
                 .resize(width, height)
                 .centerCrop()
                 .into(imageView8);
-        textView9 = (TextView)view.findViewById(R.id.help_cocoin_content_9);
+        textView9 = view.findViewById(R.id.help_cocoin_content_9);
         textView9.setTypeface(CoCoinUtil.getInstance().typefaceLatoLight);
 
-        imageView9 = (ImageView)view.findViewById(R.id.help_cocoin_image_9);
+        imageView9 = view.findViewById(R.id.help_cocoin_image_9);
         layoutParams = imageView9.getLayoutParams();
         layoutParams.width = width;
         layoutParams.height = height;
@@ -193,10 +190,10 @@ public class HelpCoCoinFragment extends Fragment {
                 .resize(width, height)
                 .centerCrop()
                 .into(imageView9);
-        textView10 = (TextView)view.findViewById(R.id.help_cocoin_content_10);
+        textView10 = view.findViewById(R.id.help_cocoin_content_10);
         textView10.setTypeface(CoCoinUtil.getInstance().typefaceLatoLight);
 
-        foot = (TextView)view.findViewById(R.id.foot);
+        foot = view.findViewById(R.id.foot);
         foot.setTypeface(CoCoinUtil.getInstance().typefaceLatoLight);
     }
 

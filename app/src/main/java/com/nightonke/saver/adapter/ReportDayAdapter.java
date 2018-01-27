@@ -48,10 +48,10 @@ public class ReportDayAdapter extends BaseAdapter {
 
         convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_report_day, null);
 
-        TextView icon = (TextView)convertView.findViewById(R.id.month);
-        TextView name = (TextView)convertView.findViewById(R.id.month_name);
-        TextView expense = (TextView)convertView.findViewById(R.id.month_expense);
-        TextView records = (TextView)convertView.findViewById(R.id.month_sum);
+        TextView icon = convertView.findViewById(R.id.month);
+        TextView name = convertView.findViewById(R.id.month_name);
+        TextView expense = convertView.findViewById(R.id.month_expense);
+        TextView records = convertView.findViewById(R.id.month_sum);
 
         icon.setTypeface(CoCoinUtil.getInstance().typefaceLatoLight);
         name.setTypeface(CoCoinUtil.getInstance().typefaceLatoLight);
@@ -59,10 +59,14 @@ public class ReportDayAdapter extends BaseAdapter {
         records.setTypeface(CoCoinUtil.getInstance().typefaceLatoLight);
 
         icon.setBackgroundResource(getBackgroundResource());
-        icon.setText("" + ((int)dayExpense.get(position + 1)[2]));
-        name.setText(CoCoinUtil.getInstance().GetCalendarStringDayExpenseSort(CoCoinApplication.getAppContext(), (int)dayExpense.get(position + 1)[0], (int)dayExpense.get(position + 1)[1] + 1, (int)dayExpense.get(position + 1)[2]) + CoCoinUtil.getInstance().GetPurePercentString(dayExpense.get(position + 1)[4] * 100));
-        expense.setText(CoCoinUtil.getInstance().GetInMoney((int) dayExpense.get(position + 1)[3]));
-        records.setText(CoCoinUtil.getInstance().GetInRecords((int) dayExpense.get(position + 1)[5]));
+        icon.setText("" + ((int) dayExpense.get(position + 1)[2]));
+        name.setText(CoCoinUtil.getInstance().getCalendarStringDayExpenseSort(
+                CoCoinApplication.getAppContext(), (int) dayExpense.get(position + 1)[0],
+                (int) dayExpense.get(position + 1)[1] + 1,
+                (int) dayExpense.get(position + 1)[2]) +
+                CoCoinUtil.getInstance().getPurePercentString(dayExpense.get(position + 1)[4] * 100));
+        expense.setText(CoCoinUtil.getInstance().getInMoney((int) dayExpense.get(position + 1)[3]));
+        records.setText(CoCoinUtil.getInstance().getInRecords((int) dayExpense.get(position + 1)[5]));
 
         return convertView;
     }
@@ -70,13 +74,20 @@ public class ReportDayAdapter extends BaseAdapter {
     private int getBackgroundResource() {
         Random random = new Random();
         switch (random.nextInt(6)) {
-            case 0: return R.drawable.bg_month_icon_small_0;
-            case 1: return R.drawable.bg_month_icon_small_1;
-            case 2: return R.drawable.bg_month_icon_small_2;
-            case 3: return R.drawable.bg_month_icon_small_3;
-            case 4: return R.drawable.bg_month_icon_small_4;
-            case 5: return R.drawable.bg_month_icon_small_5;
-            default:return R.drawable.bg_month_icon_small_0;
+            case 0:
+                return R.drawable.bg_month_icon_small_0;
+            case 1:
+                return R.drawable.bg_month_icon_small_1;
+            case 2:
+                return R.drawable.bg_month_icon_small_2;
+            case 3:
+                return R.drawable.bg_month_icon_small_3;
+            case 4:
+                return R.drawable.bg_month_icon_small_4;
+            case 5:
+                return R.drawable.bg_month_icon_small_5;
+            default:
+                return R.drawable.bg_month_icon_small_0;
         }
     }
 

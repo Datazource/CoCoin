@@ -72,7 +72,7 @@ public class MonthViewFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
+        mRecyclerView = view.findViewById(R.id.recyclerView);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setHasFixedSize(true);
@@ -96,8 +96,8 @@ public class MonthViewFragment extends Fragment {
                     nowYear, nowMonth, monthStart.getActualMaximum(Calendar.DAY_OF_MONTH), 23, 59, 59);
             monthEnd.add(Calendar.MILLISECOND, 0);
 
-            Calendar leftRange = CoCoinUtil.GetThisWeekLeftRange(monthStart);
-            Calendar rightRange = CoCoinUtil.GetThisWeekRightRange(monthEnd);
+            Calendar leftRange = CoCoinUtil.getThisWeekLeftRange(monthStart);
+            Calendar rightRange = CoCoinUtil.getThisWeekRightRange(monthEnd);
 
             int start = -1;
             int end = 0;

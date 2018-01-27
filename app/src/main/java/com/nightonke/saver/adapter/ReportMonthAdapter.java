@@ -45,10 +45,10 @@ public class ReportMonthAdapter extends BaseAdapter {
 
         convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_report_month, null);
 
-        TextView icon = (TextView)convertView.findViewById(R.id.month);
-        TextView name = (TextView)convertView.findViewById(R.id.month_name);
-        TextView expense = (TextView)convertView.findViewById(R.id.month_expense);
-        TextView records = (TextView)convertView.findViewById(R.id.month_sum);
+        TextView icon = convertView.findViewById(R.id.month);
+        TextView name = convertView.findViewById(R.id.month_name);
+        TextView expense = convertView.findViewById(R.id.month_expense);
+        TextView records = convertView.findViewById(R.id.month_sum);
 
         icon.setTypeface(CoCoinUtil.getInstance().typefaceLatoLight);
         name.setTypeface(CoCoinUtil.getInstance().typefaceLatoLight);
@@ -56,10 +56,11 @@ public class ReportMonthAdapter extends BaseAdapter {
         records.setTypeface(CoCoinUtil.getInstance().typefaceLatoLight);
 
         icon.setBackgroundResource(getBackgroundResource());
-        icon.setText("" + ((int)highestMonthExpense.get(position + 1)[1] + 1));
-        name.setText(CoCoinUtil.GetMonthShort((int) highestMonthExpense.get(position + 1)[1] + 1) + " " + year + CoCoinUtil.getInstance().GetPurePercentString(highestMonthExpense.get(position + 1)[4] * 100));
-        expense.setText(CoCoinUtil.getInstance().GetInMoney((int) highestMonthExpense.get(position + 1)[3]));
-        records.setText(CoCoinUtil.getInstance().GetInRecords((int) highestMonthExpense.get(position + 1)[5]));
+        icon.setText("" + ((int) highestMonthExpense.get(position + 1)[1] + 1));
+        name.setText(CoCoinUtil.getMonthShort((int) highestMonthExpense.get(position + 1)[1] + 1)
+                + " " + year + CoCoinUtil.getInstance().getPurePercentString(highestMonthExpense.get(position + 1)[4] * 100));
+        expense.setText(CoCoinUtil.getInstance().getInMoney((int) highestMonthExpense.get(position + 1)[3]));
+        records.setText(CoCoinUtil.getInstance().getInRecords((int) highestMonthExpense.get(position + 1)[5]));
 
         return convertView;
     }
@@ -67,13 +68,20 @@ public class ReportMonthAdapter extends BaseAdapter {
     private int getBackgroundResource() {
         Random random = new Random();
         switch (random.nextInt(6)) {
-            case 0: return R.drawable.bg_month_icon_small_0;
-            case 1: return R.drawable.bg_month_icon_small_1;
-            case 2: return R.drawable.bg_month_icon_small_2;
-            case 3: return R.drawable.bg_month_icon_small_3;
-            case 4: return R.drawable.bg_month_icon_small_4;
-            case 5: return R.drawable.bg_month_icon_small_5;
-            default:return R.drawable.bg_month_icon_small_0;
+            case 0:
+                return R.drawable.bg_month_icon_small_0;
+            case 1:
+                return R.drawable.bg_month_icon_small_1;
+            case 2:
+                return R.drawable.bg_month_icon_small_2;
+            case 3:
+                return R.drawable.bg_month_icon_small_3;
+            case 4:
+                return R.drawable.bg_month_icon_small_4;
+            case 5:
+                return R.drawable.bg_month_icon_small_5;
+            default:
+                return R.drawable.bg_month_icon_small_0;
         }
     }
 

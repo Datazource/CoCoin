@@ -30,7 +30,7 @@ public class TodayViewFragmentAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public CharSequence getPageTitle(int position) {
-        return CoCoinUtil.GetTodayViewTitle(position % TODAY_VIEW_FRAGMENT_NUMBER);
+        return CoCoinUtil.getTodayViewTitle(position % TODAY_VIEW_FRAGMENT_NUMBER);
     }
 
     @Override

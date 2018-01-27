@@ -113,7 +113,8 @@ public class GuillotineAnimation {
     }
 
     private ObjectAnimator buildOpeningAnimation() {
-        ObjectAnimator rotationAnimator = initAnimator(ObjectAnimator.ofFloat(mGuillotineView, ROTATION, GUILLOTINE_CLOSED_ANGLE, GUILLOTINE_OPENED_ANGLE));
+        ObjectAnimator rotationAnimator = initAnimator(ObjectAnimator.ofFloat(mGuillotineView,
+                ROTATION, GUILLOTINE_CLOSED_ANGLE, GUILLOTINE_OPENED_ANGLE));
         rotationAnimator.setInterpolator(mInterpolator);
         rotationAnimator.setDuration(mDuration);
         rotationAnimator.addListener(new Animator.AnimatorListener() {
@@ -145,7 +146,8 @@ public class GuillotineAnimation {
     }
 
     private ObjectAnimator buildClosingAnimation() {
-        ObjectAnimator rotationAnimator = initAnimator(ObjectAnimator.ofFloat(mGuillotineView, ROTATION, GUILLOTINE_OPENED_ANGLE, GUILLOTINE_CLOSED_ANGLE));
+        ObjectAnimator rotationAnimator = initAnimator(ObjectAnimator.ofFloat(mGuillotineView,
+                ROTATION, GUILLOTINE_OPENED_ANGLE, GUILLOTINE_CLOSED_ANGLE));
         rotationAnimator.setDuration((long) (mDuration * GuillotineInterpolator.ROTATION_TIME));
         rotationAnimator.addListener(new Animator.AnimatorListener() {
             @Override
@@ -179,8 +181,10 @@ public class GuillotineAnimation {
     }
 
     private void startActionBarAnimation() {
-        ObjectAnimator actionBarAnimation = ObjectAnimator.ofFloat(mActionBarView, ROTATION, GUILLOTINE_OPENED_ANGLE, ACTION_BAR_ROTATION_ANGLE);
-        actionBarAnimation.setDuration((long) (mDuration * (GuillotineInterpolator.FIRST_BOUNCE_TIME + GuillotineInterpolator.SECOND_BOUNCE_TIME)));
+        ObjectAnimator actionBarAnimation = ObjectAnimator.ofFloat(mActionBarView, ROTATION,
+                GUILLOTINE_OPENED_ANGLE, ACTION_BAR_ROTATION_ANGLE);
+        actionBarAnimation.setDuration((long) (mDuration * (GuillotineInterpolator.FIRST_BOUNCE_TIME
+                + GuillotineInterpolator.SECOND_BOUNCE_TIME)));
         actionBarAnimation.setInterpolator(new ActionBarInterpolator());
         actionBarAnimation.start();
     }

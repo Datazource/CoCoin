@@ -3,13 +3,17 @@ package com.material.widget;
 import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
-import android.graphics.*;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.ColorFilter;
+import android.graphics.Paint;
+import android.graphics.PixelFormat;
+import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.widget.EditText;
 
 /**
@@ -118,6 +122,10 @@ public class FloatingEditText extends EditText {
         int paddingTop = dpToPx(12);
         int paddingBottom = dpToPx(20);
         setPadding(0, paddingTop, 0, paddingBottom);
+    }
+
+    public static int dpToPx(int dp) {
+        return (int) (dp * Resources.getSystem().getDisplayMetrics().density);
     }
 
     private Rect getThinLineRect(Canvas canvas) {
@@ -235,9 +243,5 @@ public class FloatingEditText extends EditText {
                 break;
             }
         }
-    }
-
-    public static int dpToPx(int dp) {
-        return (int) (dp * Resources.getSystem().getDisplayMetrics().density);
     }
 }

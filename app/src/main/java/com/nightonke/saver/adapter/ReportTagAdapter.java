@@ -44,19 +44,20 @@ public class ReportTagAdapter extends BaseAdapter {
 
         convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_report_tag, null);
 
-        ImageView icon = (ImageView)convertView.findViewById(R.id.icon);
-        TextView name = (TextView)convertView.findViewById(R.id.tag_name);
-        TextView expense = (TextView)convertView.findViewById(R.id.tag_expense);
-        TextView records = (TextView)convertView.findViewById(R.id.tag_sum);
+        ImageView icon = convertView.findViewById(R.id.icon);
+        TextView name = convertView.findViewById(R.id.tag_name);
+        TextView expense = convertView.findViewById(R.id.tag_expense);
+        TextView records = convertView.findViewById(R.id.tag_sum);
 
         name.setTypeface(CoCoinUtil.getInstance().typefaceLatoLight);
         expense.setTypeface(CoCoinUtil.getInstance().typefaceLatoLight);
         records.setTypeface(CoCoinUtil.getInstance().typefaceLatoLight);
 
-        icon.setImageDrawable(CoCoinUtil.getInstance().GetTagIconDrawable((int)tagExpense.get(position + 1)[2]));
-        name.setText(CoCoinUtil.getInstance().GetTagName((int)tagExpense.get(position + 1)[2]) + CoCoinUtil.getInstance().GetPurePercentString(tagExpense.get(position + 1)[1] * 100));
-        expense.setText(CoCoinUtil.getInstance().GetInMoney((int)tagExpense.get(position + 1)[0]));
-        records.setText(CoCoinUtil.getInstance().GetInRecords((int)tagExpense.get(position + 1)[3]));
+        icon.setImageDrawable(CoCoinUtil.getInstance().getTagIconDrawable((int) tagExpense.get(position + 1)[2]));
+        name.setText(CoCoinUtil.getInstance().getTagName((int) tagExpense.get(position + 1)[2])
+                + CoCoinUtil.getInstance().getPurePercentString(tagExpense.get(position + 1)[1] * 100));
+        expense.setText(CoCoinUtil.getInstance().getInMoney((int) tagExpense.get(position + 1)[0]));
+        records.setText(CoCoinUtil.getInstance().getInRecords((int) tagExpense.get(position + 1)[3]));
 
         return convertView;
     }

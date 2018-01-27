@@ -52,10 +52,10 @@ public class ButtonGridViewAdapter extends BaseAdapter {
         if (convertView == null) {
             holder = new ViewHolder();
             convertView = this.inflater.inflate(R.layout.button_gridview_item, null);
-            holder.fl = (FrameLayout)convertView.findViewById(R.id.frame_layout);
-            holder.iv = (MaterialIconView)convertView.findViewById(R.id.icon);
-            holder.tv = (TextView) convertView.findViewById(R.id.textview);
-            holder.ml = (MaterialRippleLayout)convertView.findViewById(R.id.material_ripple_layout);
+            holder.fl = convertView.findViewById(R.id.frame_layout);
+            holder.iv = convertView.findViewById(R.id.icon);
+            holder.tv = convertView.findViewById(R.id.textview);
+            holder.ml = convertView.findViewById(R.id.material_ripple_layout);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();

@@ -14,48 +14,43 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal"
-        >
+        android:orientation="horizontal">
 
         <LinearLayout
-            android:layout_height="30dp"
             android:layout_width="0dp"
-            android:orientation="horizontal"
-            android:layout_weight="1"
+            android:layout_height="30dp"
             android:layout_gravity="center_vertical"
-            android:paddingLeft="10dp"
-            >
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:paddingLeft="10dp">
 
             <TextView
                 android:id="@+id/money"
-                android:layout_height="match_parent"
                 android:layout_width="wrap_content"
-                android:text="¥18890"
-                android:textSize="20sp"
-                android:textColor="@color/red"
+                android:layout_height="match_parent"
                 android:gravity="top|right"
-                />
+                android:text="¥18890"
+                android:textColor="@color/red"
+                android:textSize="20sp"/>
 
             <TextView
-                android:layout_height="match_parent"
                 android:layout_width="wrap_content"
-                android:text="/"
-                android:textColor="@color/red"
-                android:gravity="center"
+                android:layout_height="match_parent"
                 android:layout_gravity="center"
-                />
+                android:gravity="center"
+                android:text="/"
+                android:textColor="@color/red"/>
 
             <TextView
                 android:id="@+id/sum"
-                android:layout_height="match_parent"
                 android:layout_width="wrap_content"
-                android:text="198's"
+                android:layout_height="match_parent"
                 android:layout_marginLeft="-3dp"
                 android:layout_marginRight="15dp"
-                android:textSize="12sp"
-                android:textColor="@color/red"
                 android:gravity="bottom|left"
-                />
+                android:text="198's"
+                android:textColor="@color/red"
+                android:textSize="12sp"/>
 
         </LinearLayout>
 
@@ -63,28 +58,25 @@
             android:id="@+id/month"
             android:layout_width="wrap_content"
             android:layout_height="60dp"
-            android:textColor="@color/my_blue"
-            android:textSize="18sp"
             android:layout_gravity="center_vertical|right"
-            android:paddingLeft="20dp"
             android:gravity="center_vertical|right"
+            android:paddingLeft="20dp"
             android:text="12月"
-            />
+            android:textColor="@color/my_blue"
+            android:textSize="18sp"/>
 
         <TextView
             android:id="@+id/year"
             android:layout_width="wrap_content"
             android:layout_height="60dp"
-            android:textColor="@color/my_blue"
-            android:textSize="13sp"
             android:layout_gravity="center_vertical|right"
             android:gravity="center_vertical|right"
-            android:paddingTop="5dp"
             android:paddingLeft="5dp"
             android:paddingRight="10dp"
+            android:paddingTop="5dp"
             android:text="2015"
-            />
+            android:textColor="@color/my_blue"
+            android:textSize="13sp"/>
 
     </LinearLayout>
-
 </com.balysv.materialripple.MaterialRippleLayout>

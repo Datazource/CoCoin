@@ -5,19 +5,12 @@ package com.nightonke.saver.util;
  */
 
 import android.content.Context;
-import android.os.Build;
 import android.os.Parcelable;
 import android.util.AttributeSet;
 import android.util.SparseArray;
 import android.widget.FrameLayout;
 
 public class ExpandableItemIndicator extends FrameLayout {
-    static abstract class Impl {
-        public abstract void onInit(Context context, AttributeSet attrs, int defStyleAttr, ExpandableItemIndicator thiz);
-
-        public abstract void setExpandedState(boolean isExpanded, boolean animate);
-    }
-
     private Impl mImpl;
 
     public ExpandableItemIndicator(Context context) {
@@ -36,12 +29,8 @@ public class ExpandableItemIndicator extends FrameLayout {
     }
 
     protected void onInit(Context context, AttributeSet attrs, int defStyleAttr) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
-            // NOTE: MorphButton only supports API level 14 or later
-            mImpl = new ExpandableItemIndicatorImplAnim();
-        } else {
-            mImpl = new ExpandableItemIndicatorImplNoAnim();
-        }
+        // NOTE: MorphButton only supports API level 14 or later
+        mImpl = new ExpandableItemIndicatorImplAnim();
         mImpl.onInit(context, attrs, defStyleAttr, this);
     }
 
@@ -57,5 +46,11 @@ public class ExpandableItemIndicator extends FrameLayout {
 
     public void setExpandedState(boolean isExpanded, boolean animate) {
         mImpl.setExpandedState(isExpanded, animate);
+    }
+
+    static abstract class Impl {
+        public abstract void onInit(Context context, AttributeSet attrs, int defStyleAttr, ExpandableItemIndicator thiz);
+
+        public abstract void setExpandedState(boolean isExpanded, boolean animate);
     }
 }
