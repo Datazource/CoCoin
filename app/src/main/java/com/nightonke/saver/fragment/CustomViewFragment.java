@@ -2,7 +2,6 @@ package com.nightonke.saver.fragment;
 
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -21,10 +20,6 @@ import com.nightonke.saver.model.CoCoinRecord;
 import com.nightonke.saver.model.RecordManager;
 import com.nightonke.saver.model.SettingManager;
 import com.nightonke.saver.util.CoCoinUtil;
-import com.nispok.snackbar.Snackbar;
-import com.nispok.snackbar.SnackbarManager;
-import com.nispok.snackbar.enums.SnackbarType;
-import com.nispok.snackbar.listeners.ActionClickListener;
 import com.squareup.leakcanary.RefWatcher;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
@@ -414,23 +409,23 @@ public class CustomViewFragment extends Fragment {
                             to.get(Calendar.YEAR) + " " +
                             "in " + CoCoinUtil.getTagName(tagId);
                 }
-                Snackbar snackbar =
-                        Snackbar
-                                .with(mContext)
-                                .type(SnackbarType.MULTI_LINE)
-                                .duration(Snackbar.SnackbarDuration.LENGTH_SHORT)
-                                .position(Snackbar.SnackbarPosition.BOTTOM)
-                                .margin(15, 15)
-                                .backgroundDrawable(CoCoinUtil.getSnackBarBackground(-3))
-                                .text(text)
-//                                .textTypeface(CoCoinUtil.getTypeface())
-                                .textColor(Color.WHITE)
-//                                .actionLabelTypeface(CoCoinUtil.getTypeface())
-                                .actionLabel(mContext.getResources()
-                                        .getString(R.string.check))
-                                .actionColor(Color.WHITE)
-                                .actionListener(new mActionClickListenerForPie());
-                SnackbarManager.show(snackbar);
+//                Snackbar snackbar =
+//                        Snackbar
+//                                .with(mContext)
+//                                .type(SnackbarType.MULTI_LINE)
+//                                .duration(Snackbar.SnackbarDuration.LENGTH_SHORT)
+//                                .position(Snackbar.SnackbarPosition.BOTTOM)
+//                                .margin(15, 15)
+//                                .backgroundDrawable(CoCoinUtil.getSnackBarBackground(-3))
+//                                .text(text)
+////                                .textTypeface(CoCoinUtil.getTypeface())
+//                                .textColor(Color.WHITE)
+////                                .actionLabelTypeface(CoCoinUtil.getTypeface())
+//                                .actionLabel(mContext.getResources()
+//                                        .getString(R.string.check))
+//                                .actionColor(Color.WHITE)
+//                                .actionListener(new mActionClickListenerForPie());
+//                SnackbarManager.show(snackbar);
 
                 if (p == lastPieSelectedPosition) {
                     return;
@@ -476,15 +471,15 @@ public class CustomViewFragment extends Fragment {
         });
     }
 
-    private class mActionClickListenerForPie implements ActionClickListener {
-        @Override
-        public void onActionClicked(Snackbar snackbar) {
-            List<CoCoinRecord> shownCoCoinRecords = Expanse.get(tagId);
-            ((FragmentActivity) mContext).getSupportFragmentManager()
-                    .beginTransaction()
-                    .add(new RecordCheckDialogFragment(
-                            mContext, shownCoCoinRecords, dialogTitle), "MyDialog")
-                    .commit();
-        }
-    }
+//    private class mActionClickListenerForPie implements ActionClickListener {
+//        @Override
+//        public void onActionClicked(Snackbar snackbar) {
+//            List<CoCoinRecord> shownCoCoinRecords = Expanse.get(tagId);
+//            ((FragmentActivity) mContext).getSupportFragmentManager()
+//                    .beginTransaction()
+//                    .add(new RecordCheckDialogFragment(
+//                            mContext, shownCoCoinRecords, dialogTitle), "MyDialog")
+//                    .commit();
+//        }
+//    }
 }

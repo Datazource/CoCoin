@@ -1,7 +1,6 @@
 package com.nightonke.saver.adapter;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -18,10 +17,6 @@ import com.nightonke.saver.model.CoCoinRecord;
 import com.nightonke.saver.model.RecordManager;
 import com.nightonke.saver.model.SettingManager;
 import com.nightonke.saver.util.CoCoinUtil;
-import com.nispok.snackbar.Snackbar;
-import com.nispok.snackbar.SnackbarManager;
-import com.nispok.snackbar.enums.SnackbarType;
-import com.nispok.snackbar.listeners.ActionClickListener;
 
 import net.steamcrafted.materialiconlib.MaterialIconView;
 
@@ -430,24 +425,24 @@ public class TodayViewRecyclerViewAdapter
                                         + dateShownString + "\n" +
                                         "in " + CoCoinUtil.getTagName(tagId);
                             }
-                            Snackbar snackbar =
-                                    Snackbar
-                                            .with(mContext)
-                                            .type(SnackbarType.MULTI_LINE)
-                                            .duration(Snackbar.SnackbarDuration.LENGTH_SHORT)
-                                            .position(Snackbar.SnackbarPosition.BOTTOM)
-                                            .margin(15, 15)
-                                            .backgroundDrawable(CoCoinUtil.getSnackBarBackground(
-                                                    fragmentPosition - 2))
-                                            .text(text)
-//                                            .textTypeface(CoCoinUtil.getTypeface())
-                                            .textColor(Color.WHITE)
-//                                            .actionLabelTypeface(CoCoinUtil.getTypeface())
-                                            .actionLabel(mContext.getResources()
-                                                    .getString(R.string.check))
-                                            .actionColor(Color.WHITE)
-                                            .actionListener(new mActionClickListenerForPie());
-                            SnackbarManager.show(snackbar);
+//                            Snackbar snackbar =
+//                                    Snackbar
+//                                            .with(mContext)
+//                                            .type(SnackbarType.MULTI_LINE)
+//                                            .duration(Snackbar.SnackbarDuration.LENGTH_SHORT)
+//                                            .position(Snackbar.SnackbarPosition.BOTTOM)
+//                                            .margin(15, 15)
+//                                            .backgroundDrawable(CoCoinUtil.getSnackBarBackground(
+//                                                    fragmentPosition - 2))
+//                                            .text(text)
+////                                            .textTypeface(CoCoinUtil.getTypeface())
+//                                            .textColor(Color.WHITE)
+////                                            .actionLabelTypeface(CoCoinUtil.getTypeface())
+//                                            .actionLabel(mContext.getResources()
+//                                                    .getString(R.string.check))
+//                                            .actionColor(Color.WHITE)
+//                                            .actionListener(new mActionClickListenerForPie());
+//                            SnackbarManager.show(snackbar);
 
                             if (p == lastPieSelectedPosition) {
                                 return;
@@ -535,24 +530,24 @@ public class TodayViewRecyclerViewAdapter
 
 // setting the snack bar and dialog title of histogram//////////////////////////////////////////////
                                         dialogTitle = text;
-                                        Snackbar snackbar =
-                                                Snackbar
-                                                        .with(mContext)
-                                                        .type(SnackbarType.MULTI_LINE)
-                                                        .duration(Snackbar.SnackbarDuration.LENGTH_SHORT)
-                                                        .position(Snackbar.SnackbarPosition.BOTTOM)
-                                                        .margin(15, 15)
-                                                        .backgroundDrawable(CoCoinUtil.getSnackBarBackground(
-                                                                fragmentPosition - 2))
-                                                        .text(text)
-//                                                        .textTypeface(CoCoinUtil.getTypeface())
-                                                        .textColor(Color.WHITE)
-//                                                        .actionLabelTypeface(CoCoinUtil.getTypeface())
-                                                        .actionLabel(mContext.getResources()
-                                                                .getString(R.string.check))
-                                                        .actionColor(Color.WHITE)
-                                                        .actionListener(new mActionClickListenerForHistogram());
-                                        SnackbarManager.show(snackbar);
+//                                        Snackbar snackbar =
+//                                                Snackbar
+//                                                        .with(mContext)
+//                                                        .type(SnackbarType.MULTI_LINE)
+//                                                        .duration(Snackbar.SnackbarDuration.LENGTH_SHORT)
+//                                                        .position(Snackbar.SnackbarPosition.BOTTOM)
+//                                                        .margin(15, 15)
+//                                                        .backgroundDrawable(CoCoinUtil.getSnackBarBackground(
+//                                                                fragmentPosition - 2))
+//                                                        .text(text)
+////                                                        .textTypeface(CoCoinUtil.getTypeface())
+//                                                        .textColor(Color.WHITE)
+////                                                        .actionLabelTypeface(CoCoinUtil.getTypeface())
+//                                                        .actionLabel(mContext.getResources()
+//                                                                .getString(R.string.check))
+//                                                        .actionColor(Color.WHITE)
+//                                                        .actionListener(new mActionClickListenerForHistogram());
+//                                        SnackbarManager.show(snackbar);
                                     }
 
                                     @Override
@@ -897,55 +892,55 @@ public class TodayViewRecyclerViewAdapter
     }
 
     // set the listener of the check button on the snack bar of pie/////////////////////////////////////
-    private class mActionClickListenerForPie implements ActionClickListener {
-        @Override
-        public void onActionClicked(Snackbar snackbar) {
-            List<CoCoinRecord> shownCoCoinRecords = Expanse.get(tagId);
-            ((FragmentActivity) mContext).getSupportFragmentManager()
-                    .beginTransaction()
-                    .add(new RecordCheckDialogFragment(
-                            mContext, shownCoCoinRecords, dialogTitle), "MyDialog")
-                    .commit();
-        }
-    }
+//    private class mActionClickListenerForPie implements ActionClickListener {
+//        @Override
+//        public void onActionClicked(Snackbar snackbar) {
+//            List<CoCoinRecord> shownCoCoinRecords = Expanse.get(tagId);
+//            ((FragmentActivity) mContext).getSupportFragmentManager()
+//                    .beginTransaction()
+//                    .add(new RecordCheckDialogFragment(
+//                            mContext, shownCoCoinRecords, dialogTitle), "MyDialog")
+//                    .commit();
+//        }
+//    }
 
     // set the listener of the check button on the snack bar of histogram///////////////////////////////
-    private class mActionClickListenerForHistogram implements ActionClickListener {
-        @Override
-        public void onActionClicked(Snackbar snackbar) {
-            ArrayList<CoCoinRecord> shownCoCoinRecords = new ArrayList<>();
-            int index = timeIndex;
-            if (axis_date == Calendar.DAY_OF_WEEK) {
-                if (CoCoinUtil.WEEK_START_WITH_SUNDAY) {
-                    index++;
-                } else if (index == 6) {
-                    index = 1;
-                } else {
-                    index += 2;
-                }
-            }
-            if (fragmentPosition == THIS_MONTH || fragmentPosition == LAST_MONTH) {
-                index++;
-            }
-            if (tagId != -1) {
-                for (int i = 0; i < Expanse.get(tagId).size(); i++) {
-                    if (Expanse.get(tagId).get(i).getCalendar().get(axis_date) == index) {
-                        shownCoCoinRecords.add(Expanse.get(tagId).get(i));
-                    }
-                }
-            } else {
-                for (int i = 0; i < allData.size(); i++) {
-                    if (allData.get(i).getCalendar().get(axis_date) == index) {
-                        shownCoCoinRecords.add(allData.get(i));
-                    }
-                }
-            }
-            ((FragmentActivity) mContext).getSupportFragmentManager()
-                    .beginTransaction()
-                    .add(new RecordCheckDialogFragment(
-                            mContext, shownCoCoinRecords, dialogTitle), "MyDialog")
-                    .commit();
-        }
-    }
+//    private class mActionClickListenerForHistogram implements ActionClickListener {
+//        @Override
+//        public void onActionClicked(Snackbar snackbar) {
+//            ArrayList<CoCoinRecord> shownCoCoinRecords = new ArrayList<>();
+//            int index = timeIndex;
+//            if (axis_date == Calendar.DAY_OF_WEEK) {
+//                if (CoCoinUtil.WEEK_START_WITH_SUNDAY) {
+//                    index++;
+//                } else if (index == 6) {
+//                    index = 1;
+//                } else {
+//                    index += 2;
+//                }
+//            }
+//            if (fragmentPosition == THIS_MONTH || fragmentPosition == LAST_MONTH) {
+//                index++;
+//            }
+//            if (tagId != -1) {
+//                for (int i = 0; i < Expanse.get(tagId).size(); i++) {
+//                    if (Expanse.get(tagId).get(i).getCalendar().get(axis_date) == index) {
+//                        shownCoCoinRecords.add(Expanse.get(tagId).get(i));
+//                    }
+//                }
+//            } else {
+//                for (int i = 0; i < allData.size(); i++) {
+//                    if (allData.get(i).getCalendar().get(axis_date) == index) {
+//                        shownCoCoinRecords.add(allData.get(i));
+//                    }
+//                }
+//            }
+//            ((FragmentActivity) mContext).getSupportFragmentManager()
+//                    .beginTransaction()
+//                    .add(new RecordCheckDialogFragment(
+//                            mContext, shownCoCoinRecords, dialogTitle), "MyDialog")
+//                    .commit();
+//        }
+//    }
 
 }

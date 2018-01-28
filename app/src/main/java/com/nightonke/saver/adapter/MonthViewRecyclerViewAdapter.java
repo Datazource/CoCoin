@@ -1,7 +1,6 @@
 package com.nightonke.saver.adapter;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,18 +8,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.nightonke.saver.R;
 import com.nightonke.saver.CoCoinApplication;
+import com.nightonke.saver.R;
 import com.nightonke.saver.fragment.RecordCheckDialogFragment;
 import com.nightonke.saver.model.CoCoinRecord;
 import com.nightonke.saver.model.RecordManager;
 import com.nightonke.saver.model.SettingManager;
 import com.nightonke.saver.util.CoCoinUtil;
 import com.nightonke.saver.util.Constances;
-import com.nispok.snackbar.Snackbar;
-import com.nispok.snackbar.SnackbarManager;
-import com.nispok.snackbar.enums.SnackbarType;
-import com.nispok.snackbar.listeners.ActionClickListener;
 
 import net.steamcrafted.materialiconlib.MaterialIconView;
 
@@ -423,34 +418,34 @@ public class MonthViewRecyclerViewAdapter
                         + dateStringList.get(position) + "\n" +
                         "in " + CoCoinUtil.getTagName(RecordManager.TAGS.get(tagId).getId());
             }
-            Snackbar snackbar =
-                    Snackbar
-                            .with(mContext)
-                            .type(SnackbarType.MULTI_LINE)
-                            .duration(Snackbar.SnackbarDuration.LENGTH_SHORT)
-                            .position(Snackbar.SnackbarPosition.BOTTOM)
-                            .margin(15, 15)
-                            .backgroundDrawable(CoCoinUtil.getSnackBarBackground(fragmentPosition - 2))
-                            .text(text)
-//                            .textTypeface(CoCoinUtil.getTypeface())
-                            .textColor(Color.WHITE)
-//                            .actionLabelTypeface(CoCoinUtil.getTypeface())
-                            .actionLabel(mContext.getResources().getString(R.string.check))
-                            .actionColor(Color.WHITE)
-                            .actionListener(new ActionClickListener() {
-                                @Override
-                                public void onActionClicked(Snackbar snackbar) {
-                                    List<CoCoinRecord> shownCoCoinRecords
-                                            = ExpanseList.get(position).get(tagId);
-                                    ((FragmentActivity) mContext).getSupportFragmentManager()
-                                            .beginTransaction()
-                                            .add(new RecordCheckDialogFragment(
-                                                            mContext, shownCoCoinRecords, dialogTitle),
-                                                    "MyDialog")
-                                            .commit();
-                                }
-                            });
-            SnackbarManager.show(snackbar);
+//            Snackbar snackbar =
+//                    Snackbar
+//                            .with(mContext)
+//                            .type(SnackbarType.MULTI_LINE)
+//                            .duration(Snackbar.SnackbarDuration.LENGTH_SHORT)
+//                            .position(Snackbar.SnackbarPosition.BOTTOM)
+//                            .margin(15, 15)
+//                            .backgroundDrawable(CoCoinUtil.getSnackBarBackground(fragmentPosition - 2))
+//                            .text(text)
+////                            .textTypeface(CoCoinUtil.getTypeface())
+//                            .textColor(Color.WHITE)
+////                            .actionLabelTypeface(CoCoinUtil.getTypeface())
+//                            .actionLabel(mContext.getResources().getString(R.string.check))
+//                            .actionColor(Color.WHITE)
+//                            .actionListener(new ActionClickListener() {
+//                                @Override
+//                                public void onActionClicked(Snackbar snackbar) {
+//                                    List<CoCoinRecord> shownCoCoinRecords
+//                                            = ExpanseList.get(position).get(tagId);
+//                                    ((FragmentActivity) mContext).getSupportFragmentManager()
+//                                            .beginTransaction()
+//                                            .add(new RecordCheckDialogFragment(
+//                                                            mContext, shownCoCoinRecords, dialogTitle),
+//                                                    "MyDialog")
+//                                            .commit();
+//                                }
+//                            });
+//            SnackbarManager.show(snackbar);
         }
 
         @Override

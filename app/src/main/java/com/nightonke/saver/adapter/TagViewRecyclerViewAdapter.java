@@ -1,8 +1,6 @@
 package com.nightonke.saver.adapter;
 
 import android.content.Context;
-import android.graphics.Color;
-import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -11,17 +9,12 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.nightonke.saver.R;
-import com.nightonke.saver.fragment.RecordCheckDialogFragment;
 import com.nightonke.saver.model.CoCoinRecord;
 import com.nightonke.saver.model.RecordManager;
 import com.nightonke.saver.model.SettingManager;
 import com.nightonke.saver.model.Tag;
 import com.nightonke.saver.util.CoCoinUtil;
 import com.nightonke.saver.util.Constances;
-import com.nispok.snackbar.Snackbar;
-import com.nispok.snackbar.SnackbarManager;
-import com.nispok.snackbar.enums.SnackbarType;
-import com.nispok.snackbar.listeners.ActionClickListener;
 
 import net.steamcrafted.materialiconlib.MaterialIconView;
 
@@ -673,18 +666,18 @@ public class TagViewRecyclerViewAdapter extends RecyclerView.Adapter<TagViewRecy
 
         @Override
         public void onValueSelected(final int columnIndex, int subColumnIndex, SubcolumnValue value) {
-            Snackbar snackbar =
-                    Snackbar.with(mContext)
-                            .type(SnackbarType.MULTI_LINE)
-                            .duration(Snackbar.SnackbarDuration.LENGTH_SHORT)
-                            .position(Snackbar.SnackbarPosition.BOTTOM)
-                            .margin(15, 15)
-                            .backgroundDrawable(CoCoinUtil.getSnackBarBackground(fragmentTagId))
-                            .textColor(Color.WHITE)
-//                            .textTypeface(CoCoinUtil.getTypeface())
-                            .actionLabel(mContext.getResources().getString(R.string.check))
-//                            .actionLabelTypeface(CoCoinUtil.typefaceLatoLight)
-                            .actionColor(Color.WHITE);
+//            Snackbar snackbar =
+//                    Snackbar.with(mContext)
+//                            .type(SnackbarType.MULTI_LINE)
+//                            .duration(Snackbar.SnackbarDuration.LENGTH_SHORT)
+//                            .position(Snackbar.SnackbarPosition.BOTTOM)
+//                            .margin(15, 15)
+//                            .backgroundDrawable(CoCoinUtil.getSnackBarBackground(fragmentTagId))
+//                            .textColor(Color.WHITE)
+////                            .textTypeface(CoCoinUtil.getTypeface())
+//                            .actionLabel(mContext.getResources().getString(R.string.check))
+////                            .actionLabelTypeface(CoCoinUtil.typefaceLatoLight)
+//                            .actionColor(Color.WHITE);
             if (fragmentPosition == SUM_HISTOGRAM) {
                 if (type.get(position).equals(SHOW_IN_MONTH)) {
                     String text = "";
@@ -704,30 +697,30 @@ public class TagViewRecyclerViewAdapter extends RecyclerView.Adapter<TagViewRecy
                         dialogTitle = CoCoinUtil.getSpendString((int) value.getValue()) +
                                 mContext.getResources().getString(R.string.on) + timeString;
                     }
-                    snackbar.text(text);
-                    snackbar.actionListener(new ActionClickListener() {
-                        @Override
-                        public void onActionClicked(Snackbar snackbar) {
-                            List<CoCoinRecord> shownCoCoinRecords = new ArrayList<>();
-                            boolean isSamed = false;
-                            for (CoCoinRecord coCoinRecord : contents.get(position)) {
-                                if (coCoinRecord.getCalendar().get(Calendar.DAY_OF_MONTH) == columnIndex + 1) {
-                                    shownCoCoinRecords.add(coCoinRecord);
-                                    isSamed = true;
-                                } else {
-                                    if (isSamed) {
-                                        break;
-                                    }
-                                }
-                            }
-                            ((FragmentActivity) mContext).getSupportFragmentManager()
-                                    .beginTransaction()
-                                    .add(new RecordCheckDialogFragment(
-                                            mContext, shownCoCoinRecords, dialogTitle), "MyDialog")
-                                    .commit();
-                        }
-                    });
-                    SnackbarManager.show(snackbar);
+//                    snackbar.text(text);
+//                    snackbar.actionListener(new ActionClickListener() {
+//                        @Override
+//                        public void onActionClicked(Snackbar snackbar) {
+//                            List<CoCoinRecord> shownCoCoinRecords = new ArrayList<>();
+//                            boolean isSamed = false;
+//                            for (CoCoinRecord coCoinRecord : contents.get(position)) {
+//                                if (coCoinRecord.getCalendar().get(Calendar.DAY_OF_MONTH) == columnIndex + 1) {
+//                                    shownCoCoinRecords.add(coCoinRecord);
+//                                    isSamed = true;
+//                                } else {
+//                                    if (isSamed) {
+//                                        break;
+//                                    }
+//                                }
+//                            }
+//                            ((FragmentActivity) mContext).getSupportFragmentManager()
+//                                    .beginTransaction()
+//                                    .add(new RecordCheckDialogFragment(
+//                                            mContext, shownCoCoinRecords, dialogTitle), "MyDialog")
+//                                    .commit();
+//                        }
+//                    });
+//                    SnackbarManager.show(snackbar);
                 }
                 if (type.get(position).equals(SHOW_IN_YEAR)) {
                     String text;
@@ -746,30 +739,30 @@ public class TagViewRecyclerViewAdapter extends RecyclerView.Adapter<TagViewRecy
                         dialogTitle = CoCoinUtil.getSpendString((int) value.getValue()) +
                                 mContext.getResources().getString(R.string.in) + timeString;
                     }
-                    snackbar.text(text);
-                    snackbar.actionListener(new ActionClickListener() {
-                        @Override
-                        public void onActionClicked(Snackbar snackbar) {
-                            List<CoCoinRecord> shownCoCoinRecords = new ArrayList<>();
-                            boolean isSamed = false;
-                            for (CoCoinRecord coCoinRecord : contents.get(position)) {
-                                if (coCoinRecord.getCalendar().get(Calendar.MONTH) == columnIndex) {
-                                    shownCoCoinRecords.add(coCoinRecord);
-                                    isSamed = true;
-                                } else {
-                                    if (isSamed) {
-                                        break;
-                                    }
-                                }
-                            }
-                            ((FragmentActivity) mContext).getSupportFragmentManager()
-                                    .beginTransaction()
-                                    .add(new RecordCheckDialogFragment(
-                                            mContext, shownCoCoinRecords, dialogTitle), "MyDialog")
-                                    .commit();
-                        }
-                    });
-                    SnackbarManager.show(snackbar);
+//                    snackbar.text(text);
+//                    snackbar.actionListener(new ActionClickListener() {
+//                        @Override
+//                        public void onActionClicked(Snackbar snackbar) {
+//                            List<CoCoinRecord> shownCoCoinRecords = new ArrayList<>();
+//                            boolean isSamed = false;
+//                            for (CoCoinRecord coCoinRecord : contents.get(position)) {
+//                                if (coCoinRecord.getCalendar().get(Calendar.MONTH) == columnIndex) {
+//                                    shownCoCoinRecords.add(coCoinRecord);
+//                                    isSamed = true;
+//                                } else {
+//                                    if (isSamed) {
+//                                        break;
+//                                    }
+//                                }
+//                            }
+//                            ((FragmentActivity) mContext).getSupportFragmentManager()
+//                                    .beginTransaction()
+//                                    .add(new RecordCheckDialogFragment(
+//                                            mContext, shownCoCoinRecords, dialogTitle), "MyDialog")
+//                                    .commit();
+//                        }
+//                    });
+//                    SnackbarManager.show(snackbar);
                 }
             } else {
                 if (type.get(position).equals(SHOW_IN_MONTH)) {
@@ -795,31 +788,31 @@ public class TagViewRecyclerViewAdapter extends RecyclerView.Adapter<TagViewRecy
                                 mContext.getResources().getString(R.string.on) + timeString + "\n"
                                 + "in " + CoCoinUtil.getTagName(contents.get(position).get(0).getTag());
                     }
-                    snackbar.text(text);
-                    snackbar.actionListener(new ActionClickListener() {
-                        @Override
-                        public void onActionClicked(Snackbar snackbar) {
-                            List<CoCoinRecord> shownCoCoinRecords = new ArrayList<>();
-                            boolean isSamed = false;
-                            for (CoCoinRecord coCoinRecord : contents.get(position)) {
-                                if (coCoinRecord.getCalendar().
-                                        get(Calendar.DAY_OF_MONTH) == columnIndex + 1) {
-                                    shownCoCoinRecords.add(coCoinRecord);
-                                    isSamed = true;
-                                } else {
-                                    if (isSamed) {
-                                        break;
-                                    }
-                                }
-                            }
-                            ((FragmentActivity) mContext).getSupportFragmentManager()
-                                    .beginTransaction()
-                                    .add(new RecordCheckDialogFragment(
-                                            mContext, shownCoCoinRecords, dialogTitle), "MyDialog")
-                                    .commit();
-                        }
-                    });
-                    SnackbarManager.show(snackbar);
+//                    snackbar.text(text);
+//                    snackbar.actionListener(new ActionClickListener() {
+//                        @Override
+//                        public void onActionClicked(Snackbar snackbar) {
+//                            List<CoCoinRecord> shownCoCoinRecords = new ArrayList<>();
+//                            boolean isSamed = false;
+//                            for (CoCoinRecord coCoinRecord : contents.get(position)) {
+//                                if (coCoinRecord.getCalendar().
+//                                        get(Calendar.DAY_OF_MONTH) == columnIndex + 1) {
+//                                    shownCoCoinRecords.add(coCoinRecord);
+//                                    isSamed = true;
+//                                } else {
+//                                    if (isSamed) {
+//                                        break;
+//                                    }
+//                                }
+//                            }
+//                            ((FragmentActivity) mContext).getSupportFragmentManager()
+//                                    .beginTransaction()
+//                                    .add(new RecordCheckDialogFragment(
+//                                            mContext, shownCoCoinRecords, dialogTitle), "MyDialog")
+//                                    .commit();
+//                        }
+//                    });
+//                    SnackbarManager.show(snackbar);
                 }
                 if (type.get(position).equals(SHOW_IN_YEAR)) {
                     String text;
@@ -842,30 +835,30 @@ public class TagViewRecyclerViewAdapter extends RecyclerView.Adapter<TagViewRecy
                                 mContext.getResources().getString(R.string.in) + timeString + "\n"
                                 + "in " + CoCoinUtil.getTagName(contents.get(position).get(0).getTag());
                     }
-                    snackbar.text(text);
-                    snackbar.actionListener(new ActionClickListener() {
-                        @Override
-                        public void onActionClicked(Snackbar snackbar) {
-                            List<CoCoinRecord> shownCoCoinRecords = new ArrayList<>();
-                            boolean isSamed = false;
-                            for (CoCoinRecord coCoinRecord : contents.get(position)) {
-                                if (coCoinRecord.getCalendar().get(Calendar.MONTH) == columnIndex) {
-                                    shownCoCoinRecords.add(coCoinRecord);
-                                    isSamed = true;
-                                } else {
-                                    if (isSamed) {
-                                        break;
-                                    }
-                                }
-                            }
-                            ((FragmentActivity) mContext).getSupportFragmentManager()
-                                    .beginTransaction()
-                                    .add(new RecordCheckDialogFragment(
-                                            mContext, shownCoCoinRecords, dialogTitle), "MyDialog")
-                                    .commit();
-                        }
-                    });
-                    SnackbarManager.show(snackbar);
+//                    snackbar.text(text);
+//                    snackbar.actionListener(new ActionClickListener() {
+//                        @Override
+//                        public void onActionClicked(Snackbar snackbar) {
+//                            List<CoCoinRecord> shownCoCoinRecords = new ArrayList<>();
+//                            boolean isSamed = false;
+//                            for (CoCoinRecord coCoinRecord : contents.get(position)) {
+//                                if (coCoinRecord.getCalendar().get(Calendar.MONTH) == columnIndex) {
+//                                    shownCoCoinRecords.add(coCoinRecord);
+//                                    isSamed = true;
+//                                } else {
+//                                    if (isSamed) {
+//                                        break;
+//                                    }
+//                                }
+//                            }
+//                            ((FragmentActivity) mContext).getSupportFragmentManager()
+//                                    .beginTransaction()
+//                                    .add(new RecordCheckDialogFragment(
+//                                            mContext, shownCoCoinRecords, dialogTitle), "MyDialog")
+//                                    .commit();
+//                        }
+//                    });
+//                    SnackbarManager.show(snackbar);
                 }
             }
         }
@@ -915,37 +908,37 @@ public class TagViewRecyclerViewAdapter extends RecyclerView.Adapter<TagViewRecy
                         mContext.getResources().getString(R.string.in) + timeString + "\n" +
                         "in " + CoCoinUtil.getTagName(RecordManager.TAGS.get(tagId).getId());
             }
-            Snackbar snackbar =
-                    Snackbar
-                            .with(mContext)
-                            .type(SnackbarType.MULTI_LINE)
-                            .duration(Snackbar.SnackbarDuration.LENGTH_SHORT)
-                            .position(Snackbar.SnackbarPosition.BOTTOM)
-                            .margin(15, 15)
-                            .backgroundDrawable(CoCoinUtil.getSnackBarBackground(fragmentTagId))
-                            .text(text)
-//                            .textTypeface(CoCoinUtil.getTypeface())
-                            .textColor(Color.WHITE)
-//                            .actionLabelTypeface(CoCoinUtil.typefaceLatoLight)
-                            .actionLabel(mContext.getResources().getString(R.string.check))
-                            .actionColor(Color.WHITE)
-                            .actionListener(new ActionClickListener() {
-                                @Override
-                                public void onActionClicked(Snackbar snackbar) {
-                                    List<CoCoinRecord> shownCoCoinRecords = new ArrayList<>();
-                                    for (CoCoinRecord record : contents.get(position)) {
-                                        if (record.getTag() == tagId) {
-                                            shownCoCoinRecords.add(record);
-                                        }
-                                    }
-                                    ((FragmentActivity) mContext).getSupportFragmentManager()
-                                            .beginTransaction()
-                                            .add(new RecordCheckDialogFragment(
-                                                    mContext, shownCoCoinRecords, dialogTitle), "MyDialog")
-                                            .commit();
-                                }
-                            });
-            SnackbarManager.show(snackbar);
+//            Snackbar snackbar =
+//                    Snackbar
+//                            .with(mContext)
+//                            .type(SnackbarType.MULTI_LINE)
+//                            .duration(Snackbar.SnackbarDuration.LENGTH_SHORT)
+//                            .position(Snackbar.SnackbarPosition.BOTTOM)
+//                            .margin(15, 15)
+//                            .backgroundDrawable(CoCoinUtil.getSnackBarBackground(fragmentTagId))
+//                            .text(text)
+////                            .textTypeface(CoCoinUtil.getTypeface())
+//                            .textColor(Color.WHITE)
+////                            .actionLabelTypeface(CoCoinUtil.typefaceLatoLight)
+//                            .actionLabel(mContext.getResources().getString(R.string.check))
+//                            .actionColor(Color.WHITE)
+//                            .actionListener(new ActionClickListener() {
+//                                @Override
+//                                public void onActionClicked(Snackbar snackbar) {
+//                                    List<CoCoinRecord> shownCoCoinRecords = new ArrayList<>();
+//                                    for (CoCoinRecord record : contents.get(position)) {
+//                                        if (record.getTag() == tagId) {
+//                                            shownCoCoinRecords.add(record);
+//                                        }
+//                                    }
+//                                    ((FragmentActivity) mContext).getSupportFragmentManager()
+//                                            .beginTransaction()
+//                                            .add(new RecordCheckDialogFragment(
+//                                                    mContext, shownCoCoinRecords, dialogTitle), "MyDialog")
+//                                            .commit();
+//                                }
+//                            });
+//            SnackbarManager.show(snackbar);
         }
 
         @Override

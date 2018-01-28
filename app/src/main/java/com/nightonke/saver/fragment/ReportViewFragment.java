@@ -2,7 +2,6 @@ package com.nightonke.saver.fragment;
 
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -34,10 +33,6 @@ import com.nightonke.saver.model.SettingManager;
 import com.nightonke.saver.ui.ExpandedListView;
 import com.nightonke.saver.ui.MyGridView;
 import com.nightonke.saver.util.CoCoinUtil;
-import com.nispok.snackbar.Snackbar;
-import com.nispok.snackbar.SnackbarManager;
-import com.nispok.snackbar.enums.SnackbarType;
-import com.nispok.snackbar.listeners.ActionClickListener;
 import com.squareup.leakcanary.RefWatcher;
 
 import net.steamcrafted.materialiconlib.MaterialIconView;
@@ -63,10 +58,6 @@ import lecho.lib.hellocharts.model.SliceValue;
 import lecho.lib.hellocharts.model.ValueShape;
 import lecho.lib.hellocharts.view.LineChartView;
 import lecho.lib.hellocharts.view.PieChartView;
-
-//import com.github.johnpersano.supertoasts.library.Style;
-//import com.github.johnpersano.supertoasts.library.SuperToast;
-//import com.github.johnpersano.supertoasts.library.utils.PaletteUtils;
 
 /**
  * Created by 伟平 on 2015/10/20.
@@ -363,28 +354,28 @@ public class ReportViewFragment extends Fragment implements View.OnClickListener
                                 "on " + CoCoinUtil.getTagName(tagId);
                     }
                 }
-                Snackbar snackbar =
-                        Snackbar
-                                .with(mContext)
-                                .type(SnackbarType.MULTI_LINE)
-                                .duration(Snackbar.SnackbarDuration.LENGTH_SHORT)
-                                .position(Snackbar.SnackbarPosition.BOTTOM)
-                                .margin(15, 15)
-                                .backgroundDrawable(CoCoinUtil.getSnackBarBackground(-3))
-                                .text(text)
-//                                .textTypeface(CoCoinUtil.getTypeface())
-                                .textColor(Color.WHITE)
-//                                .actionLabelTypeface(CoCoinUtil.getTypeface())
-                                .actionLabel(mContext.getResources()
-                                        .getString(R.string.check))
-                                .actionColor(Color.WHITE)
-                                .actionListener(new ActionClickListener() {
-                                    @Override
-                                    public void onActionClicked(Snackbar snackbar) {
-                                        new GetData(from, to, tagId, dialogTitle).execute();
-                                    }
-                                });
-                SnackbarManager.show(snackbar);
+//                Snackbar snackbar =
+//                        Snackbar
+//                                .with(mContext)
+//                                .type(SnackbarType.MULTI_LINE)
+//                                .duration(Snackbar.SnackbarDuration.LENGTH_SHORT)
+//                                .position(Snackbar.SnackbarPosition.BOTTOM)
+//                                .margin(15, 15)
+//                                .backgroundDrawable(CoCoinUtil.getSnackBarBackground(-3))
+//                                .text(text)
+////                                .textTypeface(CoCoinUtil.getTypeface())
+//                                .textColor(Color.WHITE)
+////                                .actionLabelTypeface(CoCoinUtil.getTypeface())
+//                                .actionLabel(mContext.getResources()
+//                                        .getString(R.string.check))
+//                                .actionColor(Color.WHITE)
+//                                .actionListener(new ActionClickListener() {
+//                                    @Override
+//                                    public void onActionClicked(Snackbar snackbar) {
+//                                        new GetData(from, to, tagId, dialogTitle).execute();
+//                                    }
+//                                });
+//                SnackbarManager.show(snackbar);
 
                 if (p == lastPieSelectedPosition) {
                     return;
@@ -518,28 +509,28 @@ public class ReportViewFragment extends Fragment implements View.OnClickListener
                     tempTo.set(reportYear, reportMonth - 1, (int) value.getX() + 1, 23, 59, 59);
                     tempTo.add(Calendar.SECOND, 0);
                 }
-                Snackbar snackbar =
-                        Snackbar
-                                .with(mContext)
-                                .type(SnackbarType.MULTI_LINE)
-                                .duration(Snackbar.SnackbarDuration.LENGTH_SHORT)
-                                .position(Snackbar.SnackbarPosition.BOTTOM)
-                                .margin(15, 15)
-                                .backgroundDrawable(CoCoinUtil.getSnackBarBackground(-3))
-                                .text(text)
-//                                .textTypeface(CoCoinUtil.getTypeface())
-                                .textColor(Color.WHITE)
-//                                .actionLabelTypeface(CoCoinUtil.getTypeface())
-                                .actionLabel(mContext.getResources()
-                                        .getString(R.string.check))
-                                .actionColor(Color.WHITE)
-                                .actionListener(new ActionClickListener() {
-                                    @Override
-                                    public void onActionClicked(Snackbar snackbar) {
-                                        new GetData(tempFrom, tempTo, Integer.MIN_VALUE, dialogTitle).execute();
-                                    }
-                                });
-                SnackbarManager.show(snackbar);
+//                Snackbar snackbar =
+//                        Snackbar
+//                                .with(mContext)
+//                                .type(SnackbarType.MULTI_LINE)
+//                                .duration(Snackbar.SnackbarDuration.LENGTH_SHORT)
+//                                .position(Snackbar.SnackbarPosition.BOTTOM)
+//                                .margin(15, 15)
+//                                .backgroundDrawable(CoCoinUtil.getSnackBarBackground(-3))
+//                                .text(text)
+////                                .textTypeface(CoCoinUtil.getTypeface())
+//                                .textColor(Color.WHITE)
+////                                .actionLabelTypeface(CoCoinUtil.getTypeface())
+//                                .actionLabel(mContext.getResources()
+//                                        .getString(R.string.check))
+//                                .actionColor(Color.WHITE)
+//                                .actionListener(new ActionClickListener() {
+//                                    @Override
+//                                    public void onActionClicked(Snackbar snackbar) {
+//                                        new GetData(tempFrom, tempTo, Integer.MIN_VALUE, dialogTitle).execute();
+//                                    }
+//                                });
+//                SnackbarManager.show(snackbar);
 
                 if (pointIndex == lastLineSelectedPosition) {
                     return;

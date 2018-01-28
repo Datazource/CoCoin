@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.graphics.drawable.NinePatchDrawable;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -40,8 +39,6 @@ import com.daimajia.slider.library.Animations.DescriptionAnimation;
 import com.daimajia.slider.library.Indicators.PagerIndicator;
 import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
-//import com.github.johnpersano.supertoasts.library.SuperToast;
-//import com.github.johnpersano.supertoasts.library.utils.PaletteUtils;
 import com.h6ah4i.android.widget.advrecyclerview.animator.GeneralItemAnimator;
 import com.h6ah4i.android.widget.advrecyclerview.animator.SwipeDismissItemAnimator;
 import com.h6ah4i.android.widget.advrecyclerview.decoration.ItemShadowDecorator;
@@ -66,11 +63,6 @@ import com.nightonke.saver.ui.CustomSliderView;
 import com.nightonke.saver.ui.DoubleSliderClickListener;
 import com.nightonke.saver.ui.MyGridView;
 import com.nightonke.saver.util.CoCoinUtil;
-import com.nispok.snackbar.Snackbar;
-import com.nispok.snackbar.SnackbarManager;
-import com.nispok.snackbar.enums.SnackbarType;
-import com.nispok.snackbar.listeners.ActionClickListener;
-import com.nispok.snackbar.listeners.EventListener;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
 import java.io.File;
@@ -594,92 +586,92 @@ public class AccountBookListViewActivity extends AppCompatActivity
 
         lastPosition = RecordManager.SELECTED_RECORDS.size() - position;
         undid = false;
-        Snackbar snackbar =
-                Snackbar
-                        .with(mContext)
-                        .type(SnackbarType.MULTI_LINE)
-                        .duration(Snackbar.SnackbarDuration.LENGTH_SHORT)
-                        .position(Snackbar.SnackbarPosition.BOTTOM)
-                        .margin(15, 15)
-                        .backgroundDrawable(CoCoinUtil.getSnackBarBackground(-3))
-                        .text(mContext.getResources().getString(R.string.deleting))
-//                        .textTypeface(CoCoinUtil.getTypeface())
-                        .textColor(Color.WHITE)
-//                        .actionLabelTypeface(CoCoinUtil.getTypeface())
-                        .actionLabel(mContext.getResources()
-                                .getString(R.string.undo))
-                        .actionColor(Color.WHITE)
-                        .actionListener(new ActionClickListener() {
-                            @Override
-                            public void onActionClicked(Snackbar snackbar) {
-                                RecordManager.SELECTED_RECORDS.add(lastPosition, CoCoinUtil.backupCoCoinRecord);
-                                RecordManager.SELECTED_SUM += CoCoinUtil.backupCoCoinRecord.getMoney();
-                                changeTitleSlider();
-                                CoCoinUtil.backupCoCoinRecord = null;
-                                LinearLayoutManager linearLayoutManager
-                                        = (LinearLayoutManager) recyclerView.getLayoutManager();
-                                int firstVisiblePosition = linearLayoutManager
-                                        .findFirstCompletelyVisibleItemPosition();
-                                int lastVisiblePosition = linearLayoutManager
-                                        .findLastCompletelyVisibleItemPosition();
-                                final int insertPosition
-                                        = RecordManager.SELECTED_RECORDS.size() - 1 - lastPosition;
-                                if (firstVisiblePosition < insertPosition
-                                        && insertPosition <= lastVisiblePosition) {
-
-                                } else {
-                                    recyclerView.scrollToPosition(insertPosition);
-                                }
-                                mAdapter.notifyItemInserted(insertPosition);
-                                mAdapter.notifyDataSetChanged();
-
-                                if (RecordManager.SELECTED_RECORDS.size() != 0) {
-                                    emptyTip.setVisibility(View.GONE);
-                                    verticalRecyclerViewFastScroller.setVisibility(View.VISIBLE);
-                                }
-                            }
-                        })
-                        .eventListener(new EventListener() {
-                            @Override
-                            public void onShow(Snackbar snackbar) {
-
-                            }
-
-                            @Override
-                            public void onShowByReplace(Snackbar snackbar) {
-
-                            }
-
-                            @Override
-                            public void onShown(Snackbar snackbar) {
-
-                            }
-
-                            @Override
-                            public void onDismiss(Snackbar snackbar) {
-                                if (CoCoinUtil.backupCoCoinRecord != null) {
-                                    RecordManager.deleteRecord(CoCoinUtil.backupCoCoinRecord, true);
-                                }
-                                CoCoinUtil.backupCoCoinRecord = null;
-                            }
-
-                            @Override
-                            public void onDismissByReplace(Snackbar snackbar) {
-                                if (CoCoinUtil.backupCoCoinRecord != null) {
-                                    RecordManager.deleteRecord(CoCoinUtil.backupCoCoinRecord, true);
-                                }
-                                CoCoinUtil.backupCoCoinRecord = null;
-                            }
-
-                            @Override
-                            public void onDismissed(Snackbar snackbar) {
-                                if (CoCoinUtil.backupCoCoinRecord != null) {
-                                    RecordManager.deleteRecord(CoCoinUtil.backupCoCoinRecord, true);
-                                }
-                                CoCoinUtil.backupCoCoinRecord = null;
-                            }
-                        });
-        SnackbarManager.show(snackbar);
+//        Snackbar snackbar =
+//                Snackbar
+//                        .with(mContext)
+//                        .type(SnackbarType.MULTI_LINE)
+//                        .duration(Snackbar.SnackbarDuration.LENGTH_SHORT)
+//                        .position(Snackbar.SnackbarPosition.BOTTOM)
+//                        .margin(15, 15)
+//                        .backgroundDrawable(CoCoinUtil.getSnackBarBackground(-3))
+//                        .text(mContext.getResources().getString(R.string.deleting))
+////                        .textTypeface(CoCoinUtil.getTypeface())
+//                        .textColor(Color.WHITE)
+////                        .actionLabelTypeface(CoCoinUtil.getTypeface())
+//                        .actionLabel(mContext.getResources()
+//                                .getString(R.string.undo))
+//                        .actionColor(Color.WHITE)
+//                        .actionListener(new ActionClickListener() {
+//                            @Override
+//                            public void onActionClicked(Snackbar snackbar) {
+//                                RecordManager.SELECTED_RECORDS.add(lastPosition, CoCoinUtil.backupCoCoinRecord);
+//                                RecordManager.SELECTED_SUM += CoCoinUtil.backupCoCoinRecord.getMoney();
+//                                changeTitleSlider();
+//                                CoCoinUtil.backupCoCoinRecord = null;
+//                                LinearLayoutManager linearLayoutManager
+//                                        = (LinearLayoutManager) recyclerView.getLayoutManager();
+//                                int firstVisiblePosition = linearLayoutManager
+//                                        .findFirstCompletelyVisibleItemPosition();
+//                                int lastVisiblePosition = linearLayoutManager
+//                                        .findLastCompletelyVisibleItemPosition();
+//                                final int insertPosition
+//                                        = RecordManager.SELECTED_RECORDS.size() - 1 - lastPosition;
+//                                if (firstVisiblePosition < insertPosition
+//                                        && insertPosition <= lastVisiblePosition) {
+//
+//                                } else {
+//                                    recyclerView.scrollToPosition(insertPosition);
+//                                }
+//                                mAdapter.notifyItemInserted(insertPosition);
+//                                mAdapter.notifyDataSetChanged();
+//
+//                                if (RecordManager.SELECTED_RECORDS.size() != 0) {
+//                                    emptyTip.setVisibility(View.GONE);
+//                                    verticalRecyclerViewFastScroller.setVisibility(View.VISIBLE);
+//                                }
+//                            }
+//                        })
+//                        .eventListener(new EventListener() {
+//                            @Override
+//                            public void onShow(Snackbar snackbar) {
+//
+//                            }
+//
+//                            @Override
+//                            public void onShowByReplace(Snackbar snackbar) {
+//
+//                            }
+//
+//                            @Override
+//                            public void onShown(Snackbar snackbar) {
+//
+//                            }
+//
+//                            @Override
+//                            public void onDismiss(Snackbar snackbar) {
+//                                if (CoCoinUtil.backupCoCoinRecord != null) {
+//                                    RecordManager.deleteRecord(CoCoinUtil.backupCoCoinRecord, true);
+//                                }
+//                                CoCoinUtil.backupCoCoinRecord = null;
+//                            }
+//
+//                            @Override
+//                            public void onDismissByReplace(Snackbar snackbar) {
+//                                if (CoCoinUtil.backupCoCoinRecord != null) {
+//                                    RecordManager.deleteRecord(CoCoinUtil.backupCoCoinRecord, true);
+//                                }
+//                                CoCoinUtil.backupCoCoinRecord = null;
+//                            }
+//
+//                            @Override
+//                            public void onDismissed(Snackbar snackbar) {
+//                                if (CoCoinUtil.backupCoCoinRecord != null) {
+//                                    RecordManager.deleteRecord(CoCoinUtil.backupCoCoinRecord, true);
+//                                }
+//                                CoCoinUtil.backupCoCoinRecord = null;
+//                            }
+//                        });
+//        SnackbarManager.show(snackbar);
     }
 
     private void activityOnItemPinned(int position) {
