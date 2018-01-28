@@ -8,10 +8,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
+import com.nightonke.saver.CoCoinApplication;
 import com.nightonke.saver.R;
-import com.nightonke.saver.activity.CoCoinApplication;
 import com.nightonke.saver.fragment.CoCoinFragmentManager;
-import com.nightonke.saver.util.CoCoinUtil;
 
 /**
  * Created by Weiping on 2016/1/23.
@@ -42,7 +41,6 @@ public class CustomTitleSliderView extends BaseSliderView {
 
         title = v.findViewById(R.id.title);
         title.setText(content);
-        title.setTypeface(CoCoinUtil.typefaceLatoLight);
 
         ImageView target = v.findViewById(R.id.daimajia_slider_image);
         bindEventAndShow(v, target);

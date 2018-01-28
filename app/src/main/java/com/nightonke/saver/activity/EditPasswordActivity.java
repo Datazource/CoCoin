@@ -1,11 +1,10 @@
 package com.nightonke.saver.activity;
 
 import android.content.Context;
-import android.graphics.Color;
-import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
@@ -23,9 +22,7 @@ import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.github.johnpersano.supertoasts.library.Style;
-import com.github.johnpersano.supertoasts.library.SuperToast;
-import com.github.johnpersano.supertoasts.library.utils.PaletteUtils;
+import com.nightonke.saver.CoCoinApplication;
 import com.nightonke.saver.R;
 import com.nightonke.saver.adapter.PasswordChangeButtonGridViewAdapter;
 import com.nightonke.saver.adapter.PasswordChangeFragmentAdapter;
@@ -35,6 +32,7 @@ import com.nightonke.saver.model.User;
 import com.nightonke.saver.ui.FixedSpeedScroller;
 import com.nightonke.saver.ui.MyGridView;
 import com.nightonke.saver.util.CoCoinUtil;
+import com.nightonke.saver.util.Constances;
 
 import net.steamcrafted.materialiconlib.MaterialIconView;
 
@@ -42,6 +40,10 @@ import java.lang.reflect.Field;
 
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.listener.UpdateListener;
+
+//import com.github.johnpersano.supertoasts.library.Style;
+//import com.github.johnpersano.supertoasts.library.SuperToast;
+//import com.github.johnpersano.supertoasts.library.utils.PaletteUtils;
 
 public class EditPasswordActivity extends AppCompatActivity {
 
@@ -61,7 +63,7 @@ public class EditPasswordActivity extends AppCompatActivity {
     private ViewPager viewPager;
     private FragmentPagerAdapter adapter;
 
-    private SuperToast superToast;
+//    private SuperToast superToast;
 
     private float x1, y1, x2, y2;
 
@@ -152,10 +154,9 @@ public class EditPasswordActivity extends AppCompatActivity {
             }
         });
 
-        superToast = new SuperToast(this);
+//        superToast = new SuperToast(this);
 
         title = findViewById(R.id.title);
-        title.setTypeface(CoCoinUtil.typefaceLatoLight);
         if (SettingManager.getInstance().getFirstTime()) {
             title.setText(mContext.getResources().getString(R.string.app_name));
         } else {
@@ -167,15 +168,15 @@ public class EditPasswordActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        SuperToast.cancelAllSuperToasts();
+//        SuperToast.cancelAllSuperToasts();
         overridePendingTransition(R.anim.trans_right_in, R.anim.trans_right_out);
     }
 
-    @Override
-    public void finish() {
-        SuperToast.cancelAllSuperToasts();
-        super.finish();
-    }
+//    @Override
+//    public void finish() {
+//        SuperToast.cancelAllSuperToasts();
+//        super.finish();
+//    }
 
     private void buttonClickOperation(boolean longClick, int position) {
         switch (CURRENT_STATE) {
@@ -196,7 +197,7 @@ public class EditPasswordActivity extends AppCompatActivity {
                 } else {
                     CoCoinFragmentManager.passwordChangeFragment[CURRENT_STATE]
                             .set(oldPassword.length());
-                    oldPassword += CoCoinUtil.BUTTONS[position];
+                    oldPassword += Constances.BUTTONS[position];
                     if (oldPassword.length() == 4) {
                         if (oldPassword.equals(SettingManager.getInstance().getPassword())) {
                             // old password correct
@@ -208,7 +209,9 @@ public class EditPasswordActivity extends AppCompatActivity {
                             // old password wrong
                             CoCoinFragmentManager.passwordChangeFragment[CURRENT_STATE]
                                     .clear(4);
-                            showToast(0);
+//                            showToast(0);
+                            Snackbar.make(getWindow().getDecorView(),R.string.toast_password_wrong,
+                                    Snackbar.LENGTH_SHORT).show();
                             oldPassword = "";
                         }
                     }
@@ -231,7 +234,7 @@ public class EditPasswordActivity extends AppCompatActivity {
                 } else {
                     CoCoinFragmentManager.passwordChangeFragment[CURRENT_STATE]
                             .set(newPassword.length());
-                    newPassword += CoCoinUtil.BUTTONS[position];
+                    newPassword += Constances.BUTTONS[position];
                     if (newPassword.length() == 4) {
                         // finish the new password input
                         CURRENT_STATE = PASSWORD_AGAIN;
@@ -256,12 +259,14 @@ public class EditPasswordActivity extends AppCompatActivity {
                 } else {
                     CoCoinFragmentManager.passwordChangeFragment[CURRENT_STATE]
                             .set(againPassword.length());
-                    againPassword += CoCoinUtil.BUTTONS[position];
+                    againPassword += Constances.BUTTONS[position];
                     if (againPassword.length() == 4) {
                         // if the password again is equal to the new password
                         if (againPassword.equals(newPassword)) {
                             CURRENT_STATE = -1;
-                            showToast(2);
+//                            showToast(2);
+                            Snackbar.make(getWindow().getDecorView(),R.string.set_password_successfully,
+                                    Snackbar.LENGTH_SHORT).show();
                             SettingManager.getInstance().setPassword(newPassword);
                             if (SettingManager.getInstance().getLoggenOn()) {
                                 User currentUser = BmobUser.getCurrentUser(
@@ -294,7 +299,8 @@ public class EditPasswordActivity extends AppCompatActivity {
                             viewPager.setCurrentItem(NEW_PASSWORD, true);
                             newPassword = "";
                             againPassword = "";
-                            showToast(1);
+//                            showToast(1);
+                            Snackbar.make(getWindow().getDecorView(),R.string.different_password,Snackbar.LENGTH_SHORT).show();
                         }
                     }
                 }
@@ -304,40 +310,40 @@ public class EditPasswordActivity extends AppCompatActivity {
         }
     }
 
-    private void showToast(int toastType) {
-        SuperToast.cancelAllSuperToasts();
-
-        superToast.setAnimations(CoCoinUtil.TOAST_ANIMATION);
-        superToast.setDuration(Style.DURATION_SHORT);
-        superToast.setTextColor(Color.parseColor("#ffffff"));
-        superToast.setTextSize(Style.TEXTSIZE_SMALL);
-        superToast.setTypefaceStyle(Typeface.ITALIC);
-
-        switch (toastType) {
-            // old password wrong
-            case 0:
-                superToast.setText(
-                        mContext.getResources().getString(R.string.toast_password_wrong));
-                superToast.setColor(PaletteUtils.getSolidColor(PaletteUtils.MATERIAL_RED));
-                break;
-            // password is different
-            case 1:
-                superToast.setText(
-                        mContext.getResources().getString(R.string.different_password));
-                superToast.setColor(PaletteUtils.getSolidColor(PaletteUtils.MATERIAL_RED));
-                break;
-            // success
-            case 2:
-                superToast.setText(
-                        mContext.getResources().getString(R.string.set_password_successfully));
-                superToast.setColor(PaletteUtils.getSolidColor(PaletteUtils.MATERIAL_GREEN));
-                break;
-            default:
-                break;
-        }
-
-        superToast.show();
-    }
+//    private void showToast(int toastType) {
+//        SuperToast.cancelAllSuperToasts();
+//
+//        superToast.setAnimations(CoCoinUtil.TOAST_ANIMATION);
+//        superToast.setDuration(Style.DURATION_SHORT);
+//        superToast.setTextColor(Color.parseColor("#ffffff"));
+//        superToast.setTextSize(Style.TEXTSIZE_SMALL);
+//        superToast.setTypefaceStyle(Typeface.ITALIC);
+//
+//        switch (toastType) {
+//            // old password wrong
+//            case 0:
+//                superToast.setText(
+//                        mContext.getResources().getString(R.string.toast_password_wrong));
+//                superToast.setColor(PaletteUtils.getSolidColor(PaletteUtils.MATERIAL_RED));
+//                break;
+//            // password is different
+//            case 1:
+//                superToast.setText(
+//                        mContext.getResources().getString(R.string.different_password));
+//                superToast.setColor(PaletteUtils.getSolidColor(PaletteUtils.MATERIAL_RED));
+//                break;
+//            // success
+//            case 2:
+//                superToast.setText(
+//                        mContext.getResources().getString(R.string.set_password_successfully));
+//                superToast.setColor(PaletteUtils.getSolidColor(PaletteUtils.MATERIAL_GREEN));
+//                break;
+//            default:
+//                break;
+//        }
+//
+//        superToast.show();
+//    }
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {

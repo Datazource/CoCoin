@@ -87,7 +87,6 @@ public class TagDraggableItemAdapter extends RecyclerView.Adapter<TagDraggableIt
 
         holder.tagImage.setImageResource(CoCoinUtil.getTagIcon(tags.get(position).getId()));
         holder.tagName.setText(CoCoinUtil.getTagName(tags.get(position).getId()));
-        holder.tagName.setTypeface(CoCoinUtil.typefaceLatoLight);
 
         if (((dragState & Draggable.STATE_FLAG_IS_UPDATED) != 0)) {
             int bgResId;

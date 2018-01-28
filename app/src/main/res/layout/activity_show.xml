@@ -8,8 +8,7 @@
     <com.dev.sacot41.scviewpager.SCViewPager
         android:id="@+id/viewpager_main_activity"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    </com.dev.sacot41.scviewpager.SCViewPager>
+        android:layout_height="match_parent"/>
 
     <com.dev.sacot41.scviewpager.DotsView
         android:id="@+id/dotsview_main"
@@ -34,7 +33,7 @@
         android:layout_gravity="center"
         android:src="@mipmap/hobby_icon"/>
 
-    <TextView
+    <com.nightonke.saver.ui.CustomerFontTextView
         android:id="@+id/text_0"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -78,7 +77,7 @@
         android:layout_width="140dp"
         android:layout_height="140dp"/>
 
-    <TextView
+    <com.nightonke.saver.ui.CustomerFontTextView
         android:id="@+id/text_1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -103,7 +102,7 @@
         android:layout_gravity="center"
         android:src="@mipmap/mobile"/>
 
-    <TextView
+    <com.nightonke.saver.ui.CustomerFontTextView
         android:id="@+id/text_2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -129,7 +128,7 @@
         android:layout_gravity="center"
         android:src="@mipmap/cocoin_splash_2"/>
 
-    <TextView
+    <com.nightonke.saver.ui.CustomerFontTextView
         android:id="@+id/text_3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -167,7 +166,7 @@
                 android:id="@+id/toolbar"
                 style="@style/Toolbar"/>
 
-            <TextView
+            <com.nightonke.saver.ui.CustomerFontTextView
                 android:id="@+id/title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

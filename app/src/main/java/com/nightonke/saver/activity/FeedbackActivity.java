@@ -2,7 +2,6 @@ package com.nightonke.saver.activity;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
@@ -14,10 +13,10 @@ import android.view.View;
 import com.github.florent37.materialviewpager.MaterialViewPager;
 import com.github.florent37.materialviewpager.MaterialViewPagerHelper;
 import com.github.florent37.materialviewpager.header.HeaderDesign;
+import com.nightonke.saver.CoCoinApplication;
 import com.nightonke.saver.R;
 import com.nightonke.saver.adapter.HelpFragmentAdapter;
 import com.nightonke.saver.fragment.HelpFeedbackFragment;
-import com.nightonke.saver.util.CoCoinUtil;
 
 public class FeedbackActivity extends AppCompatActivity implements HelpFeedbackFragment.OnTextChangeListener {
 
@@ -39,7 +38,7 @@ public class FeedbackActivity extends AppCompatActivity implements HelpFeedbackF
 
         mViewPager = findViewById(R.id.materialViewPager);
 
-        mViewPager.getPagerTitleStrip().setTypeface(CoCoinUtil.getInstance().typefaceLatoLight, Typeface.NORMAL);
+//        mViewPager.getPagerTitleStrip().setTypeface(CoCoinUtil.getInstance().typefaceLatoLight, Typeface.NORMAL);
         mViewPager.getPagerTitleStrip().setAllCaps(false);
         mViewPager.getPagerTitleStrip().setUnderlineColor(Color.parseColor("#00000000"));
         mViewPager.getPagerTitleStrip().setIndicatorColor(Color.parseColor("#00000000"));

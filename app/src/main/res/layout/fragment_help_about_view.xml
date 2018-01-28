@@ -38,7 +38,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                    <TextView
+                    <com.nightonke.saver.ui.CustomerFontTextView
                         android:id="@+id/content_0"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -74,7 +74,7 @@
                                 app:materialIconColor="@color/my_blue"
                                 app:materialIconSize="24dp"/>
 
-                            <TextView
+                            <com.nightonke.saver.ui.CustomerFontTextView
                                 android:id="@+id/content_1"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
@@ -112,7 +112,7 @@
                                 app:materialIconColor="@color/my_blue"
                                 app:materialIconSize="24dp"/>
 
-                            <TextView
+                            <com.nightonke.saver.ui.CustomerFontTextView
                                 android:id="@+id/content_2"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
@@ -150,7 +150,7 @@
                                 app:materialIconColor="@color/my_blue"
                                 app:materialIconSize="24dp"/>
 
-                            <TextView
+                            <com.nightonke.saver.ui.CustomerFontTextView
                                 android:id="@+id/content_3"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
@@ -188,7 +188,7 @@
                                 app:materialIconColor="@color/my_blue"
                                 app:materialIconSize="24dp"/>
 
-                            <TextView
+                            <com.nightonke.saver.ui.CustomerFontTextView
                                 android:id="@+id/content_4"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
@@ -201,7 +201,7 @@
                         </LinearLayout>
                     </com.balysv.materialripple.MaterialRippleLayout>
 
-                    <TextView
+                    <com.nightonke.saver.ui.CustomerFontTextView
                         android:id="@+id/content_5"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -237,7 +237,7 @@
                                 app:materialIconColor="@color/my_blue"
                                 app:materialIconSize="24dp"/>
 
-                            <TextView
+                            <com.nightonke.saver.ui.CustomerFontTextView
                                 android:id="@+id/content_6"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
@@ -276,7 +276,7 @@
                                 app:materialIconColor="@color/my_blue"
                                 app:materialIconSize="24dp"/>
 
-                            <TextView
+                            <com.nightonke.saver.ui.CustomerFontTextView
                                 android:id="@+id/content_7"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
@@ -315,7 +315,7 @@
                                 app:materialIconColor="@color/my_blue"
                                 app:materialIconSize="24dp"/>
 
-                            <TextView
+                            <com.nightonke.saver.ui.CustomerFontTextView
                                 android:id="@+id/content_8"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
@@ -354,7 +354,7 @@
                                 app:materialIconColor="@color/my_blue"
                                 app:materialIconSize="24dp"/>
 
-                            <TextView
+                            <com.nightonke.saver.ui.CustomerFontTextView
                                 android:id="@+id/content_9"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
@@ -393,7 +393,7 @@
                                 app:materialIconColor="@color/my_blue"
                                 app:materialIconSize="24dp"/>
 
-                            <TextView
+                            <com.nightonke.saver.ui.CustomerFontTextView
                                 android:id="@+id/content_10"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
@@ -432,7 +432,7 @@
                                 app:materialIconColor="@color/my_blue"
                                 app:materialIconSize="24dp"/>
 
-                            <TextView
+                            <com.nightonke.saver.ui.CustomerFontTextView
                                 android:id="@+id/content_11"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
@@ -471,7 +471,7 @@
                                 app:materialIconColor="@color/my_blue"
                                 app:materialIconSize="24dp"/>
 
-                            <TextView
+                            <com.nightonke.saver.ui.CustomerFontTextView
                                 android:id="@+id/content_12"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
@@ -510,7 +510,7 @@
                                 app:materialIconColor="@color/my_blue"
                                 app:materialIconSize="24dp"/>
 
-                            <TextView
+                            <com.nightonke.saver.ui.CustomerFontTextView
                                 android:id="@+id/content_13"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
@@ -549,7 +549,7 @@
                                 app:materialIconColor="@color/my_blue"
                                 app:materialIconSize="24dp"/>
 
-                            <TextView
+                            <com.nightonke.saver.ui.CustomerFontTextView
                                 android:id="@+id/content_14"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
@@ -588,7 +588,7 @@
                                 app:materialIconColor="@color/my_blue"
                                 app:materialIconSize="24dp"/>
 
-                            <TextView
+                            <com.nightonke.saver.ui.CustomerFontTextView
                                 android:id="@+id/content_15"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
@@ -627,7 +627,7 @@
                                 app:materialIconColor="@color/my_blue"
                                 app:materialIconSize="24dp"/>
 
-                            <TextView
+                            <com.nightonke.saver.ui.CustomerFontTextView
                                 android:id="@+id/content_16"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
@@ -666,7 +666,7 @@
                                 app:materialIconColor="@color/my_blue"
                                 app:materialIconSize="24dp"/>
 
-                            <TextView
+                            <com.nightonke.saver.ui.CustomerFontTextView
                                 android:id="@+id/content_17"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
@@ -705,7 +705,7 @@
                                 app:materialIconColor="@color/my_blue"
                                 app:materialIconSize="24dp"/>
 
-                            <TextView
+                            <com.nightonke.saver.ui.CustomerFontTextView
                                 android:id="@+id/content_18"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
@@ -744,7 +744,7 @@
                                 app:materialIconColor="@color/my_blue"
                                 app:materialIconSize="24dp"/>
 
-                            <TextView
+                            <com.nightonke.saver.ui.CustomerFontTextView
                                 android:id="@+id/content_19"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
@@ -783,7 +783,7 @@
                                 app:materialIconColor="@color/my_blue"
                                 app:materialIconSize="24dp"/>
 
-                            <TextView
+                            <com.nightonke.saver.ui.CustomerFontTextView
                                 android:id="@+id/content_20"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
@@ -822,7 +822,7 @@
                                 app:materialIconColor="@color/my_blue"
                                 app:materialIconSize="24dp"/>
 
-                            <TextView
+                            <com.nightonke.saver.ui.CustomerFontTextView
                                 android:id="@+id/content_21"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
@@ -861,7 +861,7 @@
                                 app:materialIconColor="@color/my_blue"
                                 app:materialIconSize="24dp"/>
 
-                            <TextView
+                            <com.nightonke.saver.ui.CustomerFontTextView
                                 android:id="@+id/content_22"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
@@ -900,7 +900,7 @@
                                 app:materialIconColor="@color/my_blue"
                                 app:materialIconSize="24dp"/>
 
-                            <TextView
+                            <com.nightonke.saver.ui.CustomerFontTextView
                                 android:id="@+id/content_23"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
@@ -939,7 +939,7 @@
                                 app:materialIconColor="@color/my_blue"
                                 app:materialIconSize="24dp"/>
 
-                            <TextView
+                            <com.nightonke.saver.ui.CustomerFontTextView
                                 android:id="@+id/content_24"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
@@ -978,7 +978,7 @@
                                 app:materialIconColor="@color/my_blue"
                                 app:materialIconSize="24dp"/>
 
-                            <TextView
+                            <com.nightonke.saver.ui.CustomerFontTextView
                                 android:id="@+id/content_25"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
@@ -1017,7 +1017,7 @@
                                 app:materialIconColor="@color/my_blue"
                                 app:materialIconSize="24dp"/>
 
-                            <TextView
+                            <com.nightonke.saver.ui.CustomerFontTextView
                                 android:id="@+id/content_26"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
@@ -1056,7 +1056,7 @@
                                 app:materialIconColor="@color/my_blue"
                                 app:materialIconSize="24dp"/>
 
-                            <TextView
+                            <com.nightonke.saver.ui.CustomerFontTextView
                                 android:id="@+id/content_27"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
@@ -1095,7 +1095,7 @@
                                 app:materialIconColor="@color/my_blue"
                                 app:materialIconSize="24dp"/>
 
-                            <TextView
+                            <com.nightonke.saver.ui.CustomerFontTextView
                                 android:id="@+id/content_28"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
@@ -1134,7 +1134,7 @@
                                 app:materialIconColor="@color/my_blue"
                                 app:materialIconSize="24dp"/>
 
-                            <TextView
+                            <com.nightonke.saver.ui.CustomerFontTextView
                                 android:id="@+id/content_29"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
@@ -1173,7 +1173,7 @@
                                 app:materialIconColor="@color/my_blue"
                                 app:materialIconSize="24dp"/>
 
-                            <TextView
+                            <com.nightonke.saver.ui.CustomerFontTextView
                                 android:id="@+id/content_30"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
@@ -1212,7 +1212,7 @@
                                 app:materialIconColor="@color/my_blue"
                                 app:materialIconSize="24dp"/>
 
-                            <TextView
+                            <com.nightonke.saver.ui.CustomerFontTextView
                                 android:id="@+id/content_31"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
@@ -1251,7 +1251,7 @@
                                 app:materialIconColor="@color/my_blue"
                                 app:materialIconSize="24dp"/>
 
-                            <TextView
+                            <com.nightonke.saver.ui.CustomerFontTextView
                                 android:id="@+id/content_32"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
@@ -1290,7 +1290,7 @@
                                 app:materialIconColor="@color/my_blue"
                                 app:materialIconSize="24dp"/>
 
-                            <TextView
+                            <com.nightonke.saver.ui.CustomerFontTextView
                                 android:id="@+id/content_33"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"

@@ -63,7 +63,6 @@ public class TagChooseGridViewAdapter extends BaseAdapter {
 
         holder.tagName.setText(CoCoinUtil.getTagName(RecordManager.TAGS.
                 get(fragmentPosition * 8 + position + 2).getId()));
-        holder.tagName.setTypeface(CoCoinUtil.typefaceLatoLight);
         holder.tagImage.setImageResource(
                 CoCoinUtil.getTagIcon(RecordManager.TAGS.
                         get(fragmentPosition * 8 + position + 2).getId()));

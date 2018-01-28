@@ -40,8 +40,8 @@ import com.daimajia.slider.library.Animations.DescriptionAnimation;
 import com.daimajia.slider.library.Indicators.PagerIndicator;
 import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
-import com.github.johnpersano.supertoasts.library.SuperToast;
-import com.github.johnpersano.supertoasts.library.utils.PaletteUtils;
+//import com.github.johnpersano.supertoasts.library.SuperToast;
+//import com.github.johnpersano.supertoasts.library.utils.PaletteUtils;
 import com.h6ah4i.android.widget.advrecyclerview.animator.GeneralItemAnimator;
 import com.h6ah4i.android.widget.advrecyclerview.animator.SwipeDismissItemAnimator;
 import com.h6ah4i.android.widget.advrecyclerview.decoration.ItemShadowDecorator;
@@ -53,6 +53,7 @@ import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 import com.nightonke.saver.BuildConfig;
+import com.nightonke.saver.CoCoinApplication;
 import com.nightonke.saver.R;
 import com.nightonke.saver.adapter.DialogTagChooseGridViewAdapter;
 import com.nightonke.saver.adapter.MySwipeableItemAdapter;
@@ -176,8 +177,6 @@ public class AccountBookListViewActivity extends AppCompatActivity
 
         userName = findViewById(R.id.user_name);
         userEmail = findViewById(R.id.user_email);
-        userName.setTypeface(CoCoinUtil.typefaceLatoRegular);
-        userEmail.setTypeface(CoCoinUtil.typefaceLatoLight);
 
         User user = BmobUser.getCurrentUser(CoCoinApplication.getAppContext(), User.class);
         if (user != null) {
@@ -273,7 +272,6 @@ public class AccountBookListViewActivity extends AppCompatActivity
         });
 
         emptyTip = findViewById(R.id.empty_tip);
-        emptyTip.setTypeface(CoCoinUtil.getTypeface());
 
         recyclerView = findViewById(R.id.recycler_view);
         layoutManager = new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false);
@@ -360,9 +358,13 @@ public class AccountBookListViewActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 if (SettingManager.getInstance().getLoggenOn()) {
-                    CoCoinUtil.showToast(mContext, R.string.change_logo_tip);
+//                    CoCoinUtil.showToast(mContext, R.string.change_logo_tip);
+                    android.support.design.widget.Snackbar.make(v,R.string.change_logo_tip,
+                            android.support.design.widget.Snackbar.LENGTH_SHORT).show();
                 } else {
-                    CoCoinUtil.showToast(mContext, R.string.login_tip);
+//                    CoCoinUtil.showToast(mContext, R.string.login_tip);
+                    android.support.design.widget.Snackbar.make(v,R.string.login_tip,
+                            android.support.design.widget.Snackbar.LENGTH_SHORT).show();
                 }
             }
         });
@@ -385,11 +387,9 @@ public class AccountBookListViewActivity extends AppCompatActivity
         mDemoSlider.setCustomIndicator((PagerIndicator) findViewById(R.id.custom_indicator));
 
         titleExpense = findViewById(R.id.title_expense);
-        titleExpense.setTypeface(CoCoinUtil.typefaceLatoLight);
         titleExpense.setText(CoCoinUtil.getInMoney((int) (double) RecordManager.getInstance(mContext).SELECTED_SUM));
 
         titleSum = findViewById(R.id.title_sum);
-        titleSum.setTypeface(CoCoinUtil.typefaceLatoLight);
         titleSum.setText(RecordManager.getInstance(mContext).SELECTED_RECORDS.size() + "'s");
 
 //        titleSlider = (SliderLayout)findViewById(R.id.title_slider);
@@ -415,44 +415,28 @@ public class AccountBookListViewActivity extends AppCompatActivity
 //        titleSlider.setDuration(3000);
 //        titleSlider.setCustomIndicator((PagerIndicator) findViewById(R.id.custom_indicator));
 
-        ((TextView) findViewById(R.id.tag_title)).setTypeface(CoCoinUtil.getTypeface());
-        ((TextView) findViewById(R.id.tag_title_expense)).setTypeface(CoCoinUtil.getTypeface());
-        ((TextView) findViewById(R.id.tag_title_time)).setTypeface(CoCoinUtil.getTypeface());
-        ((TextView) findViewById(R.id.tag_title_tag)).setTypeface(CoCoinUtil.getTypeface());
 
         setMoney = findViewById(R.id.select_expense);
-        setMoney.setTypeface(CoCoinUtil.getTypeface());
         setMoney.setOnClickListener(this);
         noMoney = findViewById(R.id.no_expense);
-        noMoney.setTypeface(CoCoinUtil.getTypeface());
         noMoney.setOnClickListener(this);
         setTime = findViewById(R.id.select_time);
-        setTime.setTypeface(CoCoinUtil.getTypeface());
         setTime.setOnClickListener(this);
         noTime = findViewById(R.id.no_time);
-        noTime.setTypeface(CoCoinUtil.getTypeface());
         noTime.setOnClickListener(this);
         setTag = findViewById(R.id.select_tag);
-        setTag.setTypeface(CoCoinUtil.getTypeface());
         setTag.setOnClickListener(this);
         noTag = findViewById(R.id.no_tag);
-        noTag.setTypeface(CoCoinUtil.getTypeface());
         noTag.setOnClickListener(this);
         select = findViewById(R.id.select);
-        select.setTypeface(CoCoinUtil.getTypeface());
         select.setOnClickListener(this);
 
         leftExpense = findViewById(R.id.left_expense);
-        leftExpense.setTypeface(CoCoinUtil.getTypeface());
         rightExpense = findViewById(R.id.right_expense);
-        rightExpense.setTypeface(CoCoinUtil.getTypeface());
         leftTime = findViewById(R.id.left_time);
-        leftTime.setTypeface(CoCoinUtil.getTypeface());
         rightTime = findViewById(R.id.right_time);
-        rightTime.setTypeface(CoCoinUtil.getTypeface());
         tagImage = findViewById(R.id.tag_image);
         tagName = findViewById(R.id.tag_name);
-        tagName.setTypeface(CoCoinUtil.getTypeface());
 
         setConditions();
 
@@ -619,9 +603,9 @@ public class AccountBookListViewActivity extends AppCompatActivity
                         .margin(15, 15)
                         .backgroundDrawable(CoCoinUtil.getSnackBarBackground(-3))
                         .text(mContext.getResources().getString(R.string.deleting))
-                        .textTypeface(CoCoinUtil.getTypeface())
+//                        .textTypeface(CoCoinUtil.getTypeface())
                         .textColor(Color.WHITE)
-                        .actionLabelTypeface(CoCoinUtil.getTypeface())
+//                        .actionLabelTypeface(CoCoinUtil.getTypeface())
                         .actionLabel(mContext.getResources()
                                 .getString(R.string.undo))
                         .actionColor(Color.WHITE)
@@ -808,7 +792,7 @@ public class AccountBookListViewActivity extends AppCompatActivity
         mAdapter = null;
         layoutManager = null;
 
-        SuperToast.cancelAllSuperToasts();
+//        SuperToast.cancelAllSuperToasts();
 
 //        titleSlider.stopAutoCycle();
 //        titleSlider.removeAllSliders();
@@ -1026,8 +1010,10 @@ public class AccountBookListViewActivity extends AppCompatActivity
             to.add(Calendar.SECOND, 0);
 
             if (to.before(from)) {
-                CoCoinUtil.showToast(mContext, mContext.getResources().getString(R.string.from_invalid),
-                        PaletteUtils.getSolidColor(PaletteUtils.MATERIAL_RED));
+//                CoCoinUtil.showToast(mContext, mContext.getResources().getString(R.string.from_invalid),
+//                        PaletteUtils.getSolidColor(PaletteUtils.MATERIAL_RED));
+//                android.support.design.widget.Snackbar.make(view, R.string.from_invalid,
+//                        android.support.design.widget.Snackbar.LENGTH_SHORT).show();
             } else {
                 LEFT_CALENDAR = (Calendar) from.clone();
                 RIGHT_CALENDAR = (Calendar) to.clone();
@@ -1102,7 +1088,9 @@ public class AccountBookListViewActivity extends AppCompatActivity
                 verticalRecyclerViewFastScroller.setVisibility(View.VISIBLE);
             }
 
-            if (progressDialog != null) progressDialog.cancel();
+            if (progressDialog != null){
+                progressDialog.cancel();
+            }
         }
     }
 

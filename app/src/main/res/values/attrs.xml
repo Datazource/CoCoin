@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="CustomerFontTextView">
+        <attr name="fontType" format="enum">
+            <enum name="hairline" value="0"/>
+            <enum name="regular" value="1"/>
+            <enum name='light' value="2"/>
+        </attr>
+    </declare-styleable>
+
+    <!--<declare-styleable name="CustomerFontEditText">-->
+        <!--<attr name="fontType" format="enum">-->
+            <!--<enum name="hairline" value="0"/>-->
+            <!--<enum name="regular" value="1"/>-->
+            <!--<enum name='light' value="2"/>-->
+        <!--</attr>-->
+    <!--</declare-styleable>-->
+</resources>

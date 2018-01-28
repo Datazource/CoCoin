@@ -4,14 +4,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
-import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
@@ -32,12 +31,10 @@ import com.afollestad.materialdialogs.color.ColorChooserDialog;
 import com.afollestad.materialdialogs.internal.MDButton;
 import com.balysv.materialripple.MaterialRippleLayout;
 import com.dd.CircularProgressButton;
-import com.github.johnpersano.supertoasts.library.Style;
-import com.github.johnpersano.supertoasts.library.SuperToast;
-import com.github.johnpersano.supertoasts.library.utils.PaletteUtils;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 import com.nightonke.saver.BuildConfig;
+import com.nightonke.saver.CoCoinApplication;
 import com.nightonke.saver.R;
 import com.nightonke.saver.model.AppUpdateManager;
 import com.nightonke.saver.model.Logo;
@@ -70,11 +67,12 @@ import cn.bmob.v3.listener.UpdateListener;
 import cn.bmob.v3.listener.UploadFileListener;
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class AccountBookSettingActivity extends AppCompatActivity
-        implements
-        View.OnClickListener,
-        ColorChooserDialog.ColorCallback,
-        OnCheckedChangeListener {
+//import com.github.johnpersano.supertoasts.library.Style;
+//import com.github.johnpersano.supertoasts.library.SuperToast;
+//import com.github.johnpersano.supertoasts.library.utils.PaletteUtils;
+
+public class AccountBookSettingActivity extends AppCompatActivity implements View.OnClickListener,
+        ColorChooserDialog.ColorCallback, OnCheckedChangeListener {
 
     private final int UPDATE_LOGO = 0;
     private final int UPDATE_IS_MONTH_LIMIT = 1;
@@ -209,11 +207,11 @@ public class AccountBookSettingActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public void onBackPressed() {
-        SuperToast.cancelAllSuperToasts();
-        super.onBackPressed();
-    }
+//    @Override
+//    public void onBackPressed() {
+//        SuperToast.cancelAllSuperToasts();
+//        super.onBackPressed();
+//    }
 
     @Override
     public void onClick(View v) {
@@ -351,7 +349,7 @@ public class AccountBookSettingActivity extends AppCompatActivity
         if (user == null) {
             new MaterialDialog.Builder(this)
                     .iconRes(R.mipmap.cocoin_logo)
-                    .typeface(CoCoinUtil.getTypeface(), CoCoinUtil.getTypeface())
+//                    .typeface(CoCoinUtil.getTypeface(), CoCoinUtil.getTypeface())
                     .limitIconToDefaultSize() // limits the displayed icon size to 48dp
                     .title(R.string.login_first_title)
                     .content(R.string.login_first_content)
@@ -371,7 +369,7 @@ public class AccountBookSettingActivity extends AppCompatActivity
         }
         new MaterialDialog.Builder(this)
                 .iconRes(R.mipmap.cocoin_logo)
-                .typeface(CoCoinUtil.getTypeface(), CoCoinUtil.getTypeface())
+//                .typeface(CoCoinUtil.getTypeface(), CoCoinUtil.getTypeface())
                 .limitIconToDefaultSize() // limits the displayed icon size to 48dp
                 .title(R.string.change_logo_title)
                 .content(R.string.change_logo_content)
@@ -635,7 +633,7 @@ public class AccountBookSettingActivity extends AppCompatActivity
             // register or log on
             new MaterialDialog.Builder(this)
                     .iconRes(R.mipmap.cocoin_logo)
-                    .typeface(CoCoinUtil.getTypeface(), CoCoinUtil.getTypeface())
+//                    .typeface(CoCoinUtil.getTypeface(), CoCoinUtil.getTypeface())
                     .limitIconToDefaultSize() // limits the displayed icon size to 48dp
                     .title(R.string.welcome)
                     .content(R.string.login_or_register)
@@ -660,7 +658,7 @@ public class AccountBookSettingActivity extends AppCompatActivity
             // log out or user operate
             new MaterialDialog.Builder(this)
                     .iconRes(R.mipmap.cocoin_logo)
-                    .typeface(CoCoinUtil.getTypeface(), CoCoinUtil.getTypeface())
+//                    .typeface(CoCoinUtil.getTypeface(), CoCoinUtil.getTypeface())
                     .limitIconToDefaultSize() // limits the displayed icon size to 48dp
                     .title(mContext.getResources().getString(R.string.hi)
                             + SettingManager.getInstance().getUserName())
@@ -691,13 +689,14 @@ public class AccountBookSettingActivity extends AppCompatActivity
         SettingManager.getInstance().setUserEmail(null);
         logo.setImageResource(R.mipmap.default_user_logo);
         updateViews();
-        showToast(8, "");
+//        showToast(8, "");
+        Snackbar.make(logo,R.string.log_out_successfully,Snackbar.LENGTH_SHORT).show();
     }
 
     private void userLogin() {
         loginDialog = new MaterialDialog.Builder(this)
                 .title(R.string.go_login)
-                .typeface(CoCoinUtil.getTypeface(), CoCoinUtil.getTypeface())
+//                .typeface(CoCoinUtil.getTypeface(), CoCoinUtil.getTypeface())
                 .customView(R.layout.dialog_user_login, true)
                 .build();
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -707,7 +706,7 @@ public class AccountBookSettingActivity extends AppCompatActivity
         loginDialogButton = loginDialogView.findViewById(R.id.button);
         loginDialogButton.isIndeterminateProgressMode();
         loginDialogButton.setProgress(0);
-        loginDialogButton.setTypeface(CoCoinUtil.getTypeface());
+//        loginDialogButton.setTypeface(CoCoinUtil.getTypeface());
         loginDialogButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -730,7 +729,7 @@ public class AccountBookSettingActivity extends AppCompatActivity
                                 BmobUser.getCurrentUser(CoCoinApplication.getAppContext(), User.class);
                         if (!CoCoinApplication.getAndroidId().equals(loginUser.getAndroidId())) {
 // 2 users on one mobile////////////////////////////////////////////////////////////////////////////
-                            showToast(7, "unique...");
+//                            showToast(7, "unique...");
                             return;
                         }
                         SettingManager.getInstance().setLoggenOn(true);
@@ -741,7 +740,7 @@ public class AccountBookSettingActivity extends AppCompatActivity
                         // use a new method
 //                        RecordManager.updateOldRecordsToServer();
                         whetherSyncSettingsFromServer();
-                        showToast(6, loginUserName.getText().toString());
+//                        showToast(6, loginUserName.getText().toString());
                         final Handler handler = new Handler();
                         handler.postDelayed(new Runnable() {
                             @Override
@@ -772,7 +771,7 @@ public class AccountBookSettingActivity extends AppCompatActivity
                                         BmobUser.getCurrentUser(CoCoinApplication.getAppContext(), User.class);
                                 if (!CoCoinApplication.getAndroidId().equals(loginUser.getAndroidId())) {
 // 2 users on one mobile////////////////////////////////////////////////////////////////////////////
-                                    showToast(7, "unique...");
+//                                    showToast(7, "unique...");
                                     return;
                                 }
                                 String userName = loginUser.getUsername();
@@ -784,7 +783,7 @@ public class AccountBookSettingActivity extends AppCompatActivity
                                 // use a new method
 //                                RecordManager.updateOldRecordsToServer();
                                 whetherSyncSettingsFromServer();
-                                showToast(6, userName);
+//                                showToast(6, userName);
                                 final Handler handler = new Handler();
                                 handler.postDelayed(new Runnable() {
                                     @Override
@@ -821,15 +820,11 @@ public class AccountBookSettingActivity extends AppCompatActivity
         final MDButton positiveAction = loginDialog.getActionButton(DialogAction.POSITIVE);
         positiveAction.setEnabled(false);
 
-        TextView userNameTV = loginDialog.getCustomView().findViewById(R.id.login_user_name_text);
-        TextView userPasswordTV = loginDialog.getCustomView().findViewById(R.id.login_password_text);
-        userNameTV.setTypeface(CoCoinUtil.getTypeface());
-        userPasswordTV.setTypeface(CoCoinUtil.getTypeface());
 
         loginUserName = loginDialog.getCustomView().findViewById(R.id.login_user_name);
         loginPassword = loginDialog.getCustomView().findViewById(R.id.login_password);
 
-        loginUserName.setTypeface(CoCoinUtil.getTypeface());
+//        loginUserName.setTypeface(CoCoinUtil.getTypeface());
         loginUserName.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -847,7 +842,7 @@ public class AccountBookSettingActivity extends AppCompatActivity
             }
         });
 
-        loginPassword.setTypeface(CoCoinUtil.getTypeface());
+//        loginPassword.setTypeface(CoCoinUtil.getTypeface());
         loginPassword.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -871,7 +866,7 @@ public class AccountBookSettingActivity extends AppCompatActivity
     private void userRegister() {
         registerDialog = new MaterialDialog.Builder(this)
                 .title(R.string.go_register)
-                .typeface(CoCoinUtil.getTypeface(), CoCoinUtil.getTypeface())
+//                .typeface(CoCoinUtil.getTypeface(), CoCoinUtil.getTypeface())
                 .customView(R.layout.dialog_user_register, true)
                 .build();
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -879,7 +874,7 @@ public class AccountBookSettingActivity extends AppCompatActivity
 
         registerDialogView = registerDialog.getCustomView();
         registerDialogButton = registerDialogView.findViewById(R.id.button);
-        registerDialogButton.setTypeface(CoCoinUtil.getTypeface());
+//        registerDialogButton.setTypeface(CoCoinUtil.getTypeface());
         registerDialogButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -920,7 +915,7 @@ public class AccountBookSettingActivity extends AppCompatActivity
                         SettingManager.getInstance().setUserName(registerUserName.getText().toString());
                         SettingManager.getInstance().setUserEmail(registerUserEmail.getText().toString());
                         SettingManager.getInstance().setUserPassword(registerPassword.getText().toString());
-                        showToast(4, registerUserName.getText().toString());
+//                        showToast(4, registerUserName.getText().toString());
 // if login successfully////////////////////////////////////////////////////////////////////////////
                         user.login(CoCoinApplication.getAppContext(), new SaveListener() {
                             @Override
@@ -977,18 +972,11 @@ public class AccountBookSettingActivity extends AppCompatActivity
         positiveAction.setEnabled(false);
         final EmailValidator emailValidator = new EmailValidator();
 
-        TextView userNameTV = registerDialog.getCustomView().findViewById(R.id.register_user_name_text);
-        TextView userEmailTV = registerDialog.getCustomView().findViewById(R.id.register_user_email_text);
-        TextView userPasswordTV = registerDialog.getCustomView().findViewById(R.id.register_password_text);
-        userNameTV.setTypeface(CoCoinUtil.getTypeface());
-        userEmailTV.setTypeface(CoCoinUtil.getTypeface());
-        userPasswordTV.setTypeface(CoCoinUtil.getTypeface());
-
         registerUserName = registerDialog.getCustomView().findViewById(R.id.register_user_name);
         registerUserEmail = registerDialog.getCustomView().findViewById(R.id.register_user_email);
         registerPassword = registerDialog.getCustomView().findViewById(R.id.register_password);
 
-        registerUserName.setTypeface(CoCoinUtil.getTypeface());
+//        registerUserName.setTypeface(CoCoinUtil.getTypeface());
         registerUserName.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -1016,7 +1004,7 @@ public class AccountBookSettingActivity extends AppCompatActivity
             }
         });
 
-        registerUserEmail.setTypeface(CoCoinUtil.getTypeface());
+//        registerUserEmail.setTypeface(CoCoinUtil.getTypeface());
         registerUserEmail.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -1044,7 +1032,7 @@ public class AccountBookSettingActivity extends AppCompatActivity
             }
         });
 
-        registerPassword.setTypeface(CoCoinUtil.getTypeface());
+//        registerPassword.setTypeface(CoCoinUtil.getTypeface());
         registerPassword.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -1079,7 +1067,7 @@ public class AccountBookSettingActivity extends AppCompatActivity
     private void changeAccountBookName() {
         new MaterialDialog.Builder(this)
                 .theme(Theme.LIGHT)
-                .typeface(CoCoinUtil.getTypeface(), CoCoinUtil.getTypeface())
+//                .typeface(CoCoinUtil.getTypeface(), CoCoinUtil.getTypeface())
                 .title(R.string.set_account_book_dialog_title)
                 .inputType(InputType.TYPE_TEXT_FLAG_CAP_WORDS)
                 .inputRange(1, 16)
@@ -1099,7 +1087,7 @@ public class AccountBookSettingActivity extends AppCompatActivity
                                     updateSettingsToServer(UPDATE_ACCOUNT_BOOK_NAME);
                                 } else {
                                     // the new account book name is changed successfully
-                                    showToast(2, "");
+//                                    showToast(2, "");
                                 }
                             }
                         }).show();
@@ -1152,11 +1140,8 @@ public class AccountBookSettingActivity extends AppCompatActivity
         userNameIcon = findViewById(R.id.user_name_icon);
         userEmailIcon = findViewById(R.id.user_email_icon);
         userName = findViewById(R.id.user_name);
-        userName.setTypeface(CoCoinUtil.typefaceLatoLight);
         userEmail = findViewById(R.id.user_email);
-        userEmail.setTypeface(CoCoinUtil.typefaceLatoLight);
         loginButton = findViewById(R.id.login_button);
-        loginButton.setTypeface(CoCoinUtil.typefaceLatoLight);
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -1164,13 +1149,9 @@ public class AccountBookSettingActivity extends AppCompatActivity
             }
         });
         expense = findViewById(R.id.expense);
-        expense.setTypeface(CoCoinUtil.typefaceLatoLight);
         records = findViewById(R.id.records);
-        records.setTypeface(CoCoinUtil.typefaceLatoLight);
         expenseTV = findViewById(R.id.expense_text);
-        expenseTV.setTypeface(CoCoinUtil.getTypeface());
         recordsTV = findViewById(R.id.records_text);
-        recordsTV.setTypeface(CoCoinUtil.getTypeface());
 
         expense.withNumber(RecordManager.SUM).setDuration(1500).start();
         records.withNumber(RecordManager.RECORDS.size()).setDuration(1500).start();
@@ -1201,7 +1182,7 @@ public class AccountBookSettingActivity extends AppCompatActivity
                 if (SettingManager.getInstance().getIsMonthLimit()) {
                     new MaterialDialog.Builder(mContext)
                             .theme(Theme.LIGHT)
-                            .typeface(CoCoinUtil.getTypeface(), CoCoinUtil.getTypeface())
+//                            .typeface(CoCoinUtil.getTypeface(), CoCoinUtil.getTypeface())
                             .title(R.string.set_month_expense_dialog_title)
                             .inputType(InputType.TYPE_CLASS_NUMBER)
                             .positiveText(R.string.submit)
@@ -1253,7 +1234,7 @@ public class AccountBookSettingActivity extends AppCompatActivity
                         && SettingManager.getInstance().getIsColorRemind()) {
                     new MaterialDialog.Builder(mContext)
                             .theme(Theme.LIGHT)
-                            .typeface(CoCoinUtil.getTypeface(), CoCoinUtil.getTypeface())
+//                            .typeface(CoCoinUtil.getTypeface(), CoCoinUtil.getTypeface())
                             .title(R.string.set_month_expense_dialog_title)
                             .inputType(InputType.TYPE_CLASS_NUMBER)
                             .positiveText(R.string.submit)
@@ -1310,20 +1291,12 @@ public class AccountBookSettingActivity extends AppCompatActivity
                 remindColorSelectDialog.show((AppCompatActivity) mContext);
             }
         });
-        monthMaxExpense.setTypeface(CoCoinUtil.typefaceLatoLight);
-        monthWarning.setTypeface(CoCoinUtil.typefaceLatoLight);
         monthLimitTV = findViewById(R.id.month_limit_text);
-        monthLimitTV.setTypeface(CoCoinUtil.getTypeface());
         monthWarningTV = findViewById(R.id.warning_expense_text);
-        monthWarningTV.setTypeface(CoCoinUtil.getTypeface());
         monthMaxExpenseTV = findViewById(R.id.month_expense_text);
-        monthMaxExpenseTV.setTypeface(CoCoinUtil.getTypeface());
         monthColorRemindTV = findViewById(R.id.month_color_remind_text);
-        monthColorRemindTV.setTypeface(CoCoinUtil.getTypeface());
         monthColorRemindTypeTV = findViewById(R.id.month_color_type_text);
-        monthColorRemindTypeTV.setTypeface(CoCoinUtil.getTypeface());
         monthForbiddenTV = findViewById(R.id.month_forbidden_text);
-        monthForbiddenTV.setTypeface(CoCoinUtil.getTypeface());
 
         accountBookNameLayout = findViewById(R.id.account_book_name_layout);
         accountBookNameLayout.setOnClickListener(new View.OnClickListener() {
@@ -1333,10 +1306,8 @@ public class AccountBookSettingActivity extends AppCompatActivity
             }
         });
         accountBookName = findViewById(R.id.account_book_name);
-        accountBookName.setTypeface(CoCoinUtil.getTypeface());
         accountBookName.setText(SettingManager.getInstance().getAccountBookName());
         accountBookNameTV = findViewById(R.id.account_book_name_text);
-        accountBookNameTV.setTypeface(CoCoinUtil.getTypeface());
 
         changePasswordLayout = findViewById(R.id.change_password_layout);
         changePasswordLayout.setOnClickListener(new View.OnClickListener() {
@@ -1346,7 +1317,6 @@ public class AccountBookSettingActivity extends AppCompatActivity
             }
         });
         changePasswordTV = findViewById(R.id.change_password_text);
-        changePasswordTV.setTypeface(CoCoinUtil.getTypeface());
 
         sortTagsLayout = findViewById(R.id.sort_tags_layout);
         sortTagsLayout.setOnClickListener(new View.OnClickListener() {
@@ -1356,37 +1326,33 @@ public class AccountBookSettingActivity extends AppCompatActivity
             }
         });
         sortTagsTV = findViewById(R.id.sort_tags_text);
-        sortTagsTV.setTypeface(CoCoinUtil.getTypeface());
 
         showPictureLayout = findViewById(R.id.whether_show_picture_layout);
         showPictureIcon = findViewById(R.id.whether_show_picture_icon);
         showPictureSB = findViewById(R.id.whether_show_picture_button);
         showPictureSB.setOnCheckedChangeListener(this);
         showPictureTV = findViewById(R.id.whether_show_picture_text);
-        showPictureTV.setTypeface(CoCoinUtil.getTypeface());
 
         hollowLayout = findViewById(R.id.whether_show_circle_layout);
         hollowIcon = findViewById(R.id.whether_show_circle_icon);
         hollowSB = findViewById(R.id.whether_show_circle_button);
         hollowSB.setOnCheckedChangeListener(this);
         hollowTV = findViewById(R.id.whether_show_circle_text);
-        hollowTV.setTypeface(CoCoinUtil.getTypeface());
 
         updateLayout = findViewById(R.id.update_layout);
         updateLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CoCoinUtil.showToast(mContext, mContext.getResources().getString(R.string.checking_update),
-                        PaletteUtils.getSolidColor(PaletteUtils.MATERIAL_BLUE));
+//                CoCoinUtil.showToast(mContext, mContext.getResources().getString(R.string.checking_update),
+//                        PaletteUtils.getSolidColor(PaletteUtils.MATERIAL_BLUE));
+                Snackbar.make(v,R.string.checking_update,Snackbar.LENGTH_SHORT).show();
                 AppUpdateManager appUpdateManager = new AppUpdateManager(mContext);
                 appUpdateManager.checkUpdateInfo(true);
             }
         });
         currentVersionTV = findViewById(R.id.update_text);
-        currentVersionTV.setTypeface(CoCoinUtil.getTypeface());
         currentVersionTV.setText(mContext.getResources().getString(R.string.current_version) + CoCoinUtil.getCurrentVersion());
         canBeUpdatedTV = findViewById(R.id.update_tag);
-        canBeUpdatedTV.setTypeface(CoCoinUtil.getTypeface());
         if (SettingManager.getInstance().getCanBeUpdated()) {
             canBeUpdatedTV.setVisibility(View.VISIBLE);
         } else {
@@ -1502,7 +1468,7 @@ public class AccountBookSettingActivity extends AppCompatActivity
     private void whetherSyncSettingsFromServer() {
         new MaterialDialog.Builder(this)
                 .iconRes(R.mipmap.cocoin_logo)
-                .typeface(CoCoinUtil.getTypeface(), CoCoinUtil.getTypeface())
+//                .typeface(CoCoinUtil.getTypeface(), CoCoinUtil.getTypeface())
                 .limitIconToDefaultSize() // limits the displayed icon size to 48dp
                 .title(R.string.sync_dialog_title)
                 .forceStacking(true)
@@ -1563,7 +1529,7 @@ public class AccountBookSettingActivity extends AppCompatActivity
                                         + SettingManager.getInstance().getPassword();
                             }
                             new MaterialDialog.Builder(mContext)
-                                    .typeface(CoCoinUtil.getTypeface(), CoCoinUtil.getTypeface())
+//                                    .typeface(CoCoinUtil.getTypeface(), CoCoinUtil.getTypeface())
                                     .limitIconToDefaultSize() // limits the displayed icon size to 48dp
                                     .title(R.string.sync_to_local_successfully_dialog_title)
                                     .content(getString(R.string.sync_to_local_successfully_dialog_content) + tip)
@@ -1588,12 +1554,12 @@ public class AccountBookSettingActivity extends AppCompatActivity
                                     user.getObjectId(), new UpdateListener() {
                                         @Override
                                         public void onSuccess() {
-                                            showToast(9, "");
+//                                            showToast(9, "");
                                         }
 
                                         @Override
                                         public void onFailure(int code, String msg) {
-                                            showToast(10, msg);
+//                                            showToast(10, msg);
                                         }
                                     });
                         }
@@ -1674,7 +1640,9 @@ public class AccountBookSettingActivity extends AppCompatActivity
                         Log.d("Saver", "Update " + setting + " successfully.");
                         // the new account book name is updated to server successfully
                         if (setting == UPDATE_ACCOUNT_BOOK_NAME) {
-                            showToast(0, "");
+//                            showToast(0, "");
+                            Snackbar.make(getWindow().getDecorView(),R.string.change_and_update_account_book_name_successfully
+                            ,Snackbar.LENGTH_SHORT).show();
                         }
                     }
 
@@ -1683,7 +1651,9 @@ public class AccountBookSettingActivity extends AppCompatActivity
                         Log.d("Saver", "Update " + setting + " fail.");
                         // the new account book name is failed to updated to server
                         if (setting == UPDATE_ACCOUNT_BOOK_NAME) {
-                            showToast(1, "");
+//                            showToast(1, "");
+                            Snackbar.make(getWindow().getDecorView(),R.string.change_and_update_account_book_name_fail,
+                                    Snackbar.LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -1705,112 +1675,112 @@ public class AccountBookSettingActivity extends AppCompatActivity
     }
 
     // activity finish//////////////////////////////////////////////////////////////////////////////////
-    @Override
-    public void finish() {
-
-        SuperToast.cancelAllSuperToasts();
-
-        super.finish();
-    }
+//    @Override
+//    public void finish() {
+//
+//        SuperToast.cancelAllSuperToasts();
+//
+//        super.finish();
+//    }
 
     // Show toast///////////////////////////////////////////////////////////////////////////////////////
-    private void showToast(int toastType, String msg) {
-        Log.d("CoCoin", msg);
-        SuperToast.cancelAllSuperToasts();
-        SuperToast superToast = new SuperToast(mContext);
-
-        superToast.setAnimations(CoCoinUtil.TOAST_ANIMATION);
-        superToast.setDuration(Style.DURATION_SHORT);
-        superToast.setTextColor(Color.parseColor("#ffffff"));
-        superToast.setTextSize(Style.TEXTSIZE_SMALL);
-
-        String tip = "";
-
-        switch (toastType) {
-            case 0:
-                // the new account book name is updated to server successfully
-                superToast.setText(CoCoinApplication.getAppContext().getResources().getString(
-                        R.string.change_and_update_account_book_name_successfully));
-                superToast.setColor(PaletteUtils.getSolidColor(PaletteUtils.MATERIAL_BLUE));
-                break;
-            case 1:
-                // the new account book name is failed to updated to server
-                superToast.setText(CoCoinApplication.getAppContext().getResources().getString(
-                        R.string.change_and_update_account_book_name_fail));
-                superToast.setColor(PaletteUtils.getSolidColor(PaletteUtils.MATERIAL_RED));
-                break;
-            case 2:
-                // the new account book name is changed successfully
-                superToast.setText(CoCoinApplication.getAppContext().getResources().getString(
-                        R.string.change_account_book_name_successfully));
-                superToast.setColor(PaletteUtils.getSolidColor(PaletteUtils.MATERIAL_BLUE));
-                break;
-            case 3:
-                // the new account book name is failed to change
-                superToast.setText(CoCoinApplication.getAppContext().getResources().getString(
-                        R.string.change_account_book_name_fail));
-                superToast.setColor(PaletteUtils.getSolidColor(PaletteUtils.MATERIAL_RED));
-                break;
-            case 4:
-                // register successfully
-                tip = msg;
-                superToast.setText(getResourceString(R.string.register_successfully) + tip);
-                superToast.setColor(PaletteUtils.getSolidColor(PaletteUtils.MATERIAL_BLUE));
-                break;
-            case 5:
-                // register failed
-                tip = getResourceString(R.string.network_disconnection);
-                if (msg.charAt(1) == 's') {
-                    tip = getResourceString(R.string.user_name_exist);
-                }
-                if (msg.charAt(0) == 'e') {
-                    tip = getResourceString(R.string.user_email_exist);
-                }
-                if (msg.charAt(1) == 'n') {
-                    tip = getResourceString(R.string.user_mobile_exist);
-                }
-                superToast.setText(getResourceString(R.string.register_fail) + tip);
-                superToast.setColor(PaletteUtils.getSolidColor(PaletteUtils.MATERIAL_RED));
-                break;
-            case 6:
-                // login successfully
-                tip = msg;
-                superToast.setText(getResourceString(R.string.login_successfully) + tip);
-                superToast.setColor(PaletteUtils.getSolidColor(PaletteUtils.MATERIAL_BLUE));
-                break;
-            case 7:
-                // login failed
-                tip = getResourceString(R.string.network_disconnection);
-                if (msg.charAt(0) == 'u') {
-                    tip = getResourceString(R.string.user_name_or_password_incorrect);
-                }
-                if (msg.charAt(1) == 'n') {
-                    tip = getResourceString(R.string.user_mobile_exist);
-                }
-                superToast.setText(getResourceString(R.string.login_fail) + tip);
-                superToast.setColor(PaletteUtils.getSolidColor(PaletteUtils.MATERIAL_RED));
-                break;
-            case 8:
-                // log out successfully
-                superToast.setText(getResourceString(R.string.log_out_successfully));
-                superToast.setColor(PaletteUtils.getSolidColor(PaletteUtils.MATERIAL_BLUE));
-                break;
-            case 9:
-                // sync settings successfully
-                superToast.setText(getResourceString(R.string.sync_to_server_successfully));
-                superToast.setColor(PaletteUtils.getSolidColor(PaletteUtils.MATERIAL_BLUE));
-                break;
-            case 10:
-                // sync settings failed
-                tip = getResourceString(R.string.network_disconnection);
-                superToast.setText(getResourceString(R.string.sync_to_server_failed) + tip);
-                superToast.setColor(PaletteUtils.getSolidColor(PaletteUtils.MATERIAL_RED));
-                break;
-            default:
-                break;
-        }
-        superToast.setTypefaceStyle(Typeface.ITALIC);
-        superToast.show();
-    }
+//    private void showToast(int toastType, String msg) {
+//        Log.d("CoCoin", msg);
+//        SuperToast.cancelAllSuperToasts();
+//        SuperToast superToast = new SuperToast(mContext);
+//
+//        superToast.setAnimations(CoCoinUtil.TOAST_ANIMATION);
+//        superToast.setDuration(Style.DURATION_SHORT);
+//        superToast.setTextColor(Color.parseColor("#ffffff"));
+//        superToast.setTextSize(Style.TEXTSIZE_SMALL);
+//
+//        String tip = "";
+//
+//        switch (toastType) {
+//            case 0:
+//                // the new account book name is updated to server successfully
+//                superToast.setText(CoCoinApplication.getAppContext().getResources().getString(
+//                        R.string.change_and_update_account_book_name_successfully));
+//                superToast.setColor(PaletteUtils.getSolidColor(PaletteUtils.MATERIAL_BLUE));
+//                break;
+//            case 1:
+//                // the new account book name is failed to updated to server
+//                superToast.setText(CoCoinApplication.getAppContext().getResources().getString(
+//                        R.string.change_and_update_account_book_name_fail));
+//                superToast.setColor(PaletteUtils.getSolidColor(PaletteUtils.MATERIAL_RED));
+//                break;
+//            case 2:
+//                // the new account book name is changed successfully
+//                superToast.setText(CoCoinApplication.getAppContext().getResources().getString(
+//                        R.string.change_account_book_name_successfully));
+//                superToast.setColor(PaletteUtils.getSolidColor(PaletteUtils.MATERIAL_BLUE));
+//                break;
+//            case 3:
+//                // the new account book name is failed to change
+//                superToast.setText(CoCoinApplication.getAppContext().getResources().getString(
+//                        R.string.change_account_book_name_fail));
+//                superToast.setColor(PaletteUtils.getSolidColor(PaletteUtils.MATERIAL_RED));
+//                break;
+//            case 4:
+//                // register successfully
+//                tip = msg;
+//                superToast.setText(getResourceString(R.string.register_successfully) + tip);
+//                superToast.setColor(PaletteUtils.getSolidColor(PaletteUtils.MATERIAL_BLUE));
+//                break;
+//            case 5:
+//                // register failed
+//                tip = getResourceString(R.string.network_disconnection);
+//                if (msg.charAt(1) == 's') {
+//                    tip = getResourceString(R.string.user_name_exist);
+//                }
+//                if (msg.charAt(0) == 'e') {
+//                    tip = getResourceString(R.string.user_email_exist);
+//                }
+//                if (msg.charAt(1) == 'n') {
+//                    tip = getResourceString(R.string.user_mobile_exist);
+//                }
+//                superToast.setText(getResourceString(R.string.register_fail) + tip);
+//                superToast.setColor(PaletteUtils.getSolidColor(PaletteUtils.MATERIAL_RED));
+//                break;
+//            case 6:
+//                // login successfully
+//                tip = msg;
+//                superToast.setText(getResourceString(R.string.login_successfully) + tip);
+//                superToast.setColor(PaletteUtils.getSolidColor(PaletteUtils.MATERIAL_BLUE));
+//                break;
+//            case 7:
+//                // login failed
+//                tip = getResourceString(R.string.network_disconnection);
+//                if (msg.charAt(0) == 'u') {
+//                    tip = getResourceString(R.string.user_name_or_password_incorrect);
+//                }
+//                if (msg.charAt(1) == 'n') {
+//                    tip = getResourceString(R.string.user_mobile_exist);
+//                }
+//                superToast.setText(getResourceString(R.string.login_fail) + tip);
+//                superToast.setColor(PaletteUtils.getSolidColor(PaletteUtils.MATERIAL_RED));
+//                break;
+//            case 8:
+//                // log out successfully
+//                superToast.setText(getResourceString(R.string.log_out_successfully));
+//                superToast.setColor(PaletteUtils.getSolidColor(PaletteUtils.MATERIAL_BLUE));
+//                break;
+//            case 9:
+//                // sync settings successfully
+//                superToast.setText(getResourceString(R.string.sync_to_server_successfully));
+//                superToast.setColor(PaletteUtils.getSolidColor(PaletteUtils.MATERIAL_BLUE));
+//                break;
+//            case 10:
+//                // sync settings failed
+//                tip = getResourceString(R.string.network_disconnection);
+//                superToast.setText(getResourceString(R.string.sync_to_server_failed) + tip);
+//                superToast.setColor(PaletteUtils.getSolidColor(PaletteUtils.MATERIAL_RED));
+//                break;
+//            default:
+//                break;
+//        }
+//        superToast.setTypefaceStyle(Typeface.ITALIC);
+//        superToast.show();
+//    }
 
 }

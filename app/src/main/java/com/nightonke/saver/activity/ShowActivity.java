@@ -1,11 +1,10 @@
 package com.nightonke.saver.activity;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.graphics.Point;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -27,9 +26,7 @@ import com.dev.sacot41.scviewpager.SCViewAnimation;
 import com.dev.sacot41.scviewpager.SCViewAnimationUtil;
 import com.dev.sacot41.scviewpager.SCViewPager;
 import com.dev.sacot41.scviewpager.SCViewPagerAdapter;
-import com.github.johnpersano.supertoasts.library.Style;
-import com.github.johnpersano.supertoasts.library.SuperToast;
-import com.github.johnpersano.supertoasts.library.utils.PaletteUtils;
+import com.nightonke.saver.CoCoinApplication;
 import com.nightonke.saver.R;
 import com.nightonke.saver.adapter.PasswordChangeButtonGridViewAdapter;
 import com.nightonke.saver.adapter.PasswordChangeFragmentAdapter;
@@ -38,6 +35,7 @@ import com.nightonke.saver.model.SettingManager;
 import com.nightonke.saver.model.User;
 import com.nightonke.saver.ui.MyGridView;
 import com.nightonke.saver.util.CoCoinUtil;
+import com.nightonke.saver.util.Constances;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,6 +55,10 @@ import lecho.lib.hellocharts.model.ValueShape;
 import lecho.lib.hellocharts.view.ColumnChartView;
 import lecho.lib.hellocharts.view.LineChartView;
 import lecho.lib.hellocharts.view.PieChartView;
+
+//import com.github.johnpersano.supertoasts.library.Style;
+//import com.github.johnpersano.supertoasts.library.SuperToast;
+//import com.github.johnpersano.supertoasts.library.utils.PaletteUtils;
 
 public class ShowActivity extends AppCompatActivity {
 
@@ -80,7 +82,7 @@ public class ShowActivity extends AppCompatActivity {
 
     private TextView title;
 
-    private SuperToast superToast;
+//    private SuperToast superToast;
 
     private float x1, y1, x2, y2;
     private AdapterView.OnItemClickListener gridViewClickListener
@@ -112,7 +114,6 @@ public class ShowActivity extends AppCompatActivity {
 
         title = findViewById(R.id.title);
         CoCoinUtil.init(mContext);
-        title.setTypeface(CoCoinUtil.typefaceLatoLight);
         title.setText(mContext.getResources().getString(R.string.app_name));
 
         mViewPager = findViewById(R.id.viewpager_main_activity);
@@ -166,7 +167,6 @@ public class ShowActivity extends AppCompatActivity {
         sc3.addPageAnimation(new SCPositionAnimation(this, 0, 0, -size.y));
         mViewPager.addAnimation(sc3);
 
-        ((TextView) findViewById(R.id.text_0)).setTypeface(CoCoinUtil.getInstance().typefaceLatoLight);
         SCViewAnimation sc4 = new SCViewAnimation(findViewById(R.id.text_0));
         sc4.addPageAnimation(new SCPositionAnimation(this, 0, -size.x, 0));
         mViewPager.addAnimation(sc4);
@@ -251,7 +251,6 @@ public class ShowActivity extends AppCompatActivity {
         sc7.addPageAnimation(new SCPositionAnimation(this, 1, 0, size.y));
         mViewPager.addAnimation(sc7);
 
-        ((TextView) findViewById(R.id.text_1)).setTypeface(CoCoinUtil.getInstance().typefaceLatoLight);
         SCViewAnimation sc8 = new SCViewAnimation(findViewById(R.id.text_1));
         sc8.startToPosition(size.x, null);
         sc8.addPageAnimation(new SCPositionAnimation(this, 0, -size.x, 0));
@@ -270,7 +269,6 @@ public class ShowActivity extends AppCompatActivity {
         sc10.addPageAnimation(new SCPositionAnimation(this, 2, 0, -size.y));
         mViewPager.addAnimation(sc10);
 
-        ((TextView) findViewById(R.id.text_2)).setTypeface(CoCoinUtil.getInstance().typefaceLatoLight);
         SCViewAnimation sc11 = new SCViewAnimation(findViewById(R.id.text_2));
         sc11.startToPosition(size.x, null);
         sc11.addPageAnimation(new SCPositionAnimation(this, 1, -size.x, 0));
@@ -296,7 +294,6 @@ public class ShowActivity extends AppCompatActivity {
         sc13.addPageAnimation(new SCPositionAnimation(this, 3, -size.x, 0));
         mViewPager.addAnimation(sc13);
 
-        ((TextView) findViewById(R.id.text_3)).setTypeface(CoCoinUtil.getInstance().typefaceLatoLight);
         SCViewAnimation sc14 = new SCViewAnimation(findViewById(R.id.text_3));
         sc14.startToPosition(size.x, null);
         sc14.addPageAnimation(new SCPositionAnimation(this, 2, -size.x, 0));
@@ -356,7 +353,7 @@ public class ShowActivity extends AppCompatActivity {
                     }
                 });
 
-        superToast = new SuperToast(this);
+//        superToast = new SuperToast(this);
 
         SCViewAnimation gridViewAnimation = new SCViewAnimation(myGridView);
         gridViewAnimation.startToPosition(null, size.y);
@@ -381,11 +378,11 @@ public class ShowActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    public void finish() {
-        SuperToast.cancelAllSuperToasts();
-        super.finish();
-    }
+//    @Override
+//    public void finish() {
+//        SuperToast.cancelAllSuperToasts();
+//        super.finish();
+//    }
 
     private void buttonClickOperation(boolean longClick, int position) {
         switch (CURRENT_STATE) {
@@ -406,7 +403,7 @@ public class ShowActivity extends AppCompatActivity {
                 } else {
                     CoCoinFragmentManager.passwordChangeFragment[CURRENT_STATE]
                             .set(newPassword.length());
-                    newPassword += CoCoinUtil.BUTTONS[position];
+                    newPassword += Constances.BUTTONS[position];
                     if (newPassword.length() == 4) {
                         // finish the new password input
                         CURRENT_STATE = PASSWORD_AGAIN;
@@ -431,12 +428,13 @@ public class ShowActivity extends AppCompatActivity {
                 } else {
                     CoCoinFragmentManager.passwordChangeFragment[CURRENT_STATE]
                             .set(againPassword.length());
-                    againPassword += CoCoinUtil.BUTTONS[position];
+                    againPassword += Constances.BUTTONS[position];
                     if (againPassword.length() == 4) {
                         // if the password again is equal to the new password
                         if (againPassword.equals(newPassword)) {
                             CURRENT_STATE = -1;
-                            showToast(2);
+//                            showToast(2);
+                            Snackbar.make(getWindow().getDecorView(),R.string.set_password_successfully,Snackbar.LENGTH_SHORT).show();
                             SettingManager.getInstance().setPassword(newPassword);
                             SettingManager.getInstance().setFirstTime(false);
                             if (SettingManager.getInstance().getLoggenOn()) {
@@ -470,7 +468,8 @@ public class ShowActivity extends AppCompatActivity {
                             viewPager.setCurrentItem(NEW_PASSWORD, true);
                             newPassword = "";
                             againPassword = "";
-                            showToast(1);
+//                            showToast(1);
+                            Snackbar.make(getWindow().getDecorView(),R.string.different_password,Snackbar.LENGTH_SHORT).show();
                         }
                     }
                 }
@@ -480,40 +479,40 @@ public class ShowActivity extends AppCompatActivity {
         }
     }
 
-    private void showToast(int toastType) {
-        SuperToast.cancelAllSuperToasts();
-
-        superToast.setAnimations(CoCoinUtil.TOAST_ANIMATION);
-        superToast.setDuration(Style.DURATION_SHORT);
-        superToast.setTextColor(Color.parseColor("#ffffff"));
-        superToast.setTextSize(Style.TEXTSIZE_SMALL);
-        superToast.setTypefaceStyle(Typeface.ITALIC);
-
-        switch (toastType) {
-            // old password wrong
-            case 0:
-                superToast.setText(
-                        mContext.getResources().getString(R.string.toast_password_wrong));
-                superToast.setColor(PaletteUtils.getSolidColor(PaletteUtils.MATERIAL_RED));
-                break;
-            // password is different
-            case 1:
-                superToast.setText(
-                        mContext.getResources().getString(R.string.different_password));
-                superToast.setColor(PaletteUtils.getSolidColor(PaletteUtils.MATERIAL_RED));
-                break;
-            // success
-            case 2:
-                superToast.setText(
-                        mContext.getResources().getString(R.string.set_password_successfully));
-                superToast.setColor(PaletteUtils.getSolidColor(PaletteUtils.MATERIAL_GREEN));
-                break;
-            default:
-                break;
-        }
-
-        superToast.show();
-    }
+//    private void showToast(int toastType) {
+//        SuperToast.cancelAllSuperToasts();
+//
+//        superToast.setAnimations(CoCoinUtil.TOAST_ANIMATION);
+//        superToast.setDuration(Style.DURATION_SHORT);
+//        superToast.setTextColor(Color.parseColor("#ffffff"));
+//        superToast.setTextSize(Style.TEXTSIZE_SMALL);
+//        superToast.setTypefaceStyle(Typeface.ITALIC);
+//
+//        switch (toastType) {
+//            // old password wrong
+//            case 0:
+//                superToast.setText(
+//                        mContext.getResources().getString(R.string.toast_password_wrong));
+//                superToast.setColor(PaletteUtils.getSolidColor(PaletteUtils.MATERIAL_RED));
+//                break;
+//            // password is different
+//            case 1:
+//                superToast.setText(
+//                        mContext.getResources().getString(R.string.different_password));
+//                superToast.setColor(PaletteUtils.getSolidColor(PaletteUtils.MATERIAL_RED));
+//                break;
+//            // success
+//            case 2:
+//                superToast.setText(
+//                        mContext.getResources().getString(R.string.set_password_successfully));
+//                superToast.setColor(PaletteUtils.getSolidColor(PaletteUtils.MATERIAL_GREEN));
+//                break;
+//            default:
+//                break;
+//        }
+//
+//        superToast.show();
+//    }
 
 //    @Override
 //    public boolean dispatchTouchEvent(MotionEvent ev) {

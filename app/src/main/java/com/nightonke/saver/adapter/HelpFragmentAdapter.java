@@ -5,7 +5,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.nightonke.saver.R;
-import com.nightonke.saver.activity.CoCoinApplication;
+import com.nightonke.saver.CoCoinApplication;
 import com.nightonke.saver.fragment.HelpAboutFragment;
 import com.nightonke.saver.fragment.HelpCoCoinFragment;
 import com.nightonke.saver.fragment.HelpFeedbackFragment;

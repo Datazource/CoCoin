@@ -17,6 +17,7 @@ import com.nightonke.saver.model.RecordManager;
 import com.nightonke.saver.model.SettingManager;
 import com.nightonke.saver.model.Tag;
 import com.nightonke.saver.util.CoCoinUtil;
+import com.nightonke.saver.util.Constances;
 import com.nispok.snackbar.Snackbar;
 import com.nispok.snackbar.SnackbarManager;
 import com.nispok.snackbar.enums.SnackbarType;
@@ -300,10 +301,7 @@ public class TagViewRecyclerViewAdapter extends RecyclerView.Adapter<TagViewRecy
                     holder.to.setText(
                             mContext.getResources().getString(R.string.to) + " " +
                                     endYear + " " + CoCoinUtil.getMonthShort(endMonth));
-                    holder.to.setTypeface(CoCoinUtil.getTypeface());
-                    holder.from.setTypeface(CoCoinUtil.getTypeface());
                 }
-                holder.sum.setTypeface(CoCoinUtil.typefaceLatoLight);
                 break;
             case TYPE_CELL:
                 int year = contents.get(position - 1).get(0).getCalendar().get(Calendar.YEAR);
@@ -313,8 +311,6 @@ public class TagViewRecyclerViewAdapter extends RecyclerView.Adapter<TagViewRecy
                 final List<Column> columns;
                 ColumnChartData columnChartData;
                 final List<SliceValue> sliceValues;
-                holder.date.setTypeface(CoCoinUtil.getTypeface());
-                holder.expanse.setTypeface(CoCoinUtil.getTypeface());
                 switch (chartType) {
                     case PIE:
                         sliceValues = new ArrayList<>();
@@ -386,7 +382,7 @@ public class TagViewRecyclerViewAdapter extends RecyclerView.Adapter<TagViewRecy
                                 SubcolumnValue value = new SubcolumnValue(
                                         MonthExpanseSum[(year - startYear) * 12 + i],
                                         CoCoinUtil.getRandomColor());
-                                value.setLabel(CoCoinUtil.MONTHS_SHORT[month] + " " + year);
+                                value.setLabel(Constances.MONTHS_SHORT[month] + " " + year);
                                 subcolumnValues.add(value);
                                 Column column = new Column(subcolumnValues);
                                 column.setHasLabels(false);
@@ -428,7 +424,7 @@ public class TagViewRecyclerViewAdapter extends RecyclerView.Adapter<TagViewRecy
                                         DayExpanseSum[(year - startYear) * 372
                                                 + (month - 1) * 31 + i],
                                         CoCoinUtil.getRandomColor());
-                                value.setLabel(CoCoinUtil.MONTHS_SHORT[month] + " " + (i + 1) + " " + year);
+                                value.setLabel(Constances.MONTHS_SHORT[month] + " " + (i + 1) + " " + year);
                                 subcolumnValues.add(value);
                                 Column column = new Column(subcolumnValues);
                                 column.setHasLabels(false);
@@ -510,7 +506,7 @@ public class TagViewRecyclerViewAdapter extends RecyclerView.Adapter<TagViewRecy
                                 SubcolumnValue value = new SubcolumnValue(
                                         MonthExpanseSum[(year - startYear) * 12 + i],
                                         CoCoinUtil.getRandomColor());
-                                value.setLabel(CoCoinUtil.MONTHS_SHORT[month] + " " + year);
+                                value.setLabel(Constances.MONTHS_SHORT[month] + " " + year);
                                 subcolumnValues.add(value);
                                 Column column = new Column(subcolumnValues);
                                 column.setHasLabels(false);
@@ -685,9 +681,9 @@ public class TagViewRecyclerViewAdapter extends RecyclerView.Adapter<TagViewRecy
                             .margin(15, 15)
                             .backgroundDrawable(CoCoinUtil.getSnackBarBackground(fragmentTagId))
                             .textColor(Color.WHITE)
-                            .textTypeface(CoCoinUtil.getTypeface())
+//                            .textTypeface(CoCoinUtil.getTypeface())
                             .actionLabel(mContext.getResources().getString(R.string.check))
-                            .actionLabelTypeface(CoCoinUtil.typefaceLatoLight)
+//                            .actionLabelTypeface(CoCoinUtil.typefaceLatoLight)
                             .actionColor(Color.WHITE);
             if (fragmentPosition == SUM_HISTOGRAM) {
                 if (type.get(position).equals(SHOW_IN_MONTH)) {
@@ -928,9 +924,9 @@ public class TagViewRecyclerViewAdapter extends RecyclerView.Adapter<TagViewRecy
                             .margin(15, 15)
                             .backgroundDrawable(CoCoinUtil.getSnackBarBackground(fragmentTagId))
                             .text(text)
-                            .textTypeface(CoCoinUtil.getTypeface())
+//                            .textTypeface(CoCoinUtil.getTypeface())
                             .textColor(Color.WHITE)
-                            .actionLabelTypeface(CoCoinUtil.typefaceLatoLight)
+//                            .actionLabelTypeface(CoCoinUtil.typefaceLatoLight)
                             .actionLabel(mContext.getResources().getString(R.string.check))
                             .actionColor(Color.WHITE)
                             .actionListener(new ActionClickListener() {

@@ -20,7 +20,7 @@
             android:scaleY="0.5"
             android:src="@mipmap/ic_menu_90"/>
 
-        <TextView
+        <com.nightonke.saver.ui.CustomerFontTextView
             android:id="@+id/guillotine_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -55,7 +55,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="15dp"/>
 
-                <TextView
+                <com.nightonke.saver.ui.CustomerFontTextView
                     android:id="@+id/password_tip"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"

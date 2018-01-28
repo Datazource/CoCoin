@@ -23,7 +23,7 @@ import com.h6ah4i.android.widget.advrecyclerview.swipeable.action.SwipeResultAct
 import com.h6ah4i.android.widget.advrecyclerview.utils.AbstractSwipeableItemViewHolder;
 import com.h6ah4i.android.widget.advrecyclerview.utils.RecyclerViewAdapterUtils;
 import com.nightonke.saver.R;
-import com.nightonke.saver.activity.CoCoinApplication;
+import com.nightonke.saver.CoCoinApplication;
 import com.nightonke.saver.model.CoCoinRecord;
 import com.nightonke.saver.model.RecordManager;
 import com.nightonke.saver.ui.SwipeableItemOnClickListener;
@@ -113,13 +113,9 @@ public class MySwipeableItemAdapter extends RecyclerView.Adapter<MySwipeableItem
                 CoCoinUtil.getTagIcon(record.getTag()));
         holder.date.setText(record.getCalendarString());
         holder.money.setText(String.valueOf((int) record.getMoney()));
-        holder.date.setTypeface(CoCoinUtil.typefaceLatoLight);
-        holder.money.setTypeface(CoCoinUtil.typefaceLatoLight);
         holder.money.setTextColor(ContextCompat.getColor(CoCoinApplication.getAppContext(), R.color.my_blue));
         holder.index.setText((position + 1) + "");
-        holder.index.setTypeface(CoCoinUtil.typefaceLatoLight);
         holder.remark.setText(record.getRemark());
-        holder.remark.setTypeface(CoCoinUtil.typefaceLatoLight);
 
         // set background resource (target view ID: container)
         final int swipeState = holder.getSwipeStateFlags();
@@ -246,12 +242,12 @@ public class MySwipeableItemAdapter extends RecyclerView.Adapter<MySwipeableItem
 
         public MyViewHolder(View v) {
             super(v);
-            mContainer = (FrameLayout) v.findViewById(R.id.container);
-            money = (TextView) v.findViewById(R.id.money);
-            remark = (TextView) v.findViewById(R.id.remark);
-            date = (TextView) v.findViewById(R.id.date);
-            tagImage = (ImageView) v.findViewById(R.id.image_view);
-            index = (TextView) v.findViewById(R.id.index);
+            mContainer =  v.findViewById(R.id.container);
+            money =  v.findViewById(R.id.money);
+            remark =  v.findViewById(R.id.remark);
+            date =  v.findViewById(R.id.date);
+            tagImage =  v.findViewById(R.id.image_view);
+            index =  v.findViewById(R.id.index);
         }
 
         @Override

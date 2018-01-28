@@ -27,13 +27,14 @@
                 android:scaleY="0.5"
                 android:src="@mipmap/ic_menu"/>
 
-            <TextView
+            <com.nightonke.saver.ui.CustomerFontTextView
                 android:id="@+id/guillotine_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:text="CoCoin"
+                android:fontFamily=""
                 android:textColor="#ffffff"
                 android:textSize="25sp"/>
 

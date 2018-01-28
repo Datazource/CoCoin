@@ -1,7 +1,6 @@
 package com.nightonke.saver.activity;
 
 import android.content.Context;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -39,10 +38,9 @@ public class AccountBookCustomViewActivity extends AppCompatActivity {
 
         View view = mViewPager.getRootView();
         TextView title = view.findViewById(R.id.logo_white);
-        title.setTypeface(CoCoinUtil.getInstance().typefaceLatoLight);
         title.setText(SettingManager.getInstance().getAccountBookName());
 
-        mViewPager.getPagerTitleStrip().setTypeface(CoCoinUtil.getTypeface(), Typeface.NORMAL);
+//        mViewPager.getPagerTitleStrip().setTypeface(CoCoinUtil.getTypeface(), Typeface.NORMAL);
         mViewPager.getPagerTitleStrip().setVisibility(View.INVISIBLE);
 
         setTitle("");

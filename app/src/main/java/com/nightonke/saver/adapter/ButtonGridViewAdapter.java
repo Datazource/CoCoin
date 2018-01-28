@@ -6,13 +6,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.FrameLayout;
-import android.widget.TextView;
 
 import com.balysv.materialripple.MaterialRippleLayout;
 import com.nightonke.saver.R;
 import com.nightonke.saver.model.RecordManager;
 import com.nightonke.saver.model.SettingManager;
+import com.nightonke.saver.ui.CustomerFontTextView;
 import com.nightonke.saver.util.CoCoinUtil;
+import com.nightonke.saver.util.Constances;
 
 import net.steamcrafted.materialiconlib.MaterialDrawableBuilder;
 import net.steamcrafted.materialiconlib.MaterialIconView;
@@ -33,7 +34,7 @@ public class ButtonGridViewAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return CoCoinUtil.BUTTONS.length;
+        return Constances.BUTTONS.length;
     }
 
     @Override
@@ -62,19 +63,19 @@ public class ButtonGridViewAdapter extends BaseAdapter {
         }
 
         if (position == 11) {
-            holder.tv.setTypeface(CoCoinUtil.typefaceLatoHairline);
+            holder.tv.setFontType(CustomerFontTextView.TYPE_HAIRLINE);
             holder.tv.setVisibility(View.INVISIBLE);
             holder.iv.setIcon(MaterialDrawableBuilder.IconValue.CHECK);
             holder.ml.setRippleAlpha(50);
         } else if (position == 9) {
             holder.iv.setIcon(MaterialDrawableBuilder.IconValue.ERASER);
-            holder.tv.setTypeface(CoCoinUtil.typefaceLatoHairline);
+            holder.tv.setFontType(CustomerFontTextView.TYPE_HAIRLINE);
             holder.tv.setVisibility(View.INVISIBLE);
             holder.ml.setRippleAlpha(50);
         } else {
             holder.iv.setVisibility(View.INVISIBLE);
-            holder.tv.setTypeface(CoCoinUtil.typefaceLatoHairline);
-            holder.tv.setText(CoCoinUtil.BUTTONS[position]);
+            holder.tv.setFontType(CustomerFontTextView.TYPE_HAIRLINE);
+            holder.tv.setText(Constances.BUTTONS[position]);
             holder.ml.setRippleDelayClick(false);
         }
 
@@ -103,7 +104,7 @@ public class ButtonGridViewAdapter extends BaseAdapter {
 
     private class ViewHolder {
         FrameLayout fl;
-        TextView tv;
+        CustomerFontTextView tv;
         MaterialIconView iv;
         MaterialRippleLayout ml;
     }

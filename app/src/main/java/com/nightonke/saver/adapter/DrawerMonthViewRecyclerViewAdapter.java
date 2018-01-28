@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.nightonke.saver.R;
-import com.nightonke.saver.activity.CoCoinApplication;
+import com.nightonke.saver.CoCoinApplication;
 import com.nightonke.saver.model.RecordManager;
 import com.nightonke.saver.util.CoCoinUtil;
 
@@ -88,7 +88,6 @@ public class DrawerMonthViewRecyclerViewAdapter
     @Override
     public DrawerMonthViewRecyclerViewAdapter.viewHolder
     onCreateViewHolder(ViewGroup parent, int viewType) {
-
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_month_view_drawer, parent, false);
         return new viewHolder(view) {
@@ -99,16 +98,12 @@ public class DrawerMonthViewRecyclerViewAdapter
     @Override
     public void onBindViewHolder(final viewHolder holder, final int position) {
         holder.month.setText(CoCoinUtil.getMonthShort(months.get(position) + 1));
-        holder.month.setTypeface(CoCoinUtil.getInstance().typefaceLatoLight);
 
         holder.year.setText(years.get(position) + "");
-        holder.year.setTypeface(CoCoinUtil.getInstance().typefaceLatoLight);
 
         holder.sum.setText(CoCoinUtil.getInstance().getInRecords(records.get(position)));
-        holder.sum.setTypeface(CoCoinUtil.getInstance().typefaceLatoLight);
 
         holder.money.setText(CoCoinUtil.getInstance().getInMoney((int) (double) (expenses.get(position))));
-        holder.money.setTypeface(CoCoinUtil.getInstance().typefaceLatoLight);
     }
 
     public void SetOnItemClickListener(final OnItemClickListener mItemClickListener) {

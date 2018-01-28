@@ -3,7 +3,7 @@ package com.nightonke.saver.adapter;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import com.nightonke.saver.activity.CoCoinApplication;
+import com.nightonke.saver.CoCoinApplication;
 import com.nightonke.saver.fragment.TagViewFragment;
 import com.nightonke.saver.model.RecordManager;
 import com.nightonke.saver.util.CoCoinUtil;

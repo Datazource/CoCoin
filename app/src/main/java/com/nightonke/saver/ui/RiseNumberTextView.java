@@ -2,7 +2,6 @@ package com.nightonke.saver.ui;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.widget.TextView;
 
 import com.nineoldandroids.animation.ValueAnimator;
 
@@ -12,7 +11,7 @@ import java.text.DecimalFormat;
  * Created by 伟平 on 2015/11/16.
  */
 
-public class RiseNumberTextView extends TextView implements RiseNumberBase {
+public class RiseNumberTextView extends CustomerFontTextView implements RiseNumberBase {
 
 
     final static int[] sizeTable = {9, 99, 999, 9999, 99999, 999999, 9999999,

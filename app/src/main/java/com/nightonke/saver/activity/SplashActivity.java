@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.nightonke.saver.CoCoinApplication;
 import com.nightonke.saver.R;
 import com.nightonke.saver.model.CoCoin;
 import com.nightonke.saver.model.RecordManager;
@@ -84,9 +85,7 @@ public class SplashActivity extends Activity {
 
         image = findViewById(R.id.image);
         appName = findViewById(R.id.app_name);
-        appName.setTypeface(CoCoinUtil.getInstance().typefaceLatoLight);
         loadingText = findViewById(R.id.loading_text);
-        loadingText.setTypeface(CoCoinUtil.getInstance().typefaceLatoLight);
 
         reveal = findViewById(R.id.reveal);
         ly = findViewById(R.id.ly);

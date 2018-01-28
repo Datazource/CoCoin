@@ -38,7 +38,7 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical">
 
-                    <TextView
+                    <com.nightonke.saver.ui.CustomerFontTextView
                         android:id="@+id/title"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -60,7 +60,7 @@
                             android:layout_height="wrap_content"
                             android:padding="10dp"/>
 
-                        <TextView
+                        <com.nightonke.saver.ui.CustomerFontTextView
                             android:id="@+id/help_cocoin_content_2"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -85,7 +85,7 @@
                             android:layout_height="wrap_content"
                             android:padding="10dp"/>
 
-                        <TextView
+                        <com.nightonke.saver.ui.CustomerFontTextView
                             android:id="@+id/help_cocoin_content_3"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -110,7 +110,7 @@
                             android:layout_height="wrap_content"
                             android:padding="10dp"/>
 
-                        <TextView
+                        <com.nightonke.saver.ui.CustomerFontTextView
                             android:id="@+id/help_cocoin_content_4"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -135,7 +135,7 @@
                             android:layout_height="wrap_content"
                             android:padding="10dp"/>
 
-                        <TextView
+                        <com.nightonke.saver.ui.CustomerFontTextView
                             android:id="@+id/help_cocoin_content_5"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -160,7 +160,7 @@
                             android:layout_height="wrap_content"
                             android:padding="10dp"/>
 
-                        <TextView
+                        <com.nightonke.saver.ui.CustomerFontTextView
                             android:id="@+id/help_cocoin_content_6"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -185,7 +185,7 @@
                             android:layout_height="wrap_content"
                             android:padding="10dp"/>
 
-                        <TextView
+                        <com.nightonke.saver.ui.CustomerFontTextView
                             android:id="@+id/help_cocoin_content_7"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -210,7 +210,7 @@
                             android:layout_height="wrap_content"
                             android:padding="10dp"/>
 
-                        <TextView
+                        <com.nightonke.saver.ui.CustomerFontTextView
                             android:id="@+id/help_cocoin_content_8"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -235,7 +235,7 @@
                             android:layout_height="wrap_content"
                             android:padding="10dp"/>
 
-                        <TextView
+                        <com.nightonke.saver.ui.CustomerFontTextView
                             android:id="@+id/help_cocoin_content_9"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -260,7 +260,7 @@
                             android:layout_height="wrap_content"
                             android:padding="10dp"/>
 
-                        <TextView
+                        <com.nightonke.saver.ui.CustomerFontTextView
                             android:id="@+id/help_cocoin_content_10"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -274,7 +274,7 @@
 
                     </LinearLayout>
 
-                    <TextView
+                    <com.nightonke.saver.ui.CustomerFontTextView
                         android:id="@+id/foot"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

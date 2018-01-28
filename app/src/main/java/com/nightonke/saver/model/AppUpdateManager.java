@@ -12,10 +12,8 @@ import android.widget.ProgressBar;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.github.johnpersano.supertoasts.library.utils.PaletteUtils;
+import com.nightonke.saver.CoCoinApplication;
 import com.nightonke.saver.R;
-import com.nightonke.saver.activity.CoCoinApplication;
-import com.nightonke.saver.util.CoCoinUtil;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -27,6 +25,8 @@ import java.util.List;
 
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.listener.FindListener;
+
+//import com.github.johnpersano.supertoasts.library.utils.PaletteUtils;
 
 /**
  * Created by Weiping on 2016/1/27.
@@ -93,8 +93,9 @@ public class AppUpdateManager {
             @Override
             public void onSuccess(final List<APK> object) {
                 if (object.size() == 0 && showInfo) {
-                    CoCoinUtil.showToast(context, context.getResources().getString(R.string.is_newest_version),
-                            PaletteUtils.getSolidColor(PaletteUtils.MATERIAL_BLUE));
+//                    CoCoinUtil.showToast(context, context.getResources().getString(R.string.is_newest_version),
+//                            PaletteUtils.getSolidColor(PaletteUtils.MATERIAL_BLUE));
+//                    Toast.makeText(context,R.string.is_newest_version,Toast.LENGTH_SHORT).show();
                 }
                 BmobQuery<APK> tooOldQuery = new BmobQuery<>();
                 tooOldQuery.addWhereEqualTo("version", CoCoinApplication.VERSION);

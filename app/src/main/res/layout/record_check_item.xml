@@ -42,7 +42,7 @@
                         android:layout_gravity="center|left"
                         android:layout_marginLeft="10dp"/>
 
-                    <TextView
+                    <com.nightonke.saver.ui.CustomerFontTextView
                         android:id="@+id/money"
                         android:layout_width="wrap_content"
                         android:layout_height="80dp"
@@ -59,7 +59,7 @@
                         android:layout_weight="1"
                         android:orientation="vertical">
 
-                        <TextView
+                        <com.nightonke.saver.ui.CustomerFontTextView
                             android:id="@+id/remark"
                             android:layout_width="match_parent"
                             android:layout_height="0dp"
@@ -74,7 +74,7 @@
                             android:textColor="#666666"
                             android:textSize="10sp"/>
 
-                        <TextView
+                        <com.nightonke.saver.ui.CustomerFontTextView
                             android:id="@+id/date"
                             android:layout_width="match_parent"
                             android:layout_height="0dp"
@@ -89,7 +89,7 @@
                     </LinearLayout>
                 </LinearLayout>
 
-                <TextView
+                <com.nightonke.saver.ui.CustomerFontTextView
                     android:id="@+id/index"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

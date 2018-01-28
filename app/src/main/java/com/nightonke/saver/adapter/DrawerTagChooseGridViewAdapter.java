@@ -55,7 +55,6 @@ public class DrawerTagChooseGridViewAdapter extends BaseAdapter {
         holder.tagImage.setImageResource(
                 CoCoinUtil.getTagIcon(RecordManager.TAGS.get(position).getId()));
         holder.tagName.setText(CoCoinUtil.getTagName(RecordManager.TAGS.get(position).getId()));
-        holder.tagName.setTypeface(CoCoinUtil.getTypeface());
 
         return convertView;
     }

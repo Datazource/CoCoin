@@ -1,5 +1,6 @@
-package com.nightonke.saver.activity;
+package com.nightonke.saver;
 
+import android.annotation.SuppressLint;
 import android.app.Application;
 import android.content.Context;
 import android.provider.Settings;
@@ -27,6 +28,7 @@ public class CoCoinApplication extends Application {
         return CoCoinApplication.mContext;
     }
 
+    @SuppressLint("HardwareIds")
     public static String getAndroidId() {
         return Settings.Secure.getString(
                 getAppContext().getContentResolver(), Settings.Secure.ANDROID_ID);

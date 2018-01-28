@@ -13,7 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.nightonke.saver.R;
-import com.nightonke.saver.activity.CoCoinApplication;
+import com.nightonke.saver.CoCoinApplication;
 import com.nightonke.saver.model.RecordManager;
 import com.nightonke.saver.model.SettingManager;
 import com.nightonke.saver.util.CoCoinUtil;
@@ -59,9 +59,8 @@ public class EditMoneyFragment extends Fragment {
         editView = mView.findViewById(R.id.money);
         tagImage = mView.findViewById(R.id.tag_image);
         tagName = mView.findViewById(R.id.tag_name);
-        tagName.setTypeface(CoCoinUtil.typefaceLatoLight);
 
-        editView.setTypeface(CoCoinUtil.typefaceLatoHairline);
+//        editView.setTypeface(CoCoinUtil.typefaceLatoHairline);
         editView.setText("0");
         editView.requestFocus();
         editView.setHelperText(" ");

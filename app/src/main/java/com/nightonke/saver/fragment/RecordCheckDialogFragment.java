@@ -19,6 +19,8 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.nightonke.saver.R;
 import com.nightonke.saver.adapter.RecordCheckDialogRecyclerViewAdapter;
 import com.nightonke.saver.model.CoCoinRecord;
+import com.nightonke.saver.ui.CustomerFontEditText;
+import com.nightonke.saver.ui.CustomerFontTextView;
 import com.nightonke.saver.util.CoCoinUtil;
 
 import java.util.List;
@@ -72,10 +74,9 @@ public class RecordCheckDialogFragment extends DialogFragment
 
         final AlertDialog alert = builder.create();
 
-        TextView title = new TextView(mContext);
+        TextView title = new CustomerFontTextView(mContext);
         title.setHeight(120);
         title.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
-        title.setTypeface(CoCoinUtil.typefaceLatoLight);
         title.setText(this.title);
         alert.setCustomTitle(title);
 
@@ -83,7 +84,7 @@ public class RecordCheckDialogFragment extends DialogFragment
             @Override
             public void onShow(DialogInterface dialog) {
                 Button btnPositive = alert.getButton(Dialog.BUTTON_POSITIVE);
-                btnPositive.setTypeface(CoCoinUtil.typefaceLatoLight);
+//                btnPositive.setTypeface(CoCoinUtil.typefaceLatoLight);
             }
         });
 

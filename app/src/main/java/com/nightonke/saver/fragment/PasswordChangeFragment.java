@@ -11,10 +11,9 @@ import android.widget.TextView;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
+import com.nightonke.saver.CoCoinApplication;
 import com.nightonke.saver.R;
-import com.nightonke.saver.activity.CoCoinApplication;
 import com.nightonke.saver.model.SettingManager;
-import com.nightonke.saver.util.CoCoinUtil;
 import com.rey.material.widget.RadioButton;
 
 
@@ -56,7 +55,6 @@ public class PasswordChangeFragment extends Fragment {
         button3 = view.findViewById(R.id.button3);
         ly = view.findViewById(R.id.buttonLy);
         passwordTip = view.findViewById(R.id.password_tip);
-        passwordTip.setTypeface(CoCoinUtil.getTypeface());
         switch (fragmentPosition) {
             case 0:
                 if (SettingManager.getInstance().getFirstTime()) {

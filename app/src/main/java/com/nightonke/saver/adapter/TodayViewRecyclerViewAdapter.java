@@ -235,14 +235,10 @@ public class TodayViewRecyclerViewAdapter
                 holder.dateBottom.setText(dateString);
                 holder.expanseSum.setText(CoCoinUtil.getInMoney((int) Sum));
 
-                holder.date.setTypeface(CoCoinUtil.getTypeface());
-                holder.dateBottom.setTypeface(CoCoinUtil.getTypeface());
-                holder.expanseSum.setTypeface(CoCoinUtil.typefaceLatoLight);
 
                 if (IS_EMPTY) {
                     holder.emptyTip.setVisibility(View.VISIBLE);
                     holder.emptyTip.setText(CoCoinUtil.getTodayViewEmptyTip(fragmentPosition));
-                    holder.emptyTip.setTypeface(CoCoinUtil.getTypeface());
 
                     holder.reset.setVisibility(View.GONE);
 
@@ -444,9 +440,9 @@ public class TodayViewRecyclerViewAdapter
                                             .backgroundDrawable(CoCoinUtil.getSnackBarBackground(
                                                     fragmentPosition - 2))
                                             .text(text)
-                                            .textTypeface(CoCoinUtil.getTypeface())
+//                                            .textTypeface(CoCoinUtil.getTypeface())
                                             .textColor(Color.WHITE)
-                                            .actionLabelTypeface(CoCoinUtil.getTypeface())
+//                                            .actionLabelTypeface(CoCoinUtil.getTypeface())
                                             .actionLabel(mContext.getResources()
                                                     .getString(R.string.check))
                                             .actionColor(Color.WHITE)
@@ -549,9 +545,9 @@ public class TodayViewRecyclerViewAdapter
                                                         .backgroundDrawable(CoCoinUtil.getSnackBarBackground(
                                                                 fragmentPosition - 2))
                                                         .text(text)
-                                                        .textTypeface(CoCoinUtil.getTypeface())
+//                                                        .textTypeface(CoCoinUtil.getTypeface())
                                                         .textColor(Color.WHITE)
-                                                        .actionLabelTypeface(CoCoinUtil.getTypeface())
+//                                                        .actionLabelTypeface(CoCoinUtil.getTypeface())
                                                         .actionLabel(mContext.getResources()
                                                                 .getString(R.string.check))
                                                         .actionColor(Color.WHITE)
@@ -609,13 +605,9 @@ public class TodayViewRecyclerViewAdapter
                 holder.tagImage.setImageResource(
                         CoCoinUtil.getTagIcon(allData.get(position - 1).getTag()));
                 holder.money.setText(allData.get(position - 1).getMoney() + "");
-                holder.money.setTypeface(CoCoinUtil.typefaceLatoLight);
                 holder.cell_date.setText(allData.get(position - 1).getCalendarString());
-                holder.cell_date.setTypeface(CoCoinUtil.typefaceLatoLight);
                 holder.remark.setText(allData.get(position - 1).getRemark());
-                holder.remark.setTypeface(CoCoinUtil.typefaceLatoLight);
                 holder.index.setText(position + "");
-                holder.index.setTypeface(CoCoinUtil.typefaceLatoLight);
                 holder.layout.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

@@ -7,7 +7,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.nightonke.saver.R;
-import com.nightonke.saver.activity.CoCoinApplication;
+import com.nightonke.saver.CoCoinApplication;
 import com.nightonke.saver.fragment.ReportViewFragment;
 import com.nightonke.saver.util.CoCoinUtil;
 
@@ -53,10 +53,6 @@ public class ReportDayAdapter extends BaseAdapter {
         TextView expense = convertView.findViewById(R.id.month_expense);
         TextView records = convertView.findViewById(R.id.month_sum);
 
-        icon.setTypeface(CoCoinUtil.getInstance().typefaceLatoLight);
-        name.setTypeface(CoCoinUtil.getInstance().typefaceLatoLight);
-        expense.setTypeface(CoCoinUtil.getInstance().typefaceLatoLight);
-        records.setTypeface(CoCoinUtil.getInstance().typefaceLatoLight);
 
         icon.setBackgroundResource(getBackgroundResource());
         icon.setText("" + ((int) dayExpense.get(position + 1)[2]));

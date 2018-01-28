@@ -10,12 +10,13 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.nightonke.saver.R;
-import com.nightonke.saver.activity.CoCoinApplication;
+import com.nightonke.saver.CoCoinApplication;
 import com.nightonke.saver.fragment.RecordCheckDialogFragment;
 import com.nightonke.saver.model.CoCoinRecord;
 import com.nightonke.saver.model.RecordManager;
 import com.nightonke.saver.model.SettingManager;
 import com.nightonke.saver.util.CoCoinUtil;
+import com.nightonke.saver.util.Constances;
 import com.nispok.snackbar.Snackbar;
 import com.nispok.snackbar.SnackbarManager;
 import com.nispok.snackbar.enums.SnackbarType;
@@ -115,7 +116,7 @@ public class MonthViewRecyclerViewAdapter
 
             // for this month
             dateStringList.add(CoCoinUtil.getMonthShort(nowMonth + 1) + " " + nowYear);
-            dateShownStringList.add(" in " + CoCoinUtil.MONTHS_SHORT[nowMonth + 1] + " " + nowYear);
+            dateShownStringList.add(" in " + Constances.MONTHS_SHORT[nowMonth + 1] + " " + nowYear);
             selectedPositionList.add(0);
             for (int j = 2; j < recordManager.TAGS.size(); j++) {
                 TagExpanse.put(recordManager.TAGS.get(j).getId(), Double.valueOf(0));
@@ -279,9 +280,7 @@ public class MonthViewRecyclerViewAdapter
 
         if (IS_EMPTY) {
             holder.expanseSum.setText("¥0");
-            holder.expanseSum.setTypeface(CoCoinUtil.typefaceLatoLight);
             holder.emptyTip.setText(mContext.getResources().getString(R.string.tag_empty));
-            holder.emptyTip.setTypeface(CoCoinUtil.getTypeface());
             holder.tags.setVisibility(View.GONE);
             holder.date.setVisibility(View.INVISIBLE);
             holder.pie.setVisibility(View.INVISIBLE);
@@ -292,10 +291,6 @@ public class MonthViewRecyclerViewAdapter
             holder.date.setText(dateStringList.get(position));
             holder.expanseSum.setText(CoCoinUtil.getInMoney((int) (double) SumList.get(position)));
 
-            holder.date.setTypeface(CoCoinUtil.getTypeface());
-            holder.expanseSum.setTypeface(CoCoinUtil.typefaceLatoLight);
-
-            holder.tags.setTypeface(CoCoinUtil.typefaceLatoLight);
             if ("zh".equals(CoCoinUtil.getLanguage())) {
                 holder.tags.setText(" ● " + records + CoCoinApplication.getAppContext().getResources().getString(R.string.report_view_records) + tags + CoCoinApplication.getAppContext().getResources().getString(R.string.report_view_tags));
             } else {
@@ -304,7 +299,6 @@ public class MonthViewRecyclerViewAdapter
 
             if (SumList.get(position).equals(Double.valueOf(0))) {
                 holder.emptyTip.setVisibility(View.VISIBLE);
-                holder.emptyTip.setTypeface(CoCoinUtil.typefaceLatoLight);
             } else {
                 holder.emptyTip.setVisibility(View.GONE);
             }
@@ -438,9 +432,9 @@ public class MonthViewRecyclerViewAdapter
                             .margin(15, 15)
                             .backgroundDrawable(CoCoinUtil.getSnackBarBackground(fragmentPosition - 2))
                             .text(text)
-                            .textTypeface(CoCoinUtil.getTypeface())
+//                            .textTypeface(CoCoinUtil.getTypeface())
                             .textColor(Color.WHITE)
-                            .actionLabelTypeface(CoCoinUtil.getTypeface())
+//                            .actionLabelTypeface(CoCoinUtil.getTypeface())
                             .actionLabel(mContext.getResources().getString(R.string.check))
                             .actionColor(Color.WHITE)
                             .actionListener(new ActionClickListener() {

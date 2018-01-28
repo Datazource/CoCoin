@@ -4,10 +4,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -33,10 +33,10 @@ import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.github.florent37.materialviewpager.MaterialViewPager;
 import com.github.florent37.materialviewpager.MaterialViewPagerHelper;
 import com.github.florent37.materialviewpager.header.HeaderDesign;
-import com.github.johnpersano.supertoasts.library.SuperToast;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 import com.nightonke.saver.BuildConfig;
+import com.nightonke.saver.CoCoinApplication;
 import com.nightonke.saver.R;
 import com.nightonke.saver.adapter.TodayViewFragmentAdapter;
 import com.nightonke.saver.model.Logo;
@@ -72,6 +72,8 @@ import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.SaveListener;
 import cn.bmob.v3.listener.UpdateListener;
 import de.hdodenhof.circleimageview.CircleImageView;
+
+//import com.github.johnpersano.supertoasts.library.SuperToast;
 
 public class AccountBookTodayViewActivity extends AppCompatActivity {
 
@@ -151,29 +153,24 @@ public class AccountBookTodayViewActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account_book_today_view);
-        SuperToast.cancelAllSuperToasts();
+//        SuperToast.cancelAllSuperToasts();
 
         mContext = this;
 
         mViewPager = findViewById(R.id.materialViewPager);
         userName = findViewById(R.id.user_name);
         userEmail = findViewById(R.id.user_email);
-        userName.setTypeface(CoCoinUtil.typefaceLatoRegular);
-        userEmail.setTypeface(CoCoinUtil.typefaceLatoLight);
         User user = BmobUser.getCurrentUser(CoCoinApplication.getAppContext(), User.class);
         if (user != null) {
             userName.setText(user.getUsername());
             userEmail.setText(user.getEmail());
         }
 
-        setFonts();
-
         View view = mViewPager.getRootView();
         title = view.findViewById(R.id.logo_white);
-        title.setTypeface(CoCoinUtil.typefaceLatoLight);
         title.setText(SettingManager.getInstance().getAccountBookName());
 
-        mViewPager.getPagerTitleStrip().setTypeface(CoCoinUtil.getTypeface(), Typeface.NORMAL);
+//        mViewPager.getPagerTitleStrip().setTypeface(CoCoinUtil.getTypeface(), Typeface.NORMAL);
 
         setTitle("");
 
@@ -193,9 +190,7 @@ public class AccountBookTodayViewActivity extends AppCompatActivity {
         syncIcon = mDrawer.findViewById(R.id.sync_icon);
         setIconEnable(syncIcon, SettingManager.getInstance().getLoggenOn());
         monthExpenseTip = mDrawer.findViewById(R.id.month_expense_tip);
-        monthExpenseTip.setTypeface(CoCoinUtil.getTypeface());
         monthExpense = mDrawer.findViewById(R.id.month_expense);
-        monthExpense.setTypeface(CoCoinUtil.typefaceLatoLight);
 
         if (SettingManager.getInstance().getIsMonthLimit()) {
             monthExpenseTip.setVisibility(View.VISIBLE);
@@ -267,9 +262,11 @@ public class AccountBookTodayViewActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (SettingManager.getInstance().getLoggenOn()) {
-                    CoCoinUtil.showToast(mContext, R.string.change_logo_tip);
+                    Snackbar.make(v, R.string.change_logo_tip, Snackbar.LENGTH_SHORT).show();
+//                    CoCoinUtil.showToast(mContext, R.string.change_logo_tip);
                 } else {
-                    CoCoinUtil.showToast(mContext, R.string.login_tip);
+                    Snackbar.make(v, R.string.login_tip, Snackbar.LENGTH_SHORT).show();
+//                    CoCoinUtil.showToast(mContext, R.string.login_tip);
                 }
             }
         });
@@ -314,49 +311,37 @@ public class AccountBookTodayViewActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-
         MaterialViewPagerHelper.unregister(this);
     }
 
     private void loadRangeMode() {
-
         Log.d("Saver", "RANGE_MODE");
-
         Intent intent = new Intent(mContext, AccountBookCustomViewActivity.class);
         startActivity(intent);
-
     }
 
     private void loadTagMode() {
-
         Log.d("Saver", "TAG_MODE");
-
         Intent intent = new Intent(mContext, AccountBookTagViewActivity.class);
         startActivity(intent);
-
     }
 
     private void loadMonthMode() {
-
         Log.d("Saver", "MONTH_MODE");
-
         Intent intent = new Intent(mContext, AccountBookMonthViewActivity.class);
         startActivity(intent);
-
     }
 
     private void loadListMode() {
-
         Log.d("Saver", "LIST_MODE");
-
         Intent intent = new Intent(mContext, AccountBookListViewActivity.class);
         startActivity(intent);
-
     }
 
     private void sync() {
         if (!SettingManager.getInstance().getLoggenOn()) {
-            CoCoinUtil.showToast(mContext, R.string.login_tip);
+            Snackbar.make(getWindow().getDecorView(),R.string.login_tip,Snackbar.LENGTH_SHORT).show();
+//            CoCoinUtil.showToast(mContext, R.string.login_tip);
         } else {
             syncSuccessNumber = 0;
             syncFailedNumber = 0;
@@ -860,21 +845,6 @@ public class AccountBookTodayViewActivity extends AppCompatActivity {
             return;
         }
         super.onBackPressed();
-    }
-
-    private void setFonts() {
-        userName.setTypeface(CoCoinUtil.typefaceLatoRegular);
-        userEmail.setTypeface(CoCoinUtil.typefaceLatoLight);
-        ((TextView) findViewById(R.id.custom_text)).setTypeface(CoCoinUtil.getTypeface());
-        ((TextView) findViewById(R.id.tag_text)).setTypeface(CoCoinUtil.getTypeface());
-        ((TextView) findViewById(R.id.month_text)).setTypeface(CoCoinUtil.getTypeface());
-        ((TextView) findViewById(R.id.list_text)).setTypeface(CoCoinUtil.getTypeface());
-        ((TextView) findViewById(R.id.report_text)).setTypeface(CoCoinUtil.getTypeface());
-        ((TextView) findViewById(R.id.sync_text)).setTypeface(CoCoinUtil.getTypeface());
-        ((TextView) findViewById(R.id.settings_text)).setTypeface(CoCoinUtil.getTypeface());
-        ((TextView) findViewById(R.id.help_text)).setTypeface(CoCoinUtil.getTypeface());
-        ((TextView) findViewById(R.id.feedback_text)).setTypeface(CoCoinUtil.getTypeface());
-        ((TextView) findViewById(R.id.about_text)).setTypeface(CoCoinUtil.getTypeface());
     }
 
     private void setListeners() {

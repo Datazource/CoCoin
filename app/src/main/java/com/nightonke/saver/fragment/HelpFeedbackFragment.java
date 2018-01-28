@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.text.Editable;
@@ -18,7 +19,7 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.github.florent37.materialviewpager.MaterialViewPagerHelper;
 import com.github.ksoichiro.android.observablescrollview.ObservableScrollView;
 import com.nightonke.saver.R;
-import com.nightonke.saver.activity.CoCoinApplication;
+import com.nightonke.saver.CoCoinApplication;
 import com.nightonke.saver.model.Feedback;
 import com.nightonke.saver.util.CoCoinUtil;
 
@@ -77,17 +78,13 @@ public class HelpFeedbackFragment extends Fragment {
         MaterialViewPagerHelper.registerScrollView(getActivity(), mScrollView, null);
 
         title = view.findViewById(R.id.title);
-        title.setTypeface(CoCoinUtil.getInstance().typefaceLatoLight);
         input = view.findViewById(R.id.edittext);
-        input.setTypeface(CoCoinUtil.getInstance().typefaceLatoLight);
         help = view.findViewById(R.id.helper);
-        help.setTypeface(CoCoinUtil.getInstance().typefaceLatoLight);
         number = view.findViewById(R.id.number);
-        number.setTypeface(CoCoinUtil.getInstance().typefaceLatoLight);
         send = view.findViewById(R.id.send);
         send.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(final View v) {
                 if (exceed) {
                     new MaterialDialog.Builder(mContext)
                             .title(R.string.help_feedback_dialog_title)
@@ -95,18 +92,24 @@ public class HelpFeedbackFragment extends Fragment {
                             .positiveText(R.string.ok_1)
                             .show();
                 } else {
-                    CoCoinUtil.getInstance().showToast(CoCoinApplication.getAppContext(), CoCoinApplication.getAppContext().getResources().getString(R.string.help_feedback_sent));
+//                    CoCoinUtil.getInstance().showToast(CoCoinApplication.getAppContext(),
+//                            CoCoinApplication.getAppContext().getResources().getString(R.string.help_feedback_sent));
+                    Snackbar.make(v,R.string.help_feedback_sent,Snackbar.LENGTH_SHORT).show();
                     Feedback feedback = new Feedback();
                     feedback.setContent(input.getText().toString());
                     feedback.save(CoCoinApplication.getAppContext(), new SaveListener() {
                         @Override
                         public void onSuccess() {
-                            CoCoinUtil.getInstance().showToast(CoCoinApplication.getAppContext(), CoCoinApplication.getAppContext().getResources().getString(R.string.help_feedback_sent_successfully));
+//                            CoCoinUtil.getInstance().showToast(CoCoinApplication.getAppContext(),
+//                                    CoCoinApplication.getAppContext().getResources().getString(R.string.help_feedback_sent_successfully));
+                            Snackbar.make(v,R.string.help_feedback_sent_successfully,Snackbar.LENGTH_SHORT).show();
                         }
 
                         @Override
                         public void onFailure(int code, String arg0) {
-                            CoCoinUtil.getInstance().showToast(CoCoinApplication.getAppContext(), CoCoinApplication.getAppContext().getResources().getString(R.string.help_feedback_sent_fail));
+//                            CoCoinUtil.getInstance().showToast(CoCoinApplication.getAppContext(),
+//                                    CoCoinApplication.getAppContext().getResources().getString(R.string.help_feedback_sent_fail));
+                            Snackbar.make(v,R.string.help_feedback_sent_fail,Snackbar.LENGTH_SHORT).show();
                         }
                     });
                 }

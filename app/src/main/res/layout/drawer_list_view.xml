@@ -43,7 +43,7 @@
                 app:civ_border_color="#ffffff"
                 app:civ_border_width="0dp"/>
 
-            <TextView
+            <com.nightonke.saver.ui.CustomerFontTextView
                 android:id="@+id/user_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -55,7 +55,7 @@
                 android:textSize="16sp"
                 android:textStyle="bold"/>
 
-            <TextView
+            <com.nightonke.saver.ui.CustomerFontTextView
                 android:id="@+id/user_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -78,7 +78,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <TextView
+            <com.nightonke.saver.ui.CustomerFontTextView
                 android:id="@+id/tag_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -89,7 +89,7 @@
                 android:textColor="@color/my_blue"
                 android:textSize="16sp"/>
 
-            <TextView
+            <com.nightonke.saver.ui.CustomerFontTextView
                 android:id="@+id/tag_title_expense"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
@@ -99,7 +99,7 @@
                 android:textColor="@color/my_blue"
                 android:textSize="13sp"/>
 
-            <TextView
+            <com.nightonke.saver.ui.CustomerFontTextView
                 android:id="@+id/left_expense"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -108,7 +108,7 @@
                 android:textColor="@color/red"
                 android:textSize="18sp"/>
 
-            <TextView
+            <com.nightonke.saver.ui.CustomerFontTextView
                 android:layout_width="match_parent"
                 android:layout_height="20dp"
                 android:gravity="center"
@@ -116,7 +116,7 @@
                 android:textColor="@color/my_blue"
                 android:textSize="15sp"/>
 
-            <TextView
+            <com.nightonke.saver.ui.CustomerFontTextView
                 android:id="@+id/right_expense"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -133,7 +133,7 @@
                 android:paddingLeft="25dp"
                 android:paddingRight="25dp">
 
-                <TextView
+                <com.nightonke.saver.ui.CustomerFontTextView
                     android:id="@+id/select_expense"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -147,7 +147,7 @@
                     android:layout_width="10dp"
                     android:layout_height="match_parent"/>
 
-                <TextView
+                <com.nightonke.saver.ui.CustomerFontTextView
                     android:id="@+id/no_expense"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -159,7 +159,7 @@
 
             </LinearLayout>
 
-            <TextView
+            <com.nightonke.saver.ui.CustomerFontTextView
                 android:id="@+id/tag_title_time"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
@@ -169,7 +169,7 @@
                 android:textColor="@color/my_blue"
                 android:textSize="13sp"/>
 
-            <TextView
+            <com.nightonke.saver.ui.CustomerFontTextView
                 android:id="@+id/left_time"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -178,7 +178,7 @@
                 android:textColor="@color/red"
                 android:textSize="18sp"/>
 
-            <TextView
+            <com.nightonke.saver.ui.CustomerFontTextView
                 android:layout_width="match_parent"
                 android:layout_height="20dp"
                 android:gravity="center"
@@ -186,7 +186,7 @@
                 android:textColor="@color/my_blue"
                 android:textSize="15sp"/>
 
-            <TextView
+            <com.nightonke.saver.ui.CustomerFontTextView
                 android:id="@+id/right_time"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -203,7 +203,7 @@
                 android:paddingLeft="25dp"
                 android:paddingRight="25dp">
 
-                <TextView
+                <com.nightonke.saver.ui.CustomerFontTextView
                     android:id="@+id/select_time"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -217,7 +217,7 @@
                     android:layout_width="10dp"
                     android:layout_height="match_parent"/>
 
-                <TextView
+                <com.nightonke.saver.ui.CustomerFontTextView
                     android:id="@+id/no_time"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -229,7 +229,7 @@
 
             </LinearLayout>
 
-            <TextView
+            <com.nightonke.saver.ui.CustomerFontTextView
                 android:id="@+id/tag_title_tag"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
@@ -246,7 +246,7 @@
                 android:layout_gravity="center"
                 android:src="@mipmap/fruit_icon"/>
 
-            <TextView
+            <com.nightonke.saver.ui.CustomerFontTextView
                 android:id="@+id/tag_name"
                 android:layout_width="match_parent"
                 android:layout_height="20dp"
@@ -264,7 +264,7 @@
                 android:paddingLeft="25dp"
                 android:paddingRight="25dp">
 
-                <TextView
+                <com.nightonke.saver.ui.CustomerFontTextView
                     android:id="@+id/select_tag"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -278,7 +278,7 @@
                     android:layout_width="10dp"
                     android:layout_height="match_parent"/>
 
-                <TextView
+                <com.nightonke.saver.ui.CustomerFontTextView
                     android:id="@+id/no_tag"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -290,7 +290,7 @@
 
             </LinearLayout>
 
-            <TextView
+            <com.nightonke.saver.ui.CustomerFontTextView
                 android:id="@+id/select"
                 android:layout_width="match_parent"
                 android:layout_height="25dp"

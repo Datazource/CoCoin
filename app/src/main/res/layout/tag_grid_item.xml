@@ -32,7 +32,7 @@
                 android:layout_height="40dp"
                 android:layout_gravity="center_horizontal|bottom"/>
 
-            <TextView
+            <com.nightonke.saver.ui.CustomerFontTextView
                 android:id="@+id/tag_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

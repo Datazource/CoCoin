@@ -3,7 +3,7 @@ package com.nightonke.saver.model;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
-import com.nightonke.saver.activity.CoCoinApplication;
+import com.nightonke.saver.CoCoinApplication;
 
 /**
  * Created by 伟平 on 2015/11/17.

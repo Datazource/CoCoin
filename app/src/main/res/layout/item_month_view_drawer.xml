@@ -24,7 +24,7 @@
             android:orientation="horizontal"
             android:paddingLeft="10dp">
 
-            <TextView
+            <com.nightonke.saver.ui.CustomerFontTextView
                 android:id="@+id/money"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
@@ -41,7 +41,7 @@
                 android:text="/"
                 android:textColor="@color/red"/>
 
-            <TextView
+            <com.nightonke.saver.ui.CustomerFontTextView
                 android:id="@+id/sum"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
@@ -54,7 +54,7 @@
 
         </LinearLayout>
 
-        <TextView
+        <com.nightonke.saver.ui.CustomerFontTextView
             android:id="@+id/month"
             android:layout_width="wrap_content"
             android:layout_height="60dp"
@@ -65,7 +65,7 @@
             android:textColor="@color/my_blue"
             android:textSize="18sp"/>
 
-        <TextView
+        <com.nightonke.saver.ui.CustomerFontTextView
             android:id="@+id/year"
             android:layout_width="wrap_content"
             android:layout_height="60dp"

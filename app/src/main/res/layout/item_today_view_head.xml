@@ -31,7 +31,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
-                    <TextView
+                    <com.nightonke.saver.ui.CustomerFontTextView
                         android:id="@+id/date"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -46,7 +46,7 @@
                 </LinearLayout>
             </FrameLayout>
 
-            <TextView
+            <com.nightonke.saver.ui.CustomerFontTextView
                 android:id="@+id/expanse"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -57,7 +57,7 @@
                 android:textColor="@color/my_blue"
                 android:textSize="30sp"/>
 
-            <TextView
+            <com.nightonke.saver.ui.CustomerFontTextView
                 android:id="@+id/empty_tip"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -169,7 +169,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <TextView
+                <com.nightonke.saver.ui.CustomerFontTextView
                     android:id="@+id/date_bottom"
                     android:layout_width="0dp"
                     android:layout_height="60dp"

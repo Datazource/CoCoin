@@ -2,10 +2,9 @@ package com.nightonke.saver.activity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -18,10 +17,6 @@ import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
 
-import com.github.johnpersano.supertoasts.library.Style;
-import com.github.johnpersano.supertoasts.library.SuperActivityToast;
-import com.github.johnpersano.supertoasts.library.SuperToast;
-import com.github.johnpersano.supertoasts.library.utils.PaletteUtils;
 import com.nightonke.saver.R;
 import com.nightonke.saver.adapter.ButtonGridViewAdapter;
 import com.nightonke.saver.adapter.EditMoneyRemarkFragmentAdapter;
@@ -33,8 +28,14 @@ import com.nightonke.saver.model.RecordManager;
 import com.nightonke.saver.ui.CoCoinScrollableViewPager;
 import com.nightonke.saver.ui.MyGridView;
 import com.nightonke.saver.util.CoCoinUtil;
+import com.nightonke.saver.util.Constances;
 
 import net.steamcrafted.materialiconlib.MaterialIconView;
+
+//import com.github.johnpersano.supertoasts.library.Style;
+//import com.github.johnpersano.supertoasts.library.SuperActivityToast;
+//import com.github.johnpersano.supertoasts.library.SuperToast;
+//import com.github.johnpersano.supertoasts.library.utils.PaletteUtils;
 
 public class EditRecordActivity extends AppCompatActivity
         implements TagChooseFragment.OnTagItemSelectedListener {
@@ -53,7 +54,7 @@ public class EditRecordActivity extends AppCompatActivity
     private EditMoneyRemarkFragmentAdapter editAdapter;
     private MyGridView myGridView;
     private ButtonGridViewAdapter myGridViewAdapter;
-    private SuperToast superToast;
+//    private SuperToast superToast;
 
     private MaterialIconView back;
     private AdapterView.OnItemClickListener gridViewClickListener
@@ -81,7 +82,7 @@ public class EditRecordActivity extends AppCompatActivity
 
         mContext = this;
 
-        superToast = new SuperToast(this);
+//        superToast = new SuperToast(this);
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
@@ -202,7 +203,7 @@ public class EditRecordActivity extends AppCompatActivity
                     || CoCoinUtil.clickButtonIsZero(position)) {
 
             } else {
-                CoCoinFragmentManager.editRecordActivityEditMoneyFragment.setNumberText(CoCoinUtil.BUTTONS[position]);
+                CoCoinFragmentManager.editRecordActivityEditMoneyFragment.setNumberText(Constances.BUTTONS[position]);
             }
         } else {
             if (CoCoinUtil.clickButtonDelete(position)) {
@@ -210,7 +211,7 @@ public class EditRecordActivity extends AppCompatActivity
                     CoCoinFragmentManager.editRecordActivityEditMoneyFragment.setNumberText("0");
                     CoCoinFragmentManager.editRecordActivityEditMoneyFragment.setHelpText(" ");
                     CoCoinFragmentManager.editRecordActivityEditMoneyFragment.setHelpText(
-                            CoCoinUtil.FLOATINGLABELS[CoCoinFragmentManager.editRecordActivityEditMoneyFragment
+                            Constances.FLOATINGLABELS[CoCoinFragmentManager.editRecordActivityEditMoneyFragment
                                     .getNumberText().toString().length()]);
                 } else {
                     CoCoinFragmentManager.editRecordActivityEditMoneyFragment.setNumberText(
@@ -226,24 +227,26 @@ public class EditRecordActivity extends AppCompatActivity
                 commit();
             } else {
                 if (FIRST_EDIT) {
-                    CoCoinFragmentManager.editRecordActivityEditMoneyFragment.setNumberText(CoCoinUtil.BUTTONS[position]);
+                    CoCoinFragmentManager.editRecordActivityEditMoneyFragment.setNumberText(Constances.BUTTONS[position]);
                     FIRST_EDIT = false;
                 } else {
                     CoCoinFragmentManager.editRecordActivityEditMoneyFragment
                             .setNumberText(CoCoinFragmentManager.editRecordActivityEditMoneyFragment
-                                    .getNumberText().toString() + CoCoinUtil.BUTTONS[position]);
+                                    .getNumberText().toString() + Constances.BUTTONS[position]);
                 }
             }
         }
-        CoCoinFragmentManager.editRecordActivityEditMoneyFragment.setHelpText(CoCoinUtil.FLOATINGLABELS[
+        CoCoinFragmentManager.editRecordActivityEditMoneyFragment.setHelpText(Constances.FLOATINGLABELS[
                 CoCoinFragmentManager.editRecordActivityEditMoneyFragment.getNumberText().toString().length()]);
     }
 
     private void commit() {
         if (CoCoinFragmentManager.editRecordActivityEditMoneyFragment.getTagId() == -1) {
-            showToast(NO_TAG_TOAST);
+//            showToast(NO_TAG_TOAST);
+            Snackbar.make(getWindow().getDecorView(), R.string.toast_no_tag, Snackbar.LENGTH_SHORT).show();
         } else if (CoCoinFragmentManager.editRecordActivityEditMoneyFragment.getNumberText().toString().equals("0")) {
-            showToast(NO_MONEY_TOAST);
+//            showToast(NO_MONEY_TOAST);
+            Snackbar.make(getWindow().getDecorView(), R.string.toast_no_money, Snackbar.LENGTH_SHORT).show();
         } else {
             CoCoinRecord coCoinRecord = new CoCoinRecord();
             coCoinRecord.set(RecordManager.SELECTED_RECORDS.get(RecordManager.getInstance(mContext).SELECTED_RECORDS.size() - 1 - position));
@@ -252,9 +255,10 @@ public class EditRecordActivity extends AppCompatActivity
             coCoinRecord.setRemark(CoCoinFragmentManager.editRecordActivityEditRemarkFragment.getRemark());
             long updateId = RecordManager.updateRecord(coCoinRecord);
             if (updateId == -1) {
-                if (!superToast.isShowing()) {
-                    showToast(SAVE_FAILED_TOAST);
-                }
+//                if (!superToast.isShowing()) {
+//                    showToast(SAVE_FAILED_TOAST);
+                Snackbar.make(getWindow().getDecorView(), R.string.toast_save_failed, Snackbar.LENGTH_SHORT).show();
+//                }
             } else {
                 IS_CHANGED = true;
                 RecordManager.SELECTED_RECORDS.set(RecordManager.getInstance(mContext).SELECTED_RECORDS.size() - 1 - position, coCoinRecord);
@@ -269,36 +273,36 @@ public class EditRecordActivity extends AppCompatActivity
         }
     }
 
-    private void showToast(int toastType) {
-        SuperToast.cancelAllSuperToasts();
-        SuperActivityToast.cancelAllSuperToasts();
-
-        superToast.setAnimations(CoCoinUtil.TOAST_ANIMATION);
-        superToast.setDuration(Style.DURATION_SHORT);
-        superToast.setTextColor(Color.parseColor("#ffffff"));
-        superToast.setTextSize(Style.TEXTSIZE_SMALL);
-        superToast.setTypefaceStyle(Typeface.ITALIC);
-
-        switch (toastType) {
-            case NO_MONEY_TOAST:
-                superToast.setText(mContext.getResources().getString(R.string.toast_no_money));
-                superToast.setColor(PaletteUtils.getSolidColor(PaletteUtils.MATERIAL_BLUE));
-                break;
-            case SAVE_SUCCESSFULLY_TOAST:
-                superToast.setText(
-                        mContext.getResources().getString(R.string.toast_save_successfully));
-                superToast.setColor(PaletteUtils.getSolidColor(PaletteUtils.MATERIAL_GREEN));
-                break;
-            case SAVE_FAILED_TOAST:
-                superToast.setText(mContext.getResources().getString(R.string.toast_save_failed));
-                superToast.setColor(PaletteUtils.getSolidColor(PaletteUtils.MATERIAL_RED));
-                break;
-            default:
-                break;
-        }
-
-        superToast.show();
-    }
+//    private void showToast(int toastType) {
+//        SuperToast.cancelAllSuperToasts();
+//        SuperActivityToast.cancelAllSuperToasts();
+//
+//        superToast.setAnimations(CoCoinUtil.TOAST_ANIMATION);
+//        superToast.setDuration(Style.DURATION_SHORT);
+//        superToast.setTextColor(Color.parseColor("#ffffff"));
+//        superToast.setTextSize(Style.TEXTSIZE_SMALL);
+//        superToast.setTypefaceStyle(Typeface.ITALIC);
+//
+//        switch (toastType) {
+//            case NO_MONEY_TOAST:
+//                superToast.setText(mContext.getResources().getString(R.string.toast_no_money));
+//                superToast.setColor(PaletteUtils.getSolidColor(PaletteUtils.MATERIAL_BLUE));
+//                break;
+//            case SAVE_SUCCESSFULLY_TOAST:
+//                superToast.setText(
+//                        mContext.getResources().getString(R.string.toast_save_successfully));
+//                superToast.setColor(PaletteUtils.getSolidColor(PaletteUtils.MATERIAL_GREEN));
+//                break;
+//            case SAVE_FAILED_TOAST:
+//                superToast.setText(mContext.getResources().getString(R.string.toast_save_failed));
+//                superToast.setColor(PaletteUtils.getSolidColor(PaletteUtils.MATERIAL_RED));
+//                break;
+//            default:
+//                break;
+//        }
+//
+//        superToast.show();
+//    }
 
     @Override
     public void onTagItemPicked(int position) {

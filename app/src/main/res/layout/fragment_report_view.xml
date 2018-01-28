@@ -37,7 +37,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                    <TextView
+                    <com.nightonke.saver.ui.CustomerFontTextView
                         android:id="@+id/title"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -48,7 +48,7 @@
                         android:textColor="@color/my_blue"
                         android:textSize="15sp"/>
 
-                    <TextView
+                    <com.nightonke.saver.ui.CustomerFontTextView
                         android:id="@+id/expense"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -59,7 +59,7 @@
                         android:textColor="@color/my_blue"
                         android:textSize="30sp"/>
 
-                    <TextView
+                    <com.nightonke.saver.ui.CustomerFontTextView
                         android:id="@+id/tags"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -70,7 +70,7 @@
                         android:textColor="@color/my_blue"
                         android:textSize="15sp"/>
 
-                    <TextView
+                    <com.nightonke.saver.ui.CustomerFontTextView
                         android:id="@+id/empty_tip"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -86,7 +86,7 @@
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
 
-                        <TextView
+                        <com.nightonke.saver.ui.CustomerFontTextView
                             android:id="@+id/pie_title"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -126,7 +126,6 @@
                                     android:padding="10dp"/>
 
                                 <net.steamcrafted.materialiconlib.MaterialIconView
-                                    xmlns:app="http://schemas.android.com/apk/res-auto"
                                     android:id="@+id/icon_left"
                                     android:layout_width="48dp"
                                     android:layout_height="48dp"
@@ -139,7 +138,6 @@
                                     app:materialIconSize="24dp"/>
 
                                 <net.steamcrafted.materialiconlib.MaterialIconView
-                                    xmlns:app="http://schemas.android.com/apk/res-auto"
                                     android:id="@+id/icon_right"
                                     android:layout_width="48dp"
                                     android:layout_height="48dp"
@@ -161,7 +159,7 @@
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
 
-                        <TextView
+                        <com.nightonke.saver.ui.CustomerFontTextView
                             android:id="@+id/highest_tag_title"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -209,7 +207,7 @@
 
                                 </FrameLayout>
 
-                                <TextView
+                                <com.nightonke.saver.ui.CustomerFontTextView
                                     android:id="@+id/highest_tag_text"
                                     android:layout_width="0dp"
                                     android:layout_height="match_parent"
@@ -226,7 +224,7 @@
                                     android:layout_gravity="center"
                                     android:orientation="horizontal">
 
-                                    <TextView
+                                    <com.nightonke.saver.ui.CustomerFontTextView
                                         android:id="@+id/highest_tag_expense"
                                         android:layout_width="wrap_content"
                                         android:layout_height="match_parent"
@@ -243,7 +241,7 @@
                                         android:text="/"
                                         android:textColor="@color/red"/>
 
-                                    <TextView
+                                    <com.nightonke.saver.ui.CustomerFontTextView
                                         android:id="@+id/highest_tag_sum"
                                         android:layout_width="wrap_content"
                                         android:layout_height="match_parent"
@@ -329,7 +327,7 @@
 
                                 </FrameLayout>
 
-                                <TextView
+                                <com.nightonke.saver.ui.CustomerFontTextView
                                     android:id="@+id/highest_tag_more_text"
                                     android:layout_width="0dp"
                                     android:layout_height="match_parent"
@@ -350,7 +348,7 @@
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
 
-                        <TextView
+                        <com.nightonke.saver.ui.CustomerFontTextView
                             android:id="@+id/lowest_tag_title"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -398,7 +396,7 @@
 
                                 </FrameLayout>
 
-                                <TextView
+                                <com.nightonke.saver.ui.CustomerFontTextView
                                     android:id="@+id/lowest_tag_text"
                                     android:layout_width="0dp"
                                     android:layout_height="match_parent"
@@ -415,7 +413,7 @@
                                     android:layout_gravity="center"
                                     android:orientation="horizontal">
 
-                                    <TextView
+                                    <com.nightonke.saver.ui.CustomerFontTextView
                                         android:id="@+id/lowest_tag_expense"
                                         android:layout_width="wrap_content"
                                         android:layout_height="match_parent"
@@ -432,7 +430,7 @@
                                         android:text="/"
                                         android:textColor="@color/red"/>
 
-                                    <TextView
+                                    <com.nightonke.saver.ui.CustomerFontTextView
                                         android:id="@+id/lowest_tag_sum"
                                         android:layout_width="wrap_content"
                                         android:layout_height="match_parent"
@@ -518,7 +516,7 @@
 
                                 </FrameLayout>
 
-                                <TextView
+                                <com.nightonke.saver.ui.CustomerFontTextView
                                     android:id="@+id/lowest_tag_more_text"
                                     android:layout_width="0dp"
                                     android:layout_height="match_parent"
@@ -540,7 +538,7 @@
                         android:layout_marginTop="20dp"
                         android:orientation="vertical">
 
-                        <TextView
+                        <com.nightonke.saver.ui.CustomerFontTextView
                             android:id="@+id/line_title"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -560,8 +558,7 @@
                             android:paddingBottom="10dp"
                             android:paddingLeft="10dp"
                             android:paddingRight="10dp"
-                            android:paddingTop="10dp">
-                        </lecho.lib.hellocharts.view.LineChartView>
+                            android:paddingTop="10dp"/>
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -611,7 +608,7 @@
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
 
-                        <TextView
+                        <com.nightonke.saver.ui.CustomerFontTextView
                             android:id="@+id/month_title"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -650,7 +647,7 @@
                                         android:layout_gravity="center_horizontal|bottom"
                                         android:background="@color/my_blue"/>
 
-                                    <TextView
+                                    <com.nightonke.saver.ui.CustomerFontTextView
                                         android:id="@+id/highest_month_icon"
                                         android:layout_width="40dp"
                                         android:layout_height="40dp"
@@ -662,7 +659,7 @@
 
                                 </FrameLayout>
 
-                                <TextView
+                                <com.nightonke.saver.ui.CustomerFontTextView
                                     android:id="@+id/highest_month_text"
                                     android:layout_width="0dp"
                                     android:layout_height="match_parent"
@@ -679,7 +676,7 @@
                                     android:layout_gravity="center"
                                     android:orientation="horizontal">
 
-                                    <TextView
+                                    <com.nightonke.saver.ui.CustomerFontTextView
                                         android:id="@+id/highest_month_expense"
                                         android:layout_width="wrap_content"
                                         android:layout_height="match_parent"
@@ -696,7 +693,7 @@
                                         android:text="/"
                                         android:textColor="@color/red"/>
 
-                                    <TextView
+                                    <com.nightonke.saver.ui.CustomerFontTextView
                                         android:id="@+id/highest_month_sum"
                                         android:layout_width="wrap_content"
                                         android:layout_height="match_parent"
@@ -774,7 +771,7 @@
                                         android:layout_gravity="center_horizontal|bottom"
                                         android:background="@color/my_blue"/>
 
-                                    <TextView
+                                    <com.nightonke.saver.ui.CustomerFontTextView
                                         android:id="@+id/lowest_month_icon"
                                         android:layout_width="40dp"
                                         android:layout_height="40dp"
@@ -786,7 +783,7 @@
 
                                 </FrameLayout>
 
-                                <TextView
+                                <com.nightonke.saver.ui.CustomerFontTextView
                                     android:id="@+id/lowest_month_text"
                                     android:layout_width="0dp"
                                     android:layout_height="match_parent"
@@ -803,7 +800,7 @@
                                     android:layout_gravity="center"
                                     android:orientation="horizontal">
 
-                                    <TextView
+                                    <com.nightonke.saver.ui.CustomerFontTextView
                                         android:id="@+id/lowest_month_expense"
                                         android:layout_width="wrap_content"
                                         android:layout_height="match_parent"
@@ -820,7 +817,7 @@
                                         android:text="/"
                                         android:textColor="@color/red"/>
 
-                                    <TextView
+                                    <com.nightonke.saver.ui.CustomerFontTextView
                                         android:id="@+id/lowest_month_sum"
                                         android:layout_width="wrap_content"
                                         android:layout_height="match_parent"
@@ -868,7 +865,7 @@
 
                                 </FrameLayout>
 
-                                <TextView
+                                <com.nightonke.saver.ui.CustomerFontTextView
                                     android:id="@+id/highest_month_more_text"
                                     android:layout_width="0dp"
                                     android:layout_height="match_parent"
@@ -898,7 +895,7 @@
                                 android:paddingLeft="20dp"
                                 android:paddingRight="20dp">
 
-                                <TextView
+                                <com.nightonke.saver.ui.CustomerFontTextView
                                     android:id="@+id/average_month_text"
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
@@ -917,7 +914,7 @@
                                     android:layout_gravity="center"
                                     android:orientation="horizontal">
 
-                                    <TextView
+                                    <com.nightonke.saver.ui.CustomerFontTextView
                                         android:id="@+id/average_month_expense"
                                         android:layout_width="wrap_content"
                                         android:layout_height="match_parent"
@@ -934,7 +931,7 @@
                                         android:text="/"
                                         android:textColor="@color/red"/>
 
-                                    <TextView
+                                    <com.nightonke.saver.ui.CustomerFontTextView
                                         android:id="@+id/average_month_sum"
                                         android:layout_width="wrap_content"
                                         android:layout_height="match_parent"
@@ -955,7 +952,7 @@
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
 
-                        <TextView
+                        <com.nightonke.saver.ui.CustomerFontTextView
                             android:id="@+id/highest_day_title"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -994,7 +991,7 @@
                                         android:layout_gravity="center_horizontal|bottom"
                                         android:background="@color/my_blue"/>
 
-                                    <TextView
+                                    <com.nightonke.saver.ui.CustomerFontTextView
                                         android:id="@+id/highest_day_icon"
                                         android:layout_width="40dp"
                                         android:layout_height="40dp"
@@ -1006,7 +1003,7 @@
 
                                 </FrameLayout>
 
-                                <TextView
+                                <com.nightonke.saver.ui.CustomerFontTextView
                                     android:id="@+id/highest_day_text"
                                     android:layout_width="0dp"
                                     android:layout_height="match_parent"
@@ -1023,7 +1020,7 @@
                                     android:layout_gravity="center"
                                     android:orientation="horizontal">
 
-                                    <TextView
+                                    <com.nightonke.saver.ui.CustomerFontTextView
                                         android:id="@+id/highest_day_expense"
                                         android:layout_width="wrap_content"
                                         android:layout_height="match_parent"
@@ -1040,7 +1037,7 @@
                                         android:text="/"
                                         android:textColor="@color/red"/>
 
-                                    <TextView
+                                    <com.nightonke.saver.ui.CustomerFontTextView
                                         android:id="@+id/highest_day_sum"
                                         android:layout_width="wrap_content"
                                         android:layout_height="match_parent"
@@ -1126,7 +1123,7 @@
 
                                 </FrameLayout>
 
-                                <TextView
+                                <com.nightonke.saver.ui.CustomerFontTextView
                                     android:id="@+id/highest_day_more_text"
                                     android:layout_width="0dp"
                                     android:layout_height="match_parent"
@@ -1147,7 +1144,7 @@
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
 
-                        <TextView
+                        <com.nightonke.saver.ui.CustomerFontTextView
                             android:id="@+id/lowest_day_title"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -1186,7 +1183,7 @@
                                         android:layout_gravity="center_horizontal|bottom"
                                         android:background="@color/my_blue"/>
 
-                                    <TextView
+                                    <com.nightonke.saver.ui.CustomerFontTextView
                                         android:id="@+id/lowest_day_icon"
                                         android:layout_width="40dp"
                                         android:layout_height="40dp"
@@ -1198,7 +1195,7 @@
 
                                 </FrameLayout>
 
-                                <TextView
+                                <com.nightonke.saver.ui.CustomerFontTextView
                                     android:id="@+id/lowest_day_text"
                                     android:layout_width="0dp"
                                     android:layout_height="match_parent"
@@ -1215,7 +1212,7 @@
                                     android:layout_gravity="center"
                                     android:orientation="horizontal">
 
-                                    <TextView
+                                    <com.nightonke.saver.ui.CustomerFontTextView
                                         android:id="@+id/lowest_day_expense"
                                         android:layout_width="wrap_content"
                                         android:layout_height="match_parent"
@@ -1232,7 +1229,7 @@
                                         android:text="/"
                                         android:textColor="@color/red"/>
 
-                                    <TextView
+                                    <com.nightonke.saver.ui.CustomerFontTextView
                                         android:id="@+id/lowest_day_sum"
                                         android:layout_width="wrap_content"
                                         android:layout_height="match_parent"
@@ -1318,7 +1315,7 @@
 
                                 </FrameLayout>
 
-                                <TextView
+                                <com.nightonke.saver.ui.CustomerFontTextView
                                     android:id="@+id/lowest_day_more_text"
                                     android:layout_width="0dp"
                                     android:layout_height="match_parent"
@@ -1348,7 +1345,7 @@
                                 android:paddingLeft="20dp"
                                 android:paddingRight="20dp">
 
-                                <TextView
+                                <com.nightonke.saver.ui.CustomerFontTextView
                                     android:id="@+id/average_day_text"
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
@@ -1367,7 +1364,7 @@
                                     android:layout_gravity="center"
                                     android:orientation="horizontal">
 
-                                    <TextView
+                                    <com.nightonke.saver.ui.CustomerFontTextView
                                         android:id="@+id/average_day_expense"
                                         android:layout_width="wrap_content"
                                         android:layout_height="match_parent"
@@ -1384,7 +1381,7 @@
                                         android:text="/"
                                         android:textColor="@color/red"/>
 
-                                    <TextView
+                                    <com.nightonke.saver.ui.CustomerFontTextView
                                         android:id="@+id/average_day_sum"
                                         android:layout_width="wrap_content"
                                         android:layout_height="match_parent"
@@ -1403,7 +1400,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="60dp">
 
-                        <TextView
+                        <com.nightonke.saver.ui.CustomerFontTextView
                             android:id="@+id/foot"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"

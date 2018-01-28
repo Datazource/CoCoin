@@ -4,12 +4,9 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
 
-import com.github.johnpersano.supertoasts.library.utils.PaletteUtils;
 import com.nightonke.saver.BuildConfig;
-import com.nightonke.saver.R;
-import com.nightonke.saver.activity.CoCoinApplication;
-import com.nightonke.saver.db.DB;
-import com.nightonke.saver.util.CoCoinToast;
+import com.nightonke.saver.CoCoinApplication;
+import com.nightonke.saver.db.DBHelper;
 import com.nightonke.saver.util.CoCoinUtil;
 
 import java.io.IOException;
@@ -28,6 +25,9 @@ import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.SaveListener;
 import cn.bmob.v3.listener.UpdateListener;
+
+//import com.github.johnpersano.supertoasts.library.utils.PaletteUtils;
+//import com.nightonke.saver.util.CoCoinToast;
 
 /**
  * Created by 伟平 on 2015/10/20.
@@ -48,7 +48,7 @@ public class RecordManager {
     public static int DELETE_TAG_ERROR_DATABASE_ERROR = -1;
     public static int DELETE_TAG_ERROR_TAG_REFERENCE = -2;
     private static RecordManager recordManager = null;
-    private static DB db;
+    private static DBHelper db;
     private static boolean FIRST_TIME = true;
     private static int p;
     // update the records changed to server/////////////////////////////////////////////////////////////
@@ -142,8 +142,8 @@ public class RecordManager {
             if (BuildConfig.DEBUG) {
                 Log.d("CoCoin", "recordManager.saveRecord: Save the above coCoinRecord FAIL!");
             }
-            CoCoinToast.getInstance()
-                    .showToast(R.string.save_failed_locale, PaletteUtils.getSolidColor(PaletteUtils.MATERIAL_RED));
+//            CoCoinToast.getInstance()
+//                    .showToast(R.string.save_failed_locale, PaletteUtils.getSolidColor(PaletteUtils.MATERIAL_RED));
         } else {
             if (BuildConfig.DEBUG) {
                 Log.d("CoCoin", "recordManager.saveRecord: Save the above coCoinRecord SUCCESSFULLY!");
@@ -177,8 +177,8 @@ public class RecordManager {
 //                CoCoinToast.getInstance()
 //                        .showToast(R.string.save_successfully_locale, SuperToast.Background.BLUE);
 //            }
-            CoCoinToast.getInstance()
-                    .showToast(R.string.save_successfully_locale, PaletteUtils.getSolidColor(PaletteUtils.MATERIAL_BLUE));
+//            CoCoinToast.getInstance()
+//                    .showToast(R.string.save_successfully_locale, PaletteUtils.getSolidColor(PaletteUtils.MATERIAL_BLUE));
         }
         return insertId;
     }
@@ -249,8 +249,8 @@ public class RecordManager {
 //                CoCoinToast.getInstance()
 //                        .showToast(R.string.delete_successfully_locale, SuperToast.Background.BLUE);
 //            }
-            CoCoinToast.getInstance()
-                    .showToast(R.string.delete_successfully_locale, PaletteUtils.getSolidColor(PaletteUtils.MATERIAL_BLUE));
+//            CoCoinToast.getInstance()
+//                    .showToast(R.string.delete_successfully_locale, PaletteUtils.getSolidColor(PaletteUtils.MATERIAL_BLUE));
             // update RECORDS list and SUM
             SUM -= (int) coCoinRecord.getMoney();
             if (deleteInList) {
@@ -271,8 +271,8 @@ public class RecordManager {
                 Log.d("CoCoin",
                         "recordManager.deleteRecord: Delete " + coCoinRecord.toString() + " F");
             }
-            CoCoinToast.getInstance()
-                    .showToast(R.string.delete_failed_locale, PaletteUtils.getSolidColor(PaletteUtils.MATERIAL_RED));
+//            CoCoinToast.getInstance()
+//                    .showToast(R.string.delete_failed_locale, PaletteUtils.getSolidColor(PaletteUtils.MATERIAL_RED));
         }
 
 
@@ -323,8 +323,8 @@ public class RecordManager {
             if (BuildConfig.DEBUG) {
                 Log.d("CoCoin", "recordManager.updateRecord " + coCoinRecord.toString() + " F");
             }
-            CoCoinToast.getInstance().showToast(R.string.update_failed_locale,
-                    PaletteUtils.getSolidColor(PaletteUtils.MATERIAL_RED));
+//            CoCoinToast.getInstance().showToast(R.string.update_failed_locale,
+//                    PaletteUtils.getSolidColor(PaletteUtils.MATERIAL_RED));
         } else {
             if (BuildConfig.DEBUG) {
                 Log.d("CoCoin", "recordManager.updateRecord " + coCoinRecord.toString() + " S");
@@ -404,8 +404,8 @@ public class RecordManager {
 //                CoCoinToast.getInstance().showToast(R.string.update_successfully_locale, SuperToast.Background.BLUE);
 //            }
             db.updateRecord(coCoinRecord);
-            CoCoinToast.getInstance().showToast(R.string.update_successfully_locale,
-                    PaletteUtils.getSolidColor(PaletteUtils.MATERIAL_BLUE));
+//            CoCoinToast.getInstance().showToast(R.string.update_successfully_locale,
+//                    PaletteUtils.getSolidColor(PaletteUtils.MATERIAL_BLUE));
         }
         return updateNumber;
     }

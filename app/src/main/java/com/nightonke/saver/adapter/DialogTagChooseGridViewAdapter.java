@@ -57,8 +57,6 @@ public class DialogTagChooseGridViewAdapter extends BaseAdapter {
         holder.tagImage.setImageResource(
                 CoCoinUtil.getTagIcon(RecordManager.TAGS.get(position + 2).getId()));
         holder.tagName.setText(CoCoinUtil.getTagName(RecordManager.getInstance(mContext).TAGS.get(position + 2).getId()));
-        holder.tagName.setTypeface(CoCoinUtil.getTypeface());
-
         return convertView;
     }
 

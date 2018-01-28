@@ -3,9 +3,9 @@ package com.nightonke.saver.activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -30,6 +30,7 @@ import com.github.florent37.materialviewpager.header.HeaderDesign;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 import com.nightonke.saver.BuildConfig;
+import com.nightonke.saver.CoCoinApplication;
 import com.nightonke.saver.R;
 import com.nightonke.saver.adapter.DrawerMonthViewRecyclerViewAdapter;
 import com.nightonke.saver.adapter.DrawerMonthViewRecyclerViewAdapter.OnItemClickListener;
@@ -82,8 +83,6 @@ public class AccountBookMonthViewActivity extends AppCompatActivity {
 
         userName = findViewById(R.id.user_name);
         userEmail = findViewById(R.id.user_email);
-        userName.setTypeface(CoCoinUtil.typefaceLatoRegular);
-        userEmail.setTypeface(CoCoinUtil.typefaceLatoLight);
 
         User user = BmobUser.getCurrentUser(CoCoinApplication.getAppContext(), User.class);
         if (user != null) {
@@ -95,10 +94,9 @@ public class AccountBookMonthViewActivity extends AppCompatActivity {
 
         View view = mViewPager.getRootView();
         TextView title = view.findViewById(R.id.logo_white);
-        title.setTypeface(CoCoinUtil.typefaceLatoLight);
         title.setText(SettingManager.getInstance().getAccountBookName());
 
-        mViewPager.getPagerTitleStrip().setTypeface(CoCoinUtil.getTypeface(), Typeface.NORMAL);
+//        mViewPager.getPagerTitleStrip().setTypeface(CoCoinUtil.getTypeface(), Typeface.NORMAL);
 
         setTitle("");
 
@@ -174,9 +172,11 @@ public class AccountBookMonthViewActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (SettingManager.getInstance().getLoggenOn()) {
-                    CoCoinUtil.showToast(mContext, R.string.change_logo_tip);
+//                    CoCoinUtil.showToast(mContext, R.string.change_logo_tip);
+                    Snackbar.make(v,R.string.change_logo_tip,Snackbar.LENGTH_SHORT).show();
                 } else {
-                    CoCoinUtil.showToast(mContext, R.string.login_tip);
+//                    CoCoinUtil.showToast(mContext, R.string.login_tip);
+                    Snackbar.make(v,R.string.login_tip,Snackbar.LENGTH_SHORT).show();
                 }
             }
         });

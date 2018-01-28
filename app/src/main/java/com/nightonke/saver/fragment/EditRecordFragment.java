@@ -13,10 +13,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.nightonke.saver.R;
-import com.nightonke.saver.activity.CoCoinApplication;
+import com.nightonke.saver.CoCoinApplication;
 import com.nightonke.saver.model.RecordManager;
 import com.nightonke.saver.model.SettingManager;
 import com.nightonke.saver.util.CoCoinUtil;
+import com.nightonke.saver.util.Constances;
 import com.rengwuxian.materialedittext.MaterialEditText;
 
 /**
@@ -54,13 +55,12 @@ public class EditRecordFragment extends Fragment {
         editView = mView.findViewById(R.id.money);
         tagImage = mView.findViewById(R.id.tag_image);
         tagName = mView.findViewById(R.id.tag_name);
-        tagName.setTypeface(CoCoinUtil.typefaceLatoLight);
 
         if (fragmentPosition == 0) {
-            editView.setTypeface(CoCoinUtil.typefaceLatoHairline);
+//            editView.setTypeface(CoCoinUtil.typefaceLatoHairline);
             editView.setText("" + (int) RecordManager.RECORDS.get(CoCoinUtil.editRecordPosition).getMoney());
             editView.requestFocus();
-            editView.setHelperText(CoCoinUtil.FLOATINGLABELS[editView.getText().toString().length()]);
+            editView.setHelperText(Constances.FLOATINGLABELS[editView.getText().toString().length()]);
 
             tagId = RecordManager.RECORDS.get(CoCoinUtil.editRecordPosition).getTag();
             tagName.setText(CoCoinUtil.getTagName(tagId));
@@ -68,7 +68,7 @@ public class EditRecordFragment extends Fragment {
 
             remarkEditView.setVisibility(View.GONE);
         } else {
-            remarkEditView.setTypeface(CoCoinUtil.getTypeface());
+//            remarkEditView.setTypeface(CoCoinUtil.getTypeface());
 
             remarkEditView.setText(RecordManager.RECORDS.get(CoCoinUtil.editRecordPosition).getRemark());
             int pos = remarkEditView.getText().length();

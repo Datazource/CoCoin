@@ -3,7 +3,6 @@ package com.nightonke.saver.fragment;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -14,13 +13,10 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.github.florent37.materialviewpager.MaterialViewPagerHelper;
-import com.github.johnpersano.supertoasts.library.Style;
-import com.github.johnpersano.supertoasts.library.SuperToast;
-import com.github.johnpersano.supertoasts.library.utils.PaletteUtils;
 import com.github.ksoichiro.android.observablescrollview.ObservableScrollView;
 import com.melnykov.fab.FloatingActionButton;
+import com.nightonke.saver.CoCoinApplication;
 import com.nightonke.saver.R;
-import com.nightonke.saver.activity.CoCoinApplication;
 import com.nightonke.saver.model.CoCoinRecord;
 import com.nightonke.saver.model.RecordManager;
 import com.nightonke.saver.model.SettingManager;
@@ -49,6 +45,10 @@ import lecho.lib.hellocharts.model.SelectedValue;
 import lecho.lib.hellocharts.model.SliceValue;
 import lecho.lib.hellocharts.view.PieChartView;
 
+//import com.github.johnpersano.supertoasts.library.Style;
+//import com.github.johnpersano.supertoasts.library.SuperToast;
+//import com.github.johnpersano.supertoasts.library.utils.PaletteUtils;
+
 /**
  * Created by 伟平 on 2015/10/20.
  */
@@ -75,7 +75,7 @@ public class CustomViewFragment extends Fragment {
     private Calendar from = Calendar.getInstance();
     private Calendar to = Calendar.getInstance();
 
-    private SuperToast superToast;
+//    private SuperToast superToast;
 
     private int start = -1;
     private int end = -1;
@@ -122,13 +122,13 @@ public class CustomViewFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mContext = getContext();
-        superToast = new SuperToast(mContext);
-        superToast.setAnimations(Style.ANIMATIONS_POP);
-        superToast.setDuration(Style.DURATION_SHORT);
-        superToast.setTextColor(Color.parseColor("#ffffff"));
-        superToast.setTextSize(Style.TEXTSIZE_SMALL);
-        superToast.setColor(PaletteUtils.getSolidColor(PaletteUtils.MATERIAL_RED));
-        superToast.setTypefaceStyle(Typeface.ITALIC);
+//        superToast = new SuperToast(mContext);
+//        superToast.setAnimations(Style.ANIMATIONS_POP);
+//        superToast.setDuration(Style.DURATION_SHORT);
+//        superToast.setTextColor(Color.parseColor("#ffffff"));
+//        superToast.setTextSize(Style.TEXTSIZE_SMALL);
+//        superToast.setColor(PaletteUtils.getSolidColor(PaletteUtils.MATERIAL_RED));
+//        superToast.setTypefaceStyle(Typeface.ITALIC);
     }
 
     @Override
@@ -148,10 +148,8 @@ public class CustomViewFragment extends Fragment {
         MaterialViewPagerHelper.registerScrollView(getActivity(), mScrollView, null);
 
         fromDate = view.findViewById(R.id.from_date);
-        fromDate.setTypeface(CoCoinUtil.getTypeface());
 
         expense = view.findViewById(R.id.expense);
-        expense.setTypeface(CoCoinUtil.typefaceLatoLight);
         expense.setText(CoCoinUtil.getInMoney(0));
 
         pie = view.findViewById(R.id.chart_pie);
@@ -166,7 +164,6 @@ public class CustomViewFragment extends Fragment {
         all.setVisibility(View.INVISIBLE);
 
         emptyTip = view.findViewById(R.id.empty_tip);
-        emptyTip.setTypeface(CoCoinUtil.getTypeface());
 
         if (IS_EMPTY) {
             emptyTip.setVisibility(View.GONE);
@@ -199,12 +196,14 @@ public class CustomViewFragment extends Fragment {
                     to.add(Calendar.SECOND, 0);
 
                     if (to.before(from)) {
-                        superToast.setText(
-                                mContext.getResources().getString(R.string.from_invalid));
-                        superToast.setText(
-                                mContext.getResources().getString(R.string.to_invalid));
-                        SuperToast.cancelAllSuperToasts();
-                        superToast.show();
+//                        superToast.setText(
+//                                mContext.getResources().getString(R.string.from_invalid));
+//                        superToast.setText(
+//                                mContext.getResources().getString(R.string.to_invalid));
+//                        SuperToast.cancelAllSuperToasts();
+//                        superToast.show();
+//                        android.support.design.widget.Snackbar.make(view,R.string.to_invalid,
+//                                android.support.design.widget.Snackbar.LENGTH_SHORT).show();
                     } else {
                         fromDate.setText(" ● " +
                                 mContext.getResources().getString(R.string.from) + " " +
@@ -424,9 +423,9 @@ public class CustomViewFragment extends Fragment {
                                 .margin(15, 15)
                                 .backgroundDrawable(CoCoinUtil.getSnackBarBackground(-3))
                                 .text(text)
-                                .textTypeface(CoCoinUtil.getTypeface())
+//                                .textTypeface(CoCoinUtil.getTypeface())
                                 .textColor(Color.WHITE)
-                                .actionLabelTypeface(CoCoinUtil.getTypeface())
+//                                .actionLabelTypeface(CoCoinUtil.getTypeface())
                                 .actionLabel(mContext.getResources()
                                         .getString(R.string.check))
                                 .actionColor(Color.WHITE)
